@@ -19,6 +19,11 @@ Future<void> pumpRouteTransition(WidgetTester tester) async {
   await tester.pump();
 }
 
+Finder navigationLabel(String label) => find.descendant(
+  of: find.byType(NavigationBar),
+  matching: find.text(label),
+);
+
 void main() {
   testWidgets('main navigation and story reader interactions work', (tester) async {
     SharedPreferences.setMockInitialValues({});
@@ -41,7 +46,11 @@ void main() {
     await tester.tap(discoverAction);
     await tester.pump(const Duration(milliseconds: 400));
 
-    // Confirm the tab navigation happened before waiting for story assets.
+    // Verify the selected destination rather than matching an offstage tab.
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      3,
+    );
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
 
     // Allow the real asset-bundle future to finish outside fake test time.
@@ -82,7 +91,7 @@ void main() {
     // The story list keeps its scroll position when returning from the reader.
     expect(find.text("Tom's Morning"), findsOneWidget);
 
-    await tester.tap(find.text('Kelimeler').first);
+    await tester.tap(navigationLabel('Kelimeler'));
     await tester.pump(const Duration(milliseconds: 400));
     await tester.runAsync(
       () => Future<void>.delayed(const Duration(milliseconds: 100)),
@@ -98,7 +107,7 @@ void main() {
     await tester.pump();
     expect(find.text('wakes up'), findsOneWidget);
 
-    await tester.tap(find.text('Pratik').first);
+    await tester.tap(navigationLabel('Pratik'));
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Alıştırma türleri'), findsOneWidget);
     expect(find.text('Cümle kurma'), findsOneWidget);
@@ -110,11 +119,11 @@ void main() {
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
 
-    await tester.tap(find.text('Keşfet').first);
+    await tester.tap(navigationLabel('Keşfet'));
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text("Tom's Morning"), findsOneWidget);
 
-    await tester.tap(find.text('Öğren').first);
+    await tester.tap(navigationLabel('Öğren'));
     await tester.pump(const Duration(milliseconds: 400));
     await tester.runAsync(
       () => Future<void>.delayed(const Duration(milliseconds: 300)),
