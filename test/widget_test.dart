@@ -7,8 +7,10 @@ void main() {
 
     expect(find.text('İngilizceyi, adım adım keşfet.'), findsOneWidget);
 
+    // The splash screen contains an indeterminate progress indicator, so
+    // pumpAndSettle would wait forever for its animation to stop.
     await tester.pump(const Duration(milliseconds: 1500));
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
 
     expect(find.text('Bugün İngilizceye küçük bir adım at.'), findsOneWidget);
     expect(find.text('Bir hikâyeyle başla'), findsOneWidget);
