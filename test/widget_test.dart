@@ -71,6 +71,10 @@ void main() {
     // Saving a phrase from the reader should make it available in vocabulary.
     await tester.tap(find.text('wakes up · uyanır'));
     await tester.pump(const Duration(milliseconds: 250));
+    await tester.pump();
+    expect(find.text('wakes up kaydedilen kelimelere eklendi'), findsOneWidget);
+    final preferences = await SharedPreferences.getInstance();
+    expect(preferences.getStringList('bubixo.saved_words'), contains('wakes up'));
 
     await tester.tap(find.byTooltip('Geri'));
     await pumpRouteTransition(tester);
