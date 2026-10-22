@@ -13,6 +13,12 @@ Future<void> pumpUntilFound(
   }
 }
 
+Future<void> pumpRouteTransition(WidgetTester tester) async {
+  await tester.pump();
+  await tester.pump(const Duration(milliseconds: 350));
+  await tester.pump();
+}
+
 void main() {
   testWidgets('main navigation and story reader interactions work', (tester) async {
     SharedPreferences.setMockInitialValues({});
@@ -49,7 +55,7 @@ void main() {
     final firstStory = find.text("Tom's Morning");
     await tester.ensureVisible(firstStory);
     await tester.tap(firstStory);
-    await tester.pump(const Duration(milliseconds: 350));
+    await pumpRouteTransition(tester);
     final firstSentence = find.text("Tom wakes up early every morning.");
     await tester.scrollUntilVisible(
       firstSentence,
@@ -67,7 +73,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 250));
 
     await tester.tap(find.byTooltip('Geri'));
-    await tester.pump(const Duration(milliseconds: 400));
+    await pumpRouteTransition(tester);
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
 
     await tester.tap(find.text('Kelimeler').first);
@@ -84,7 +90,7 @@ void main() {
     expect(find.text('Cümle kurma'), findsOneWidget);
 
     await tester.tap(find.text('Cümle kurma').first);
-    await tester.pump(const Duration(milliseconds: 400));
+    await pumpRouteTransition(tester);
     expect(find.text('Cümlen'), findsOneWidget);
     expect(find.text('Cümleyi kontrol et'), findsOneWidget);
     await tester.tap(find.byTooltip('Geri'));
