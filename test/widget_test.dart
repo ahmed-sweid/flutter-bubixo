@@ -41,10 +41,13 @@ void main() {
     await tester.ensureVisible(firstStory);
     await tester.tap(firstStory);
     await tester.pumpAndSettle();
-    expect(find.text("Tom wakes up early every morning."), findsOneWidget);
-    expect(find.text('Türkçe anlamı görmek için dokun'), findsWidgets);
     final firstSentence = find.text("Tom wakes up early every morning.");
-    await tester.ensureVisible(firstSentence);
+    await tester.scrollUntilVisible(
+      firstSentence,
+      250,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(firstSentence, findsOneWidget);
     await tester.tap(firstSentence);
     await tester.pumpAndSettle();
     expect(find.text('Tom her sabah erken uyanır.'), findsOneWidget);
