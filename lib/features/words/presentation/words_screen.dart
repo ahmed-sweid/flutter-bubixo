@@ -40,20 +40,35 @@ class _WordsScreenState extends State<WordsScreen> {
       _reviewWords
         ..clear()
         ..addAll(preferences.getStringList('bubixo.review_words') ?? const <String>[]);
-      final rawCustomWords = preferences.getString('bubixo.custom_words');
-      _customWords = rawCustomWords == null
-          ? <_WordEntry>[]
-          : (jsonDecode(rawCustomWords) as List<dynamic>)
-              .map((item) {
-                final entry = item as Map<String, dynamic>;
-                return _WordEntry(
-                  entry['english'] as String,
-                  entry['turkish'] as String,
-                  entry['kind'] as String? ?? 'Kelime',
-                );
-              })
-              .toList(growable: false);
+      _customWords = _decodeCustomWords(
+        preferences.getString('bubixo.custom_words'),
+      );
     });
+  }
+
+  List<_WordEntry> _decodeCustomWords(String? raw) {
+    if (raw == null || raw.isEmpty) return <_WordEntry>[];
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! List<dynamic>) return <_WordEntry>[];
+      return decoded
+          .whereType<Map<String, dynamic>>()
+          .where((entry) =>
+              entry['english'] is String &&
+              entry['turkish'] is String)
+          .map(
+            (entry) => _WordEntry(
+              entry['english'] as String,
+              entry['turkish'] as String,
+              entry['kind'] is String ? entry['kind'] as String : 'Kelime',
+            ),
+          )
+          .toList(growable: false);
+    } on FormatException {
+      return <_WordEntry>[];
+    } on TypeError {
+      return <_WordEntry>[];
+    }
   }
 
   Future<void> _persistWordState() async {
@@ -86,7 +101,13 @@ class _WordsScreenState extends State<WordsScreen> {
   @override
   Widget build(BuildContext context) {
     final query = _searchController.text.trim().toLowerCase();
-    final allWords = <_WordEntry>[..._words, ..._customWords];
+    // Story-derived entries can overlap the starter dictionary. Keep one
+    // card per English expression and prefer the story's more specific gloss.
+    final wordsByKey = <String, _WordEntry>{
+      for (final word in _words) word.english.toLowerCase(): word,
+      for (final word in _customWords) word.english.toLowerCase(): word,
+    };
+    final allWords = wordsByKey.values.toList(growable: false);
     final visibleWords = allWords.where((word) {
       final matchesQuery = word.english.toLowerCase().contains(query) ||
           word.turkish.toLowerCase().contains(query);
