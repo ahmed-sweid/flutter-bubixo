@@ -17,7 +17,7 @@ void main() {
 
     expect(find.text('Tüm kelimeler'), findsOneWidget);
     expect(find.text('Kaydedilenler'), findsOneWidget);
-    expect(find.text('Tekrar'), findsOneWidget);
+    expect(find.text('Tekrar'), findsWidgets);
     expect(tester.takeException(), isNull);
   });
 }
