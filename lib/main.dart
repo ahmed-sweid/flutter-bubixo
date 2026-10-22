@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/theme/app_theme.dart';
-import 'features/shell/presentation/bubixo_shell.dart';
+import 'features/splash/presentation/splash_screen.dart';
 
 void main() {
   runApp(const BubixoApp());
@@ -16,7 +16,7 @@ class BubixoApp extends StatelessWidget {
       title: 'Bubixo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const BubixoShell(),
+      home: const SplashScreen(),
     );
   }
 }
