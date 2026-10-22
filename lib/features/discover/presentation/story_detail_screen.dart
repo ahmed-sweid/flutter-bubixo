@@ -40,7 +40,47 @@ class StoryDetailScreen extends StatelessWidget {
           Text(story.titleTr, style: AppTypography.displaySm),
           const SizedBox(height: AppSpacing.sm),
           Text(story.intro, style: AppTypography.bodyMd),
-          const SizedBox(height: AppSpacing.xxl),
+          const SizedBox(height: AppSpacing.xl),
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            decoration: BoxDecoration(
+              color: AppColors.ink,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(Iconsax.book_1, color: AppColors.accentPurple, size: 19),
+                    const SizedBox(width: AppSpacing.sm),
+                    Text(
+                      'OKUMA REHBERİ',
+                      style: AppTypography.eyebrowSmall.copyWith(color: AppColors.mutedSoft),
+                    ),
+                    const Spacer(),
+                    Text(
+                      'Seviye ${story.level}',
+                      style: AppTypography.eyebrowSmall.copyWith(color: AppColors.onPrimary),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  '${story.lines.length} cümleyle İngilizce oku',
+                  style: AppTypography.displayXs.copyWith(color: AppColors.onPrimary),
+                ),
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  'Önce İngilizce cümleyi oku, ardından Türkçe anlamına ve kelime notlarına göz at.',
+                  style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          Text('Hikâye', style: AppTypography.displayXs),
+          const SizedBox(height: AppSpacing.md),
           ...story.lines.map(
             (line) => Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.md),
