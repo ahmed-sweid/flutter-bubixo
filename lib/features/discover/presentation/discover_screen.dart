@@ -103,6 +103,25 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 onSelected: (level) => setState(() => _selectedLevel = level),
               ),
               const SizedBox(height: AppSpacing.lg),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Hikâyeler',
+                    style: AppTypography.bodySm.copyWith(
+                      color: AppColors.bodyMid,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    '${_filteredStories(snapshot.data!).length} sonuç',
+                    style: AppTypography.eyebrowSmall.copyWith(
+                      color: AppColors.muted,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
               ..._filteredStories(snapshot.data!).map(
                 (story) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
