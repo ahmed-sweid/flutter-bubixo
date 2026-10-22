@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
@@ -9,8 +10,36 @@ import '../../../core/theme/tokens/app_typography.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
 
-class PracticeScreen extends StatelessWidget {
+class PracticeScreen extends StatefulWidget {
   const PracticeScreen({super.key});
+
+  @override
+  State<PracticeScreen> createState() => _PracticeScreenState();
+}
+
+class _PracticeScreenState extends State<PracticeScreen> {
+  late Future<Map<String, int>> _progressFuture = _loadProgress();
+
+  Future<Map<String, int>> _loadProgress() async {
+    final preferences = await SharedPreferences.getInstance();
+    return {
+      'sessions': preferences.getInt('bubixo.practice.sessions') ?? 0,
+      'correct': preferences.getInt('bubixo.practice.correct_answers') ?? 0,
+    };
+  }
+
+  Future<void> _open(BuildContext context, _ActivityMode mode) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => _PracticeActivityScreen(mode: mode),
+      ),
+    );
+    if (mounted) {
+      setState(() {
+        _progressFuture = _loadProgress();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +62,43 @@ class PracticeScreen extends StatelessWidget {
             const SizedBox(width: AppSpacing.md),
             const Icon(Iconsax.flash_1, color: AppColors.accentPurple, size: 34),
           ]),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+        FutureBuilder<Map<String, int>>(
+          future: _progressFuture,
+          builder: (context, snapshot) {
+            final progress = snapshot.data;
+            if (progress == null || (progress['sessions'] == 0 && progress['correct'] == 0)) {
+              return const SizedBox.shrink();
+            }
+            return Container(
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF7F7F8),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.hairline),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Iconsax.chart_2, color: AppColors.accentPurple, size: 22),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('İlerlemen', style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
+                        const SizedBox(height: AppSpacing.xxs),
+                        Text(
+                          '${progress['sessions']} tamamlanan oturum · ${progress['correct']} doğru cevap',
+                          style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
         const SizedBox(height: AppSpacing.xl),
         Text('Alıştırma türleri', style: AppTypography.displayXs),
@@ -64,16 +130,13 @@ class PracticeScreen extends StatelessWidget {
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Icon(Iconsax.info_circle, size: 19, color: AppColors.bodyMid),
             const SizedBox(width: AppSpacing.sm),
-            Expanded(child: Text('Alıştırmalar Bubixo’nun kaynak soru ve kelime havuzlarından aktarılmıştır. İlerleme şu an oturum içinde tutulur.', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid))),
+            Expanded(child: Text('Alıştırmalar Bubixo’nun kaynak soru ve kelime havuzlarından aktarılmıştır. Tamamlanan oturumlar ve doğru cevapların bu cihazda saklanır.', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid))),
           ]),
         ),
       ],
     );
   }
 
-  void _open(BuildContext context, _ActivityMode mode) {
-    Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => _PracticeActivityScreen(mode: mode)));
-  }
 }
 
 class _PracticeCard extends StatelessWidget {
@@ -340,8 +403,18 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
     );
   }
 
-  void _next() {
+  Future<void> _next() async {
     if (_index + 1 >= _total) {
+      final preferences = await SharedPreferences.getInstance();
+      await preferences.setInt(
+        'bubixo.practice.sessions',
+        (preferences.getInt('bubixo.practice.sessions') ?? 0) + 1,
+      );
+      await preferences.setInt(
+        'bubixo.practice.correct_answers',
+        (preferences.getInt('bubixo.practice.correct_answers') ?? 0) + _score,
+      );
+      if (!mounted) return;
       setState(() => _index = _total);
       return;
     }

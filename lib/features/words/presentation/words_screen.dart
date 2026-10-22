@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 
 /// Vocabulary UI uses examples from the original Bubixo data2.js source.
-/// Saved/review states are temporary UI demo state; persistence comes later.
+/// Saved and review lists are stored locally on the device.
 class WordsScreen extends StatefulWidget {
-  const WordsScreen({super.key});
+  const WordsScreen({super.key, this.refreshToken = 0});
+
+  final int refreshToken;
 
   @override
   State<WordsScreen> createState() => _WordsScreenState();
@@ -17,8 +22,70 @@ class WordsScreen extends StatefulWidget {
 class _WordsScreenState extends State<WordsScreen> {
   final TextEditingController _searchController = TextEditingController();
   int _selectedFilter = 0;
-  final Set<String> _savedWords = {'explore', 'challenge'};
-  final Set<String> _reviewWords = {'good'};
+  final Set<String> _savedWords = <String>{};
+  final Set<String> _reviewWords = <String>{};
+  List<_WordEntry> _customWords = <_WordEntry>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWordState();
+  }
+
+  @override
+  void didUpdateWidget(covariant WordsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.refreshToken != widget.refreshToken) {
+      _loadWordState();
+    }
+  }
+
+  Future<void> _loadWordState() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    setState(() {
+      _savedWords
+        ..clear()
+        ..addAll(preferences.getStringList('bubixo.saved_words') ?? const <String>[]);
+      _reviewWords
+        ..clear()
+        ..addAll(preferences.getStringList('bubixo.review_words') ?? const <String>[]);
+      _customWords = _decodeCustomWords(
+        preferences.getString('bubixo.custom_words'),
+      );
+    });
+  }
+
+  List<_WordEntry> _decodeCustomWords(String? raw) {
+    if (raw == null || raw.isEmpty) return <_WordEntry>[];
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! List<dynamic>) return <_WordEntry>[];
+      return decoded
+          .whereType<Map<String, dynamic>>()
+          .where((entry) =>
+              entry['english'] is String &&
+              entry['turkish'] is String)
+          .map(
+            (entry) => _WordEntry(
+              entry['english'] as String,
+              entry['turkish'] as String,
+              entry['kind'] is String ? entry['kind'] as String : 'Kelime',
+            ),
+          )
+          .toList(growable: false);
+    } on FormatException {
+      return <_WordEntry>[];
+    } on TypeError {
+      return <_WordEntry>[];
+    }
+  }
+
+  Future<void> _persistWordState() async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setStringList('bubixo.saved_words', _savedWords.toList()..sort());
+    await preferences.setStringList('bubixo.review_words', _reviewWords.toList()..sort());
+  }
 
   static const _words = <_WordEntry>[
     _WordEntry('good', 'iyi', 'Sıfat'),
@@ -44,7 +111,14 @@ class _WordsScreenState extends State<WordsScreen> {
   @override
   Widget build(BuildContext context) {
     final query = _searchController.text.trim().toLowerCase();
-    final visibleWords = _words.where((word) {
+    // Story-derived entries can overlap the starter dictionary. Keep one
+    // card per English expression and prefer the story's more specific gloss.
+    final wordsByKey = <String, _WordEntry>{
+      for (final word in _words) word.english.toLowerCase(): word,
+      for (final word in _customWords) word.english.toLowerCase(): word,
+    };
+    final allWords = wordsByKey.values.toList(growable: false);
+    final visibleWords = allWords.where((word) {
       final matchesQuery = word.english.toLowerCase().contains(query) ||
           word.turkish.toLowerCase().contains(query);
       final matchesFilter = _selectedFilter == 0 ||
@@ -125,20 +199,20 @@ class _WordsScreenState extends State<WordsScreen> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        Row(
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
           children: [
             _FilterPill(
               label: 'Tüm kelimeler',
               selected: _selectedFilter == 0,
               onTap: () => setState(() => _selectedFilter = 0),
             ),
-            const SizedBox(width: AppSpacing.sm),
             _FilterPill(
               label: 'Kaydedilenler',
               selected: _selectedFilter == 1,
               onTap: () => setState(() => _selectedFilter = 1),
             ),
-            const SizedBox(width: AppSpacing.sm),
             _FilterPill(
               label: 'Tekrar',
               selected: _selectedFilter == 2,
@@ -182,27 +256,28 @@ class _WordsScreenState extends State<WordsScreen> {
                 word: word,
                 saved: _savedWords.contains(word.english),
                 reviewing: _reviewWords.contains(word.english),
-                onToggleSaved: () {
+                onToggleSaved: () async {
                   setState(() {
                     if (!_savedWords.add(word.english)) {
                       _savedWords.remove(word.english);
                     }
                   });
+                  await _persistWordState();
                 },
-                onToggleReview: () {
+                onToggleReview: () async {
                   setState(() {
                     if (!_reviewWords.add(word.english)) {
                       _reviewWords.remove(word.english);
                     }
                   });
+                  await _persistWordState();
                 },
               ),
             ),
           ),
         const SizedBox(height: AppSpacing.md),
         Text(
-          'Örnek kelimeler Bubixo’nun mevcut sözlük verilerinden alınmıştır. '
-          'Kaydetme ve tekrar işaretleri bu aşamada yalnızca demo durumudur.',
+          'Kaydettiğin kelimeler ve tekrar listen bu cihazda saklanır.',
           style: AppTypography.bodySm.copyWith(color: AppColors.muted),
         ),
       ],
@@ -346,30 +421,28 @@ class _FilterPill extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(10),
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 6),
-          decoration: BoxDecoration(
-            color: selected ? AppColors.ink : AppColors.canvas,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: selected ? AppColors.ink : AppColors.hairline,
-            ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(10),
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.ink : AppColors.canvas,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: selected ? AppColors.ink : AppColors.hairline,
           ),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTypography.bodySm.copyWith(
-              fontSize: 12,
-              color: selected ? AppColors.onPrimary : AppColors.bodyMid,
-              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-            ),
+        ),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: AppTypography.bodySm.copyWith(
+            fontSize: 12,
+            color: selected ? AppColors.onPrimary : AppColors.bodyMid,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
           ),
         ),
       ),

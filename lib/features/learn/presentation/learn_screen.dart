@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import '../../discover/data/story.dart';
+import '../../discover/data/story_repository.dart';
+import '../../discover/presentation/story_detail_screen.dart';
 import 'lessons_screen.dart';
 
-/// Learning landing screen.
-///
-/// The first-run state offers a clear next action. Persisted resume state and
-/// real lesson recommendations will be connected when the content/progress
-/// layer is implemented; this screen does not pretend that progress exists.
+/// Learning landing screen with a shortcut back to the last opened story.
 class LearnScreen extends StatelessWidget {
   const LearnScreen({
     required this.onOpenDiscover,
@@ -46,6 +46,8 @@ class LearnScreen extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.xxl),
         _TodayRecommendationCard(onTap: onOpenDiscover),
+        const SizedBox(height: AppSpacing.md),
+        const _LastStoryCard(),
         const SizedBox(height: AppSpacing.xl),
         Text('Temel dersler', style: AppTypography.displayXs),
         const SizedBox(height: AppSpacing.md),
@@ -230,6 +232,98 @@ class _LearningPathCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+class _LastStoryCard extends StatefulWidget {
+  const _LastStoryCard();
+
+  @override
+  State<_LastStoryCard> createState() => _LastStoryCardState();
+}
+
+class _LastStoryCardState extends State<_LastStoryCard> {
+  late final Future<Story?> _storyFuture = _loadLastStory();
+
+  Future<Story?> _loadLastStory() async {
+    final preferences = await SharedPreferences.getInstance();
+    final storyId = preferences.getString('bubixo.last_story_id');
+    if (storyId == null || storyId.isEmpty) return null;
+    final stories = await const StoryRepository().loadStories();
+    for (final story in stories) {
+      if (story.id == storyId) return story;
+    }
+    return null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Story?>(
+      future: _storyFuture,
+      builder: (context, snapshot) {
+        final story = snapshot.data;
+        if (story == null) return const SizedBox.shrink();
+        return Material(
+          color: AppColors.canvas,
+          borderRadius: BorderRadius.circular(12),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => StoryDetailScreen(story: story),
+              ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColors.hairline),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF1ECFF),
+                      borderRadius: BorderRadius.circular(11),
+                    ),
+                    child: const Icon(
+                      Iconsax.bookmark_2,
+                      color: AppColors.accentPurple,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Son hikâyene dön',
+                          style: AppTypography.eyebrowSmall.copyWith(
+                            color: AppColors.muted,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.xxs),
+                        Text(
+                          story.title,
+                          style: AppTypography.bodyMd.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(story.titleTr, style: AppTypography.bodySm),
+                      ],
+                    ),
+                  ),
+                  const Icon(Iconsax.arrow_right_3, size: 18),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
