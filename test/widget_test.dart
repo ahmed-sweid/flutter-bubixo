@@ -26,10 +26,15 @@ void main() {
     expect(find.text('Bugün İngilizceye küçük bir adım at.'), findsOneWidget);
     expect(find.text('Bir hikâyeyle başla'), findsOneWidget);
 
-    final discoverAction = find.text('Hikâyeleri keşfet');
+    // Scroll the learning screen until the CTA is fully in view before tapping.
+    final discoverAction = find.widgetWithText(FilledButton, 'Hikâyeleri keşfet');
     await tester.ensureVisible(discoverAction);
+    await tester.pumpAndSettle();
     await tester.tap(discoverAction);
     await tester.pump(const Duration(milliseconds: 400));
+
+    // Confirm the tab navigation happened before waiting for story assets.
+    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
 
     // Allow the real asset-bundle future to finish outside fake test time.
     await tester.runAsync(
@@ -37,7 +42,6 @@ void main() {
     );
     await tester.pump();
     await pumpUntilFound(tester, find.text("Tom's Morning"));
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
     expect(find.text("Tom's Morning"), findsOneWidget);
 
     final firstStory = find.text("Tom's Morning");
