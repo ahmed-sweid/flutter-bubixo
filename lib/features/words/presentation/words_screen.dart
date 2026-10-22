@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +22,7 @@ class _WordsScreenState extends State<WordsScreen> {
   int _selectedFilter = 0;
   final Set<String> _savedWords = <String>{};
   final Set<String> _reviewWords = <String>{};
+  List<_WordEntry> _customWords = <_WordEntry>[];
 
   @override
   void initState() {
@@ -37,6 +40,19 @@ class _WordsScreenState extends State<WordsScreen> {
       _reviewWords
         ..clear()
         ..addAll(preferences.getStringList('bubixo.review_words') ?? const <String>[]);
+      final rawCustomWords = preferences.getString('bubixo.custom_words');
+      _customWords = rawCustomWords == null
+          ? <_WordEntry>[]
+          : (jsonDecode(rawCustomWords) as List<dynamic>)
+              .map((item) {
+                final entry = item as Map<String, dynamic>;
+                return _WordEntry(
+                  entry['english'] as String,
+                  entry['turkish'] as String,
+                  entry['kind'] as String? ?? 'Kelime',
+                );
+              })
+              .toList(growable: false);
     });
   }
 
@@ -70,7 +86,8 @@ class _WordsScreenState extends State<WordsScreen> {
   @override
   Widget build(BuildContext context) {
     final query = _searchController.text.trim().toLowerCase();
-    final visibleWords = _words.where((word) {
+    final allWords = <_WordEntry>[..._words, ..._customWords];
+    final visibleWords = allWords.where((word) {
       final matchesQuery = word.english.toLowerCase().contains(query) ||
           word.turkish.toLowerCase().contains(query);
       final matchesFilter = _selectedFilter == 0 ||
