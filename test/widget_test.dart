@@ -21,6 +21,7 @@ void main() {
     await tester.tap(find.text("Tom's Morning"));
     await tester.pumpAndSettle();
     expect(find.text("Tom her sabah erken uyanır."), findsOneWidget);
+    expect(find.text('wakes up · uyanır'), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
 
