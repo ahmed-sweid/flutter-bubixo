@@ -103,6 +103,8 @@ void main() {
     await tester.pump();
     expect(find.text('Kelime listelerin'), findsOneWidget);
     expect(find.text('İngilizce veya Türkçe ara'), findsOneWidget);
+    await tester.ensureVisible(find.text('Kaydedilenler'));
+    await tester.pump();
     await tester.tap(find.text('Kaydedilenler'));
     await tester.pump(const Duration(milliseconds: 250));
     await tester.runAsync(
