@@ -27,6 +27,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     super.dispose();
   }
 
+  List<Story> _filteredStories(List<Story> stories) {
+    final query = _searchController.text.trim().toLowerCase();
+    return stories.where((story) {
+      final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
+      final queryMatches = query.isEmpty ||
+          story.title.toLowerCase().contains(query) ||
+          story.titleTr.toLowerCase().contains(query) ||
+          story.intro.toLowerCase().contains(query);
+      return levelMatches && queryMatches;
+    }).toList(growable: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Story>>(
@@ -91,26 +103,27 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 onSelected: (level) => setState(() => _selectedLevel = level),
               ),
               const SizedBox(height: AppSpacing.lg),
-              ...snapshot.data!
-                  .where((story) {
-                    final query = _searchController.text.trim().toLowerCase();
-                    final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
-                    final queryMatches = query.isEmpty || story.title.toLowerCase().contains(query) || story.titleTr.toLowerCase().contains(query) || story.intro.toLowerCase().contains(query);
-                    return levelMatches && queryMatches;
-                  })
-                  .map(
-                    (story) => Padding(
-                      padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                      child: _StoryCard(
-                        story: story,
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => StoryDetailScreen(story: story),
-                          ),
-                        ),
+              ..._filteredStories(snapshot.data!).map(
+                (story) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.md),
+                  child: _StoryCard(
+                    story: story,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => StoryDetailScreen(story: story),
                       ),
                     ),
                   ),
+                ),
+              ),
+              if (_filteredStories(snapshot.data!).isEmpty)
+                _EmptyStoriesState(
+                  isSearching: _searchController.text.trim().isNotEmpty,
+                  onClear: () {
+                    _searchController.clear();
+                    setState(() => _selectedLevel = null);
+                  },
+                ),
             ],
           ],
         );
@@ -256,6 +269,52 @@ class _MetaLabel extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(label, style: AppTypography.eyebrowSmall),
+    );
+  }
+}
+
+class _EmptyStoriesState extends StatelessWidget {
+  const _EmptyStoriesState({
+    required this.isSearching,
+    required this.onClear,
+  });
+
+  final bool isSearching;
+  final VoidCallback onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.xl),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F7F8),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        children: [
+          const Icon(Iconsax.search_status_1, size: 30, color: AppColors.bodyMid),
+          const SizedBox(height: AppSpacing.md),
+          Text(
+            isSearching ? 'Hikâye bulunamadı' : 'Bu seviyede hikâye yok',
+            style: AppTypography.displayXs,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            isSearching
+                ? 'Arama kelimesini değiştirebilir veya filtreleri temizleyebilirsin.'
+                : 'Diğer seviyelerdeki hikâyelere de göz atabilirsin.',
+            style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          OutlinedButton.icon(
+            onPressed: onClear,
+            icon: const Icon(Iconsax.refresh, size: 18),
+            label: const Text('Filtreleri temizle'),
+          ),
+        ],
+      ),
     );
   }
 }
