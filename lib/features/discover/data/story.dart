@@ -30,15 +30,36 @@ class Story {
 }
 
 class StoryLine {
-  const StoryLine({required this.en, required this.tr});
+  const StoryLine({
+    required this.en,
+    required this.tr,
+    required this.words,
+  });
 
   final String en;
   final String tr;
+  final List<WordMapping> words;
 
   factory StoryLine.fromJson(Map<String, dynamic> json) {
     return StoryLine(
       en: json['en'] as String,
       tr: json['tr'] as String,
+      words: (json['words'] as List<dynamic>)
+          .map((pair) {
+            final values = pair as List<dynamic>;
+            return WordMapping(
+              english: values[0] as String,
+              turkish: values[1] as String,
+            );
+          })
+          .toList(growable: false),
     );
   }
+}
+
+class WordMapping {
+  const WordMapping({required this.english, required this.turkish});
+
+  final String english;
+  final String turkish;
 }
