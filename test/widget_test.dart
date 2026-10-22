@@ -37,12 +37,16 @@ void main() {
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
     expect(find.text("Tom's Morning"), findsOneWidget);
 
-    await tester.tap(find.text("Tom's Morning"));
-    await tester.pump(const Duration(milliseconds: 400));
+    final firstStory = find.text("Tom's Morning");
+    await tester.ensureVisible(firstStory);
+    await tester.tap(firstStory);
+    await tester.pumpAndSettle();
     expect(find.text("Tom wakes up early every morning."), findsOneWidget);
     expect(find.text('Türkçe anlamı görmek için dokun'), findsWidgets);
-    await tester.tap(find.text("Tom wakes up early every morning."));
-    await tester.pump(const Duration(milliseconds: 400));
+    final firstSentence = find.text("Tom wakes up early every morning.");
+    await tester.ensureVisible(firstSentence);
+    await tester.tap(firstSentence);
+    await tester.pumpAndSettle();
     expect(find.text('Tom her sabah erken uyanır.'), findsOneWidget);
     expect(find.text('wakes up · uyanır'), findsOneWidget);
 
