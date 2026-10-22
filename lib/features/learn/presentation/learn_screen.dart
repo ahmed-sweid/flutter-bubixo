@@ -4,6 +4,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import 'lessons_screen.dart';
 
 /// Learning landing screen.
 ///
@@ -45,6 +46,20 @@ class LearnScreen extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.xxl),
         _TodayRecommendationCard(onTap: onOpenDiscover),
+        const SizedBox(height: AppSpacing.xl),
+        Text('Temel dersler', style: AppTypography.displayXs),
+        const SizedBox(height: AppSpacing.md),
+        _LearningPathCard(
+          icon: Iconsax.teacher,
+          title: 'Ders sırasını takip et',
+          subtitle: 'Alfabe, tanışma ve temel dil bilgisi konuları.',
+          label: 'DERSLER',
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => const LessonsScreen(),
+            ),
+          ),
+        ),
         const SizedBox(height: AppSpacing.xl),
         Text('Nasıl öğrenmek istersin?', style: AppTypography.displayXs),
         const SizedBox(height: AppSpacing.md),
