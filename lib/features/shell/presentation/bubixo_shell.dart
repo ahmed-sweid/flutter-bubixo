@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../discover/presentation/discover_screen.dart';
@@ -18,21 +19,29 @@ class BubixoShell extends StatefulWidget {
 class _BubixoShellState extends State<BubixoShell> {
   int _selectedIndex = 0;
 
-  static const _screens = <Widget>[
-    LearnScreen(),
-    WordsScreen(),
-    PracticeScreen(),
-    DiscoverScreen(),
-  ];
+  void _selectTab(int index) {
+    setState(() => _selectedIndex = index);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screens = <Widget>[
+      LearnScreen(
+        onOpenDiscover: () => _selectTab(3),
+        onOpenWords: () => _selectTab(1),
+        onOpenPractice: () => _selectTab(2),
+      ),
+      const WordsScreen(),
+      const PracticeScreen(),
+      const DiscoverScreen(),
+    ];
+
     return Scaffold(
       body: SafeArea(
         bottom: false,
         child: IndexedStack(
           index: _selectedIndex,
-          children: _screens,
+          children: screens,
         ),
       ),
       bottomNavigationBar: NavigationBarTheme(
@@ -51,29 +60,23 @@ class _BubixoShellState extends State<BubixoShell> {
         ),
         child: NavigationBar(
           selectedIndex: _selectedIndex,
-          onDestinationSelected: (index) {
-            setState(() => _selectedIndex = index);
-          },
+          onDestinationSelected: _selectTab,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.school_outlined),
-              selectedIcon: Icon(Icons.school),
+              icon: Icon(Iconsax.teacher),
               label: 'Öğren',
             ),
             NavigationDestination(
-              icon: Icon(Icons.bookmarks_outlined),
-              selectedIcon: Icon(Icons.bookmarks),
+              icon: Icon(Iconsax.bookmark_2),
               label: 'Kelimeler',
             ),
             NavigationDestination(
-              icon: Icon(Icons.fitness_center_outlined),
-              selectedIcon: Icon(Icons.fitness_center),
+              icon: Icon(Iconsax.activity),
               label: 'Pratik',
             ),
             NavigationDestination(
-              icon: Icon(Icons.explore_outlined),
-              selectedIcon: Icon(Icons.explore),
+              icon: Icon(Iconsax.discover),
               label: 'Keşfet',
             ),
           ],

@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 
-/// Initial shell-level landing page. Real learning content is added in a
-/// separate, focused feature after the navigation shell is verified.
+/// Learning landing screen.
+///
+/// The first-run state offers a clear next action. Persisted resume state and
+/// real lesson recommendations will be connected when the content/progress
+/// layer is implemented; this screen does not pretend that progress exists.
 class LearnScreen extends StatelessWidget {
-  const LearnScreen({super.key});
+  const LearnScreen({
+    required this.onOpenDiscover,
+    required this.onOpenWords,
+    required this.onOpenPractice,
+    super.key,
+  });
+
+  final VoidCallback onOpenDiscover;
+  final VoidCallback onOpenWords;
+  final VoidCallback onOpenPractice;
 
   @override
   Widget build(BuildContext context) {
@@ -21,80 +34,175 @@ class LearnScreen extends StatelessWidget {
       children: [
         Text('BUBIXO', style: AppTypography.eyebrowSmall),
         const SizedBox(height: AppSpacing.md),
-        Text('Öğrenmeye devam et.', style: AppTypography.displaySm),
+        Text(
+          'Bugün İngilizceye küçük bir adım at.',
+          style: AppTypography.displaySm,
+        ),
         const SizedBox(height: AppSpacing.xs),
         Text(
-          'Kaldığın yerden devam et; henüz bir oturum yoksa bugünün önerisi burada olacak.',
+          'Bir içerik seç, kendi hızında öğren ve ihtiyaç duyduğun yerde devam et.',
           style: AppTypography.bodyMd,
         ),
         const SizedBox(height: AppSpacing.xxl),
-        _LearningEntryCard(
-          eyebrow: 'ÖĞRENME YOLUN',
-          title: 'Kaldığın yerden devam et',
-          description:
-              'Öğrenme içeriği ve kayıtlı ilerleme bir sonraki geliştirme adımında bağlanacak.',
-          icon: Icons.route_outlined,
-        ),
+        _TodayRecommendationCard(onTap: onOpenDiscover),
+        const SizedBox(height: AppSpacing.xxl),
+        Text('Hızlı erişim', style: AppTypography.displayXs),
         const SizedBox(height: AppSpacing.md),
-        _LearningEntryCard(
-          eyebrow: 'BUGÜNÜN ÖNERİSİ',
-          title: 'Küçük bir adımla başla',
-          description:
-              'Günün dersi, önerisi ve tekrar zamanı gerçek öğrenme verileri bağlandığında burada görünecek.',
-          icon: Icons.wb_sunny_outlined,
-          accent: AppColors.accentPurple,
+        _QuickActionTile(
+          icon: Iconsax.bookmark_2,
+          title: 'Kaydettiğin kelimeler',
+          description: 'Kelime listeni aç ve kayıtlarını gözden geçir.',
+          onTap: onOpenWords,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        _QuickActionTile(
+          icon: Iconsax.activity,
+          title: 'Kısa bir pratik yap',
+          description: 'Öğrendiklerini alıştırmalarla pekiştir.',
+          onTap: onOpenPractice,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        _QuickActionTile(
+          icon: Iconsax.discover,
+          title: 'Yeni içerikler keşfet',
+          description: 'Hikâyelere ve diğer öğrenme içeriklerine göz at.',
+          onTap: onOpenDiscover,
         ),
       ],
     );
   }
 }
 
-class _LearningEntryCard extends StatelessWidget {
-  const _LearningEntryCard({
-    required this.eyebrow,
-    required this.title,
-    required this.description,
-    required this.icon,
-    this.accent = AppColors.ink,
-  });
+class _TodayRecommendationCard extends StatelessWidget {
+  const _TodayRecommendationCard({required this.onTap});
 
-  final String eyebrow;
-  final String title;
-  final String description;
-  final IconData icon;
-  final Color accent;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: AppColors.canvas,
-        border: Border.all(color: AppColors.hairline),
-        borderRadius: BorderRadius.circular(8),
+        color: AppColors.ink,
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(icon, color: accent, size: 20),
+              const Icon(
+                Iconsax.sun_1,
+                color: AppColors.accentPurple,
+                size: 20,
+              ),
               const SizedBox(width: AppSpacing.sm),
               Expanded(
                 child: Text(
-                  eyebrow,
+                  'BUGÜNÜN ÖNERİSİ',
                   style: AppTypography.eyebrowSmall.copyWith(
-                    color: AppColors.bodyMid,
+                    color: AppColors.mutedSoft,
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
-          Text(title, style: AppTypography.displayXs),
+          Text(
+            'Bir hikâyeyle başla',
+            style: AppTypography.displayXs.copyWith(color: AppColors.onPrimary),
+          ),
           const SizedBox(height: AppSpacing.xs),
-          Text(description, style: AppTypography.bodySm),
+          Text(
+            'İngilizceyi cümlelerin içinde keşfet. Sana uygun bir hikâye seçerek okumaya başlayabilirsin.',
+            style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: onTap,
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.onPrimary,
+                foregroundColor: AppColors.ink,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Hikâyeleri keşfet'),
+                  SizedBox(width: AppSpacing.sm),
+                  Icon(Iconsax.arrow_right_3, size: 18),
+                ],
+              ),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class _QuickActionTile extends StatelessWidget {
+  const _QuickActionTile({
+    required this.icon,
+    required this.title,
+    required this.description,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String description;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.canvas,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.hairline),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: AppColors.canvas,
+                  border: Border.all(color: AppColors.hairline),
+                  borderRadius: BorderRadius.circular(9),
+                ),
+                alignment: Alignment.center,
+                child: Icon(icon, color: AppColors.ink, size: 21),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: AppTypography.bodyMd.copyWith(
+                      fontWeight: FontWeight.w600,
+                    )),
+                    const SizedBox(height: AppSpacing.xxs),
+                    Text(description, style: AppTypography.bodySm),
+                  ],
+                ),
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
+            ],
+          ),
+        ),
       ),
     );
   }

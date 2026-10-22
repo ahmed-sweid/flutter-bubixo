@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_typography.dart';
@@ -145,7 +146,7 @@ class _BubixoMark extends StatelessWidget {
             ),
             child: const SizedBox.expand(
               child: Icon(
-                Icons.auto_stories_rounded,
+                Iconsax.book_1,
                 color: AppColors.onPrimary,
                 size: 38,
               ),
