@@ -34,6 +34,65 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
     await preferences.setString('bubixo.last_story_title', widget.story.title);
   }
 
+  Future<void> _saveWord(WordMapping word) async {
+    final preferences = await SharedPreferences.getInstance();
+    final savedWords =
+        preferences.getStringList('bubixo.saved_words') ?? <String>[];
+    final alreadySaved = savedWords.any(
+      (saved) => saved.toLowerCase() == word.english.toLowerCase(),
+    );
+    if (!alreadySaved) {
+      savedWords.add(word.english);
+      await preferences.setStringList('bubixo.saved_words', savedWords);
+    }
+
+    final entries = <Map<String, dynamic>>[];
+    final rawEntries = preferences.getString('bubixo.custom_words');
+    if (rawEntries != null && rawEntries.isNotEmpty) {
+      try {
+        final decoded = jsonDecode(rawEntries);
+        if (decoded is List<dynamic>) {
+          for (final item in decoded) {
+            if (item is Map &&
+                item['english'] is String &&
+                item['turkish'] is String) {
+              entries.add(Map<String, dynamic>.from(item));
+            }
+          }
+        }
+      } on FormatException {
+        // Recover from invalid local data instead of breaking the reader.
+      }
+    }
+
+    final hasDefinition = entries.any(
+      (entry) =>
+          (entry['english'] as String).toLowerCase() ==
+          word.english.toLowerCase(),
+    );
+    if (!hasDefinition) {
+      entries.add({
+        'english': word.english,
+        'turkish': word.turkish,
+        'kind': 'Hikâyeden',
+      });
+    }
+    await preferences.setString('bubixo.custom_words', jsonEncode(entries));
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            alreadySaved
+                ? '${word.english} zaten kaydedilmiş'
+                : '${word.english} kaydedilen kelimelere eklendi',
+          ),
+        ),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     final story = widget.story;
@@ -202,35 +261,7 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
                             .map(
                               (word) => InkWell(
                                 borderRadius: BorderRadius.circular(6),
-                                onTap: () async {
-                                  final preferences = await SharedPreferences.getInstance();
-                                  final saved = preferences.getStringList('bubixo.saved_words') ?? <String>[];
-                                  if (!saved.contains(word.english)) {
-                                    saved.add(word.english);
-                                    await preferences.setStringList('bubixo.saved_words', saved);
-                                  }
-                                  final rawEntries = preferences.getString('bubixo.custom_words');
-                                  final entries = rawEntries == null
-                                      ? <Map<String, dynamic>>[]
-                                      : (jsonDecode(rawEntries) as List<dynamic>)
-                                          .cast<Map<String, dynamic>>();
-                                  final exists = entries.any((entry) => entry['english'] == word.english);
-                                  if (!exists) {
-                                    entries.add({
-                                      'english': word.english,
-                                      'turkish': word.turkish,
-                                      'kind': 'Hikâyeden',
-                                    });
-                                    await preferences.setString('bubixo.custom_words', jsonEncode(entries));
-                                  }
-                                  if (context.mounted) {
-                                    ScaffoldMessenger.of(context)
-                                      ..hideCurrentSnackBar()
-                                      ..showSnackBar(
-                                        SnackBar(content: Text('${word.english} kaydedilen kelimelere eklendi')),
-                                      );
-                                  }
-                                },
+                                onTap: () => _saveWord(word),
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: AppSpacing.sm,
