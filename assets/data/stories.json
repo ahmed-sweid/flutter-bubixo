@@ -8,35 +8,199 @@
     "lines": [
       {
         "en": "Tom wakes up early every morning.",
-        "tr": "Tom her sabah erken uyanır."
+        "tr": "Tom her sabah erken uyanır.",
+        "words": [
+          [
+            "Tom",
+            "Tom"
+          ],
+          [
+            "wakes up",
+            "uyanır"
+          ],
+          [
+            "early",
+            "erken"
+          ],
+          [
+            "every",
+            "her"
+          ],
+          [
+            "morning",
+            "sabah"
+          ]
+        ]
       },
       {
         "en": "He drinks a cup of coffee.",
-        "tr": "Bir fincan kahve içer."
+        "tr": "Bir fincan kahve içer.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "drinks",
+            "içer"
+          ],
+          [
+            "a cup of",
+            "bir fincan"
+          ],
+          [
+            "coffee",
+            "kahve"
+          ]
+        ]
       },
       {
         "en": "His wife makes breakfast in the kitchen.",
-        "tr": "Karısı mutfakta kahvaltı hazırlar."
+        "tr": "Karısı mutfakta kahvaltı hazırlar.",
+        "words": [
+          [
+            "His wife",
+            "Karısı"
+          ],
+          [
+            "makes",
+            "hazırlar"
+          ],
+          [
+            "breakfast",
+            "kahvaltı"
+          ],
+          [
+            "in the kitchen",
+            "mutfakta"
+          ]
+        ]
       },
       {
         "en": "They eat bread, cheese and olives.",
-        "tr": "Ekmek, peynir ve zeytin yerler."
+        "tr": "Ekmek, peynir ve zeytin yerler.",
+        "words": [
+          [
+            "They",
+            "Onlar"
+          ],
+          [
+            "eat",
+            "yer"
+          ],
+          [
+            "bread",
+            "ekmek"
+          ],
+          [
+            "cheese",
+            "peynir"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "olives",
+            "zeytin"
+          ]
+        ]
       },
       {
         "en": "Tom is a taxi driver.",
-        "tr": "Tom taksi şoförüdür."
+        "tr": "Tom taksi şoförüdür.",
+        "words": [
+          [
+            "Tom",
+            "Tom"
+          ],
+          [
+            "is",
+            "-dir"
+          ],
+          [
+            "a",
+            "bir"
+          ],
+          [
+            "taxi driver",
+            "taksi şoförü"
+          ]
+        ]
       },
       {
         "en": "He starts work at eight o'clock.",
-        "tr": "İşe saat sekizde başlar."
+        "tr": "İşe saat sekizde başlar.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "starts",
+            "başlar"
+          ],
+          [
+            "work",
+            "işe"
+          ],
+          [
+            "at",
+            "-de"
+          ],
+          [
+            "eight o'clock",
+            "saat sekiz"
+          ]
+        ]
       },
       {
         "en": "The city is busy in the morning.",
-        "tr": "Şehir sabahları kalabalıktır."
+        "tr": "Şehir sabahları kalabalıktır.",
+        "words": [
+          [
+            "The",
+            "(belirli)"
+          ],
+          [
+            "city",
+            "şehir"
+          ],
+          [
+            "is",
+            "-dır"
+          ],
+          [
+            "busy",
+            "kalabalık"
+          ],
+          [
+            "in the morning",
+            "sabahları"
+          ]
+        ]
       },
       {
         "en": "Tom likes his job very much.",
-        "tr": "Tom işini çok sever."
+        "tr": "Tom işini çok sever.",
+        "words": [
+          [
+            "Tom",
+            "Tom"
+          ],
+          [
+            "likes",
+            "sever"
+          ],
+          [
+            "his job",
+            "işini"
+          ],
+          [
+            "very much",
+            "çok"
+          ]
+        ]
       }
     ]
   },
@@ -49,35 +213,203 @@
     "lines": [
       {
         "en": "Emma goes to the market on Monday.",
-        "tr": "Emma pazartesi günü markete gider."
+        "tr": "Emma pazartesi günü markete gider.",
+        "words": [
+          [
+            "Emma",
+            "Emma"
+          ],
+          [
+            "goes",
+            "gider"
+          ],
+          [
+            "to the market",
+            "markete"
+          ],
+          [
+            "on Monday",
+            "pazartesi günü"
+          ]
+        ]
       },
       {
         "en": "She needs eggs, milk and rice.",
-        "tr": "Yumurtaya, süte ve pirince ihtiyacı var."
+        "tr": "Yumurtaya, süte ve pirince ihtiyacı var.",
+        "words": [
+          [
+            "She",
+            "Onun"
+          ],
+          [
+            "needs",
+            "ihtiyacı var"
+          ],
+          [
+            "eggs",
+            "yumurta"
+          ],
+          [
+            "milk",
+            "süt"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "rice",
+            "pirinç"
+          ]
+        ]
       },
       {
         "en": "The apples are very fresh today.",
-        "tr": "Elmalar bugün çok tazedir."
+        "tr": "Elmalar bugün çok tazedir.",
+        "words": [
+          [
+            "The",
+            "(belirli)"
+          ],
+          [
+            "apples",
+            "elmalar"
+          ],
+          [
+            "are",
+            "-dir"
+          ],
+          [
+            "very",
+            "çok"
+          ],
+          [
+            "fresh",
+            "taze"
+          ],
+          [
+            "today",
+            "bugün"
+          ]
+        ]
       },
       {
         "en": "How much is one kilo of apples?",
-        "tr": "Bir kilo elma ne kadar?"
+        "tr": "Bir kilo elma ne kadar?",
+        "words": [
+          [
+            "How much",
+            "Ne kadar"
+          ],
+          [
+            "is",
+            "-dır"
+          ],
+          [
+            "one kilo of",
+            "bir kilo"
+          ],
+          [
+            "apples",
+            "elma"
+          ]
+        ]
       },
       {
         "en": "The apples are thirty liras.",
-        "tr": "Elmalar otuz liradır."
+        "tr": "Elmalar otuz liradır.",
+        "words": [
+          [
+            "The",
+            "(belirli)"
+          ],
+          [
+            "apples",
+            "elmalar"
+          ],
+          [
+            "are",
+            "-dır"
+          ],
+          [
+            "thirty",
+            "otuz"
+          ],
+          [
+            "liras",
+            "lira"
+          ]
+        ]
       },
       {
         "en": "Emma buys two kilos of apples.",
-        "tr": "Emma iki kilo elma alır."
+        "tr": "Emma iki kilo elma alır.",
+        "words": [
+          [
+            "Emma",
+            "Emma"
+          ],
+          [
+            "buys",
+            "alır"
+          ],
+          [
+            "two kilos of",
+            "iki kilo"
+          ],
+          [
+            "apples",
+            "elma"
+          ]
+        ]
       },
       {
         "en": "She pays sixty liras.",
-        "tr": "Altmış lira öder."
+        "tr": "Altmış lira öder.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "pays",
+            "öder"
+          ],
+          [
+            "sixty",
+            "altmış"
+          ],
+          [
+            "liras",
+            "lira"
+          ]
+        ]
       },
       {
         "en": "Her bag is very heavy now.",
-        "tr": "Çantası şimdi çok ağırdır."
+        "tr": "Çantası şimdi çok ağırdır.",
+        "words": [
+          [
+            "Her bag",
+            "Çantası"
+          ],
+          [
+            "is",
+            "-dır"
+          ],
+          [
+            "very",
+            "çok"
+          ],
+          [
+            "heavy",
+            "ağır"
+          ],
+          [
+            "now",
+            "şimdi"
+          ]
+        ]
       }
     ]
   },
@@ -90,35 +422,183 @@
     "lines": [
       {
         "en": "My name is Ali.",
-        "tr": "Adım Ali."
+        "tr": "Adım Ali.",
+        "words": [
+          [
+            "My name",
+            "Adım"
+          ],
+          [
+            "is",
+            "-dır"
+          ],
+          [
+            "Ali",
+            "Ali"
+          ]
+        ]
       },
       {
         "en": "I have got a big family.",
-        "tr": "Büyük bir ailem var."
+        "tr": "Büyük bir ailem var.",
+        "words": [
+          [
+            "I",
+            "Benim"
+          ],
+          [
+            "have got",
+            "var"
+          ],
+          [
+            "a",
+            "bir"
+          ],
+          [
+            "big",
+            "büyük"
+          ],
+          [
+            "family",
+            "ailem"
+          ]
+        ]
       },
       {
         "en": "My father is a teacher.",
-        "tr": "Babam öğretmendir."
+        "tr": "Babam öğretmendir.",
+        "words": [
+          [
+            "My father",
+            "Babam"
+          ],
+          [
+            "is",
+            "-dir"
+          ],
+          [
+            "a",
+            "bir"
+          ],
+          [
+            "teacher",
+            "öğretmen"
+          ]
+        ]
       },
       {
         "en": "My mother works in a hospital.",
-        "tr": "Annem hastanede çalışır."
+        "tr": "Annem hastanede çalışır.",
+        "words": [
+          [
+            "My mother",
+            "Annem"
+          ],
+          [
+            "works",
+            "çalışır"
+          ],
+          [
+            "in a hospital",
+            "hastanede"
+          ]
+        ]
       },
       {
         "en": "I have got two sisters.",
-        "tr": "İki kız kardeşim var."
+        "tr": "İki kız kardeşim var.",
+        "words": [
+          [
+            "I",
+            "Benim"
+          ],
+          [
+            "have got",
+            "var"
+          ],
+          [
+            "two",
+            "iki"
+          ],
+          [
+            "sisters",
+            "kız kardeşim"
+          ]
+        ]
       },
       {
         "en": "They are eight and fifteen years old.",
-        "tr": "Sekiz ve on beş yaşındalar."
+        "tr": "Sekiz ve on beş yaşındalar.",
+        "words": [
+          [
+            "They",
+            "Onlar"
+          ],
+          [
+            "are",
+            "-dır"
+          ],
+          [
+            "eight",
+            "sekiz"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "fifteen",
+            "on beş"
+          ],
+          [
+            "years old",
+            "yaşında"
+          ]
+        ]
       },
       {
         "en": "We live in a small house.",
-        "tr": "Küçük bir evde yaşarız."
+        "tr": "Küçük bir evde yaşarız.",
+        "words": [
+          [
+            "We",
+            "Biz"
+          ],
+          [
+            "live",
+            "yaşarız"
+          ],
+          [
+            "in a small house",
+            "küçük bir evde"
+          ]
+        ]
       },
       {
         "en": "We eat dinner together every evening.",
-        "tr": "Her akşam birlikte akşam yemeği yeriz."
+        "tr": "Her akşam birlikte akşam yemeği yeriz.",
+        "words": [
+          [
+            "We",
+            "Biz"
+          ],
+          [
+            "eat",
+            "yeriz"
+          ],
+          [
+            "dinner",
+            "akşam yemeği"
+          ],
+          [
+            "together",
+            "birlikte"
+          ],
+          [
+            "every evening",
+            "her akşam"
+          ]
+        ]
       }
     ]
   },
@@ -131,35 +611,175 @@
     "lines": [
       {
         "en": "Deniz is a student.",
-        "tr": "Deniz bir öğrencidir."
+        "tr": "Deniz bir öğrencidir.",
+        "words": [
+          [
+            "Deniz",
+            "Deniz"
+          ],
+          [
+            "is",
+            "-dir"
+          ],
+          [
+            "a",
+            "bir"
+          ],
+          [
+            "student",
+            "öğrenci"
+          ]
+        ]
       },
       {
         "en": "She gets up at seven o'clock.",
-        "tr": "Saat yedide kalkar."
+        "tr": "Saat yedide kalkar.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "gets up",
+            "kalkar"
+          ],
+          [
+            "at",
+            "-de"
+          ],
+          [
+            "seven o'clock",
+            "saat yedi"
+          ]
+        ]
       },
       {
         "en": "Her school starts at eight thirty.",
-        "tr": "Okulu sekiz buçukta başlar."
+        "tr": "Okulu sekiz buçukta başlar.",
+        "words": [
+          [
+            "Her school",
+            "Okulu"
+          ],
+          [
+            "starts",
+            "başlar"
+          ],
+          [
+            "at",
+            "-da"
+          ],
+          [
+            "eight thirty",
+            "sekiz buçuk"
+          ]
+        ]
       },
       {
         "en": "She has five lessons every day.",
-        "tr": "Her gün beş dersi vardır."
+        "tr": "Her gün beş dersi vardır.",
+        "words": [
+          [
+            "She",
+            "Onun"
+          ],
+          [
+            "has",
+            "vardır"
+          ],
+          [
+            "five",
+            "beş"
+          ],
+          [
+            "lessons",
+            "dersi"
+          ],
+          [
+            "every day",
+            "her gün"
+          ]
+        ]
       },
       {
         "en": "Her favourite lesson is English.",
-        "tr": "En sevdiği ders İngilizcedir."
+        "tr": "En sevdiği ders İngilizcedir.",
+        "words": [
+          [
+            "Her favourite lesson",
+            "En sevdiği ders"
+          ],
+          [
+            "is",
+            "-dir"
+          ],
+          [
+            "English",
+            "İngilizce"
+          ]
+        ]
       },
       {
         "en": "She goes home in the afternoon.",
-        "tr": "Öğleden sonra eve gider."
+        "tr": "Öğleden sonra eve gider.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "goes home",
+            "eve gider"
+          ],
+          [
+            "in the afternoon",
+            "öğleden sonra"
+          ]
+        ]
       },
       {
         "en": "On Friday she plays with her friends.",
-        "tr": "Cuma günü arkadaşlarıyla oynar."
+        "tr": "Cuma günü arkadaşlarıyla oynar.",
+        "words": [
+          [
+            "On Friday",
+            "Cuma günü"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "plays",
+            "oynar"
+          ],
+          [
+            "with her friends",
+            "arkadaşlarıyla"
+          ]
+        ]
       },
       {
         "en": "She does her homework after dinner.",
-        "tr": "Ödevini akşam yemeğinden sonra yapar."
+        "tr": "Ödevini akşam yemeğinden sonra yapar.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "does",
+            "yapar"
+          ],
+          [
+            "her homework",
+            "ödevini"
+          ],
+          [
+            "after dinner",
+            "akşam yemeğinden sonra"
+          ]
+        ]
       }
     ]
   },
@@ -172,47 +792,309 @@
     "lines": [
       {
         "en": "Murat landed in Berlin at nine in the evening.",
-        "tr": "Murat akşam dokuzda Berlin'e indi."
+        "tr": "Murat akşam dokuzda Berlin'e indi.",
+        "words": [
+          [
+            "Murat",
+            "Murat"
+          ],
+          [
+            "landed",
+            "indi"
+          ],
+          [
+            "in Berlin",
+            "Berlin'e"
+          ],
+          [
+            "at nine",
+            "dokuzda"
+          ],
+          [
+            "in the evening",
+            "akşam"
+          ]
+        ]
       },
       {
         "en": "He was very tired because the flight was long.",
-        "tr": "Çok yorgundu çünkü uçuş uzundu."
+        "tr": "Çok yorgundu çünkü uçuş uzundu.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "very",
+            "çok"
+          ],
+          [
+            "tired",
+            "yorgun"
+          ],
+          [
+            "because",
+            "çünkü"
+          ],
+          [
+            "the flight",
+            "uçuş"
+          ],
+          [
+            "was",
+            "-du"
+          ],
+          [
+            "long",
+            "uzun"
+          ]
+        ]
       },
       {
         "en": "He waited for his suitcase for forty minutes.",
-        "tr": "Bavulunu kırk dakika bekledi."
+        "tr": "Bavulunu kırk dakika bekledi.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "waited for",
+            "bekledi"
+          ],
+          [
+            "his suitcase",
+            "bavulunu"
+          ],
+          [
+            "for forty minutes",
+            "kırk dakika boyunca"
+          ]
+        ]
       },
       {
         "en": "The other passengers took their bags and left.",
-        "tr": "Diğer yolcular çantalarını alıp gitti."
+        "tr": "Diğer yolcular çantalarını alıp gitti.",
+        "words": [
+          [
+            "The other passengers",
+            "Diğer yolcular"
+          ],
+          [
+            "took",
+            "aldı"
+          ],
+          [
+            "their bags",
+            "çantalarını"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "left",
+            "gitti"
+          ]
+        ]
       },
       {
         "en": "But his black suitcase did not come out.",
-        "tr": "Ama onun siyah bavulu çıkmadı."
+        "tr": "Ama onun siyah bavulu çıkmadı.",
+        "words": [
+          [
+            "But",
+            "Ama"
+          ],
+          [
+            "his",
+            "onun"
+          ],
+          [
+            "black",
+            "siyah"
+          ],
+          [
+            "suitcase",
+            "bavulu"
+          ],
+          [
+            "did not",
+            "(olumsuz geçmiş)"
+          ],
+          [
+            "come out",
+            "çıkmak"
+          ]
+        ]
       },
       {
         "en": "He went to the lost luggage office and asked for help.",
-        "tr": "Kayıp bagaj ofisine gidip yardım istedi."
+        "tr": "Kayıp bagaj ofisine gidip yardım istedi.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "went",
+            "gitti"
+          ],
+          [
+            "to the lost luggage office",
+            "kayıp bagaj ofisine"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "asked for",
+            "istedi"
+          ],
+          [
+            "help",
+            "yardım"
+          ]
+        ]
       },
       {
         "en": "A young woman was working at the desk.",
-        "tr": "Bankoda genç bir kadın çalışıyordu."
+        "tr": "Bankoda genç bir kadın çalışıyordu.",
+        "words": [
+          [
+            "A young woman",
+            "Genç bir kadın"
+          ],
+          [
+            "was working",
+            "çalışıyordu"
+          ],
+          [
+            "at the desk",
+            "bankoda"
+          ]
+        ]
       },
       {
         "en": "She took his name, his address and his phone number.",
-        "tr": "Adını, adresini ve telefon numarasını aldı."
+        "tr": "Adını, adresini ve telefon numarasını aldı.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "took",
+            "aldı"
+          ],
+          [
+            "his name",
+            "adını"
+          ],
+          [
+            "his address",
+            "adresini"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "his phone number",
+            "telefon numarasını"
+          ]
+        ]
       },
       {
         "en": "The computer showed that the suitcase was still in Istanbul.",
-        "tr": "Bilgisayar bavulun hâlâ İstanbul'da olduğunu gösterdi."
+        "tr": "Bilgisayar bavulun hâlâ İstanbul'da olduğunu gösterdi.",
+        "words": [
+          [
+            "The computer",
+            "Bilgisayar"
+          ],
+          [
+            "showed",
+            "gösterdi"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "the suitcase",
+            "bavulun"
+          ],
+          [
+            "was",
+            "olduğunu"
+          ],
+          [
+            "still",
+            "hâlâ"
+          ],
+          [
+            "in Istanbul",
+            "İstanbul'da"
+          ]
+        ]
       },
       {
         "en": "Murat must wait until tomorrow morning for his bag.",
-        "tr": "Murat çantası için yarın sabaha kadar beklemeli."
+        "tr": "Murat çantası için yarın sabaha kadar beklemeli.",
+        "words": [
+          [
+            "Murat",
+            "Murat"
+          ],
+          [
+            "must",
+            "-meli"
+          ],
+          [
+            "wait",
+            "beklemek"
+          ],
+          [
+            "until tomorrow morning",
+            "yarın sabaha kadar"
+          ],
+          [
+            "for his bag",
+            "çantası için"
+          ]
+        ]
       },
       {
         "en": "The airline brought the suitcase to his hotel the next day.",
-        "tr": "Havayolu bavulu ertesi gün oteline getirdi."
+        "tr": "Havayolu bavulu ertesi gün oteline getirdi.",
+        "words": [
+          [
+            "The airline",
+            "Havayolu"
+          ],
+          [
+            "brought",
+            "getirdi"
+          ],
+          [
+            "the suitcase",
+            "bavulu"
+          ],
+          [
+            "to his hotel",
+            "oteline"
+          ],
+          [
+            "the next day",
+            "ertesi gün"
+          ]
+        ]
       }
     ]
   },
@@ -225,47 +1107,357 @@
     "lines": [
       {
         "en": "Selin had an interview at a big company on Tuesday.",
-        "tr": "Selin salı günü büyük bir şirkette iş görüşmesine girdi."
+        "tr": "Selin salı günü büyük bir şirkette iş görüşmesine girdi.",
+        "words": [
+          [
+            "Selin",
+            "Selin"
+          ],
+          [
+            "had",
+            "girdi"
+          ],
+          [
+            "an interview",
+            "bir iş görüşmesine"
+          ],
+          [
+            "at a big company",
+            "büyük bir şirkette"
+          ],
+          [
+            "on Tuesday",
+            "salı günü"
+          ]
+        ]
       },
       {
         "en": "She wore a dark blue jacket and clean shoes.",
-        "tr": "Koyu mavi bir ceket ve temiz ayakkabılar giydi."
+        "tr": "Koyu mavi bir ceket ve temiz ayakkabılar giydi.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "wore",
+            "giydi"
+          ],
+          [
+            "a dark blue jacket",
+            "koyu mavi bir ceket"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "clean shoes",
+            "temiz ayakkabılar"
+          ]
+        ]
       },
       {
         "en": "She arrived ten minutes early because she was nervous.",
-        "tr": "On dakika erken vardı çünkü heyecanlıydı."
+        "tr": "On dakika erken vardı çünkü heyecanlıydı.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "arrived",
+            "vardı"
+          ],
+          [
+            "ten minutes early",
+            "on dakika erken"
+          ],
+          [
+            "because",
+            "çünkü"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "nervous",
+            "heyecanlı"
+          ]
+        ]
       },
       {
         "en": "The manager asked: Can you tell me about yourself?",
-        "tr": "Müdür sordu: Bana kendinden bahsedebilir misin?"
+        "tr": "Müdür sordu: Bana kendinden bahsedebilir misin?",
+        "words": [
+          [
+            "The manager",
+            "Müdür"
+          ],
+          [
+            "asked",
+            "sordu"
+          ],
+          [
+            "Can you",
+            "-ebilir misin"
+          ],
+          [
+            "tell",
+            "anlatmak"
+          ],
+          [
+            "me",
+            "bana"
+          ],
+          [
+            "about yourself",
+            "kendinden"
+          ]
+        ]
       },
       {
         "en": "Selin talked about her school and her computer skills.",
-        "tr": "Selin okulundan ve bilgisayar becerilerinden bahsetti."
+        "tr": "Selin okulundan ve bilgisayar becerilerinden bahsetti.",
+        "words": [
+          [
+            "Selin",
+            "Selin"
+          ],
+          [
+            "talked about",
+            "bahsetti"
+          ],
+          [
+            "her school",
+            "okulundan"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "her computer skills",
+            "bilgisayar becerilerinden"
+          ]
+        ]
       },
       {
         "en": "Why do you want to work here?",
-        "tr": "Neden burada çalışmak istiyorsun?"
+        "tr": "Neden burada çalışmak istiyorsun?",
+        "words": [
+          [
+            "Why",
+            "Neden"
+          ],
+          [
+            "do",
+            "(soru yapar)"
+          ],
+          [
+            "you",
+            "sen"
+          ],
+          [
+            "want",
+            "istiyorsun"
+          ],
+          [
+            "to",
+            "(mastar)"
+          ],
+          [
+            "work",
+            "çalışmak"
+          ],
+          [
+            "here",
+            "burada"
+          ]
+        ]
       },
       {
         "en": "She answered slowly but her voice was clear.",
-        "tr": "Yavaşça cevap verdi ama sesi netti."
+        "tr": "Yavaşça cevap verdi ama sesi netti.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "answered",
+            "cevap verdi"
+          ],
+          [
+            "slowly",
+            "yavaşça"
+          ],
+          [
+            "but",
+            "ama"
+          ],
+          [
+            "her voice",
+            "sesi"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "clear",
+            "net"
+          ]
+        ]
       },
       {
         "en": "She can speak English and she can use Excel well.",
-        "tr": "İngilizce konuşabilir ve Excel'i iyi kullanabilir."
+        "tr": "İngilizce konuşabilir ve Excel'i iyi kullanabilir.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "can",
+            "-ebilir"
+          ],
+          [
+            "speak",
+            "konuşmak"
+          ],
+          [
+            "English",
+            "İngilizce"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "can",
+            "-ebilir"
+          ],
+          [
+            "use",
+            "kullanmak"
+          ],
+          [
+            "Excel",
+            "Excel'i"
+          ],
+          [
+            "well",
+            "iyi"
+          ]
+        ]
       },
       {
         "en": "The manager was writing notes while she was talking.",
-        "tr": "O konuşurken müdür not alıyordu."
+        "tr": "O konuşurken müdür not alıyordu.",
+        "words": [
+          [
+            "The manager",
+            "Müdür"
+          ],
+          [
+            "was writing",
+            "yazıyordu"
+          ],
+          [
+            "notes",
+            "not"
+          ],
+          [
+            "while",
+            "-ken"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "was talking",
+            "konuşuyor"
+          ]
+        ]
       },
       {
         "en": "At the end he shook her hand and smiled.",
-        "tr": "Sonunda elini sıktı ve gülümsedi."
+        "tr": "Sonunda elini sıktı ve gülümsedi.",
+        "words": [
+          [
+            "At the end",
+            "Sonunda"
+          ],
+          [
+            "he",
+            "o"
+          ],
+          [
+            "shook",
+            "sıktı"
+          ],
+          [
+            "her hand",
+            "elini"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "smiled",
+            "gülümsedi"
+          ]
+        ]
       },
       {
         "en": "Selin was very happy when she left the building.",
-        "tr": "Selin binadan ayrıldığında çok mutluydu."
+        "tr": "Selin binadan ayrıldığında çok mutluydu.",
+        "words": [
+          [
+            "Selin",
+            "Selin"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "very",
+            "çok"
+          ],
+          [
+            "happy",
+            "mutlu"
+          ],
+          [
+            "when",
+            "-dığında"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "left",
+            "ayrıldı"
+          ],
+          [
+            "the building",
+            "binadan"
+          ]
+        ]
       }
     ]
   },
@@ -278,47 +1470,329 @@
     "lines": [
       {
         "en": "Kerem and Ela were planning a picnic on Sunday.",
-        "tr": "Kerem ile Ela pazar günü için piknik planlıyorlardı."
+        "tr": "Kerem ile Ela pazar günü için piknik planlıyorlardı.",
+        "words": [
+          [
+            "Kerem and Ela",
+            "Kerem ile Ela"
+          ],
+          [
+            "were planning",
+            "planlıyorlardı"
+          ],
+          [
+            "a picnic",
+            "bir piknik"
+          ],
+          [
+            "on Sunday",
+            "pazar günü"
+          ]
+        ]
       },
       {
         "en": "They bought bread, cheese and cold lemonade on Saturday.",
-        "tr": "Cumartesi günü ekmek, peynir ve soğuk limonata aldılar."
+        "tr": "Cumartesi günü ekmek, peynir ve soğuk limonata aldılar.",
+        "words": [
+          [
+            "They",
+            "Onlar"
+          ],
+          [
+            "bought",
+            "aldı"
+          ],
+          [
+            "bread",
+            "ekmek"
+          ],
+          [
+            "cheese",
+            "peynir"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "cold lemonade",
+            "soğuk limonata"
+          ],
+          [
+            "on Saturday",
+            "cumartesi günü"
+          ]
+        ]
       },
       {
         "en": "But on Sunday morning it was raining very hard.",
-        "tr": "Ama pazar sabahı çok şiddetli yağmur yağıyordu."
+        "tr": "Ama pazar sabahı çok şiddetli yağmur yağıyordu.",
+        "words": [
+          [
+            "But",
+            "Ama"
+          ],
+          [
+            "on Sunday morning",
+            "pazar sabahı"
+          ],
+          [
+            "it",
+            "(özne)"
+          ],
+          [
+            "was raining",
+            "yağmur yağıyordu"
+          ],
+          [
+            "very hard",
+            "çok şiddetli"
+          ]
+        ]
       },
       {
         "en": "The wind was blowing and the streets were empty.",
-        "tr": "Rüzgâr esiyordu ve sokaklar boştu."
+        "tr": "Rüzgâr esiyordu ve sokaklar boştu.",
+        "words": [
+          [
+            "The wind",
+            "Rüzgâr"
+          ],
+          [
+            "was blowing",
+            "esiyordu"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "the streets",
+            "sokaklar"
+          ],
+          [
+            "were",
+            "-du"
+          ],
+          [
+            "empty",
+            "boş"
+          ]
+        ]
       },
       {
         "en": "Ela called Kerem because she was worried about the picnic.",
-        "tr": "Ela Kerem'i aradı çünkü piknik için endişeliydi."
+        "tr": "Ela Kerem'i aradı çünkü piknik için endişeliydi.",
+        "words": [
+          [
+            "Ela",
+            "Ela"
+          ],
+          [
+            "called",
+            "aradı"
+          ],
+          [
+            "Kerem",
+            "Kerem'i"
+          ],
+          [
+            "because",
+            "çünkü"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "was worried",
+            "endişeliydi"
+          ],
+          [
+            "about the picnic",
+            "piknik için"
+          ]
+        ]
       },
       {
         "en": "We must change our plan because of the rain.",
-        "tr": "Yağmur yüzünden planımızı değiştirmeliyiz."
+        "tr": "Yağmur yüzünden planımızı değiştirmeliyiz.",
+        "words": [
+          [
+            "We",
+            "Biz"
+          ],
+          [
+            "must",
+            "-meliyiz"
+          ],
+          [
+            "change",
+            "değiştirmek"
+          ],
+          [
+            "our plan",
+            "planımızı"
+          ],
+          [
+            "because of",
+            "yüzünden"
+          ],
+          [
+            "the rain",
+            "yağmur"
+          ]
+        ]
       },
       {
         "en": "They decided to have the picnic in Ela's living room.",
-        "tr": "Pikniği Ela'nın oturma odasında yapmaya karar verdiler."
+        "tr": "Pikniği Ela'nın oturma odasında yapmaya karar verdiler.",
+        "words": [
+          [
+            "They",
+            "Onlar"
+          ],
+          [
+            "decided",
+            "karar verdi"
+          ],
+          [
+            "to",
+            "(mastar)"
+          ],
+          [
+            "have",
+            "yapmak"
+          ],
+          [
+            "the picnic",
+            "pikniği"
+          ],
+          [
+            "in Ela's living room",
+            "Ela'nın oturma odasında"
+          ]
+        ]
       },
       {
         "en": "Ela put a big blanket on the floor.",
-        "tr": "Ela yere büyük bir battaniye serdi."
+        "tr": "Ela yere büyük bir battaniye serdi.",
+        "words": [
+          [
+            "Ela",
+            "Ela"
+          ],
+          [
+            "put",
+            "serdi"
+          ],
+          [
+            "a big blanket",
+            "büyük bir battaniye"
+          ],
+          [
+            "on the floor",
+            "yere"
+          ]
+        ]
       },
       {
         "en": "Kerem was making sandwiches while the rain was falling outside.",
-        "tr": "Dışarıda yağmur yağarken Kerem sandviç yapıyordu."
+        "tr": "Dışarıda yağmur yağarken Kerem sandviç yapıyordu.",
+        "words": [
+          [
+            "Kerem",
+            "Kerem"
+          ],
+          [
+            "was making",
+            "yapıyordu"
+          ],
+          [
+            "sandwiches",
+            "sandviç"
+          ],
+          [
+            "while",
+            "-ken"
+          ],
+          [
+            "the rain",
+            "yağmur"
+          ],
+          [
+            "was falling",
+            "yağıyor"
+          ],
+          [
+            "outside",
+            "dışarıda"
+          ]
+        ]
       },
       {
         "en": "They ate everything and laughed a lot.",
-        "tr": "Her şeyi yediler ve çok güldüler."
+        "tr": "Her şeyi yediler ve çok güldüler.",
+        "words": [
+          [
+            "They",
+            "Onlar"
+          ],
+          [
+            "ate",
+            "yedi"
+          ],
+          [
+            "everything",
+            "her şeyi"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "laughed",
+            "güldü"
+          ],
+          [
+            "a lot",
+            "çok"
+          ]
+        ]
       },
       {
         "en": "The picnic was not outside but it was perfect.",
-        "tr": "Piknik dışarıda değildi ama mükemmeldi."
+        "tr": "Piknik dışarıda değildi ama mükemmeldi.",
+        "words": [
+          [
+            "The picnic",
+            "Piknik"
+          ],
+          [
+            "was not",
+            "değildi"
+          ],
+          [
+            "outside",
+            "dışarıda"
+          ],
+          [
+            "but",
+            "ama"
+          ],
+          [
+            "it",
+            "o"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "perfect",
+            "mükemmel"
+          ]
+        ]
       }
     ]
   },
@@ -331,47 +1805,313 @@
     "lines": [
       {
         "en": "Ahmet did not feel well for three days.",
-        "tr": "Ahmet üç gündür kendini iyi hissetmiyordu."
+        "tr": "Ahmet üç gündür kendini iyi hissetmiyordu.",
+        "words": [
+          [
+            "Ahmet",
+            "Ahmet"
+          ],
+          [
+            "did not",
+            "(olumsuz)"
+          ],
+          [
+            "feel",
+            "hissetmek"
+          ],
+          [
+            "well",
+            "iyi"
+          ],
+          [
+            "for three days",
+            "üç gündür"
+          ]
+        ]
       },
       {
         "en": "His head was hot and his throat was sore.",
-        "tr": "Başı sıcaktı ve boğazı ağrıyordu."
+        "tr": "Başı sıcaktı ve boğazı ağrıyordu.",
+        "words": [
+          [
+            "His head",
+            "Başı"
+          ],
+          [
+            "was",
+            "-tı"
+          ],
+          [
+            "hot",
+            "sıcak"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "his throat",
+            "boğazı"
+          ],
+          [
+            "was",
+            "-ıyordu"
+          ],
+          [
+            "sore",
+            "ağrılı"
+          ]
+        ]
       },
       {
         "en": "He went to the doctor on Wednesday morning.",
-        "tr": "Çarşamba sabahı doktora gitti."
+        "tr": "Çarşamba sabahı doktora gitti.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "went",
+            "gitti"
+          ],
+          [
+            "to the doctor",
+            "doktora"
+          ],
+          [
+            "on Wednesday morning",
+            "çarşamba sabahı"
+          ]
+        ]
       },
       {
         "en": "The doctor listened to his chest and looked at his throat.",
-        "tr": "Doktor göğsünü dinledi ve boğazına baktı."
+        "tr": "Doktor göğsünü dinledi ve boğazına baktı.",
+        "words": [
+          [
+            "The doctor",
+            "Doktor"
+          ],
+          [
+            "listened to",
+            "dinledi"
+          ],
+          [
+            "his chest",
+            "göğsünü"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "looked at",
+            "baktı"
+          ],
+          [
+            "his throat",
+            "boğazına"
+          ]
+        ]
       },
       {
         "en": "The doctor asked: Where does it hurt the most?",
-        "tr": "Doktor sordu: En çok neresi acıyor?"
+        "tr": "Doktor sordu: En çok neresi acıyor?",
+        "words": [
+          [
+            "The doctor",
+            "Doktor"
+          ],
+          [
+            "asked",
+            "sordu"
+          ],
+          [
+            "Where",
+            "nerede"
+          ],
+          [
+            "does",
+            "(soru yapar)"
+          ],
+          [
+            "it",
+            "o"
+          ],
+          [
+            "hurt",
+            "acıyor"
+          ],
+          [
+            "the most",
+            "en çok"
+          ]
+        ]
       },
       {
         "en": "You have got a bad cold, the doctor said.",
-        "tr": "Kötü bir soğuk algınlığın var, dedi doktor."
+        "tr": "Kötü bir soğuk algınlığın var, dedi doktor.",
+        "words": [
+          [
+            "You",
+            "Senin"
+          ],
+          [
+            "have got",
+            "var"
+          ],
+          [
+            "a bad cold",
+            "kötü bir soğuk algınlığın"
+          ],
+          [
+            "the doctor",
+            "doktor"
+          ],
+          [
+            "said",
+            "dedi"
+          ]
+        ]
       },
       {
         "en": "You must drink a lot of water.",
-        "tr": "Bol su içmelisin."
+        "tr": "Bol su içmelisin.",
+        "words": [
+          [
+            "You",
+            "Sen"
+          ],
+          [
+            "must",
+            "-melisin"
+          ],
+          [
+            "drink",
+            "içmek"
+          ],
+          [
+            "a lot of",
+            "bol"
+          ],
+          [
+            "water",
+            "su"
+          ]
+        ]
       },
       {
         "en": "You should stay at home for two days.",
-        "tr": "İki gün evde kalmalısın."
+        "tr": "İki gün evde kalmalısın.",
+        "words": [
+          [
+            "You",
+            "Sen"
+          ],
+          [
+            "should",
+            "-malısın"
+          ],
+          [
+            "stay",
+            "kalmak"
+          ],
+          [
+            "at home",
+            "evde"
+          ],
+          [
+            "for two days",
+            "iki gün"
+          ]
+        ]
       },
       {
         "en": "You should not go out when the weather is cold.",
-        "tr": "Hava soğukken dışarı çıkmamalısın."
+        "tr": "Hava soğukken dışarı çıkmamalısın.",
+        "words": [
+          [
+            "You",
+            "Sen"
+          ],
+          [
+            "should not",
+            "-mamalısın"
+          ],
+          [
+            "go out",
+            "dışarı çıkmak"
+          ],
+          [
+            "when",
+            "-ken"
+          ],
+          [
+            "the weather",
+            "hava"
+          ],
+          [
+            "is",
+            "-dır"
+          ],
+          [
+            "cold",
+            "soğuk"
+          ]
+        ]
       },
       {
         "en": "Ahmet bought the medicine and went home.",
-        "tr": "Ahmet ilacı aldı ve eve gitti."
+        "tr": "Ahmet ilacı aldı ve eve gitti.",
+        "words": [
+          [
+            "Ahmet",
+            "Ahmet"
+          ],
+          [
+            "bought",
+            "aldı"
+          ],
+          [
+            "the medicine",
+            "ilacı"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "went",
+            "gitti"
+          ],
+          [
+            "home",
+            "eve"
+          ]
+        ]
       },
       {
         "en": "He felt much better after two days.",
-        "tr": "İki gün sonra kendini çok daha iyi hissetti."
+        "tr": "İki gün sonra kendini çok daha iyi hissetti.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "felt",
+            "hissetti"
+          ],
+          [
+            "much better",
+            "çok daha iyi"
+          ],
+          [
+            "after two days",
+            "iki gün sonra"
+          ]
+        ]
       }
     ]
   },
@@ -384,55 +2124,477 @@
     "lines": [
       {
         "en": "Ayse has lived in London for six days and everything still feels new.",
-        "tr": "Ayşe altı gündür Londra'da yaşıyor ve her şey hâlâ yeni geliyor."
+        "tr": "Ayşe altı gündür Londra'da yaşıyor ve her şey hâlâ yeni geliyor.",
+        "words": [
+          [
+            "Ayse",
+            "Ayşe"
+          ],
+          [
+            "has lived",
+            "yaşıyor"
+          ],
+          [
+            "in London",
+            "Londra'da"
+          ],
+          [
+            "for six days",
+            "altı gündür"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "everything",
+            "her şey"
+          ],
+          [
+            "still",
+            "hâlâ"
+          ],
+          [
+            "feels",
+            "geliyor"
+          ],
+          [
+            "new",
+            "yeni"
+          ]
+        ]
       },
       {
         "en": "She has already learned the way from her flat to the university.",
-        "tr": "Dairesinden üniversiteye giden yolu çoktan öğrendi."
+        "tr": "Dairesinden üniversiteye giden yolu çoktan öğrendi.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "has already learned",
+            "çoktan öğrendi"
+          ],
+          [
+            "the way",
+            "yolu"
+          ],
+          [
+            "from her flat",
+            "dairesinden"
+          ],
+          [
+            "to the university",
+            "üniversiteye"
+          ]
+        ]
       },
       {
         "en": "She has never seen so much rain in a single week.",
-        "tr": "Tek bir haftada bu kadar çok yağmuru hiç görmemişti."
+        "tr": "Tek bir haftada bu kadar çok yağmuru hiç görmemişti.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "has never seen",
+            "hiç görmedi"
+          ],
+          [
+            "so much",
+            "bu kadar çok"
+          ],
+          [
+            "rain",
+            "yağmur"
+          ],
+          [
+            "in a single week",
+            "tek bir haftada"
+          ]
+        ]
       },
       {
         "en": "On the first day she got lost and asked a bus driver for help.",
-        "tr": "İlk gün kayboldu ve bir otobüs şoföründen yardım istedi."
+        "tr": "İlk gün kayboldu ve bir otobüs şoföründen yardım istedi.",
+        "words": [
+          [
+            "On the first day",
+            "İlk gün"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "got lost",
+            "kayboldu"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "asked",
+            "istedi"
+          ],
+          [
+            "a bus driver",
+            "bir otobüs şoföründen"
+          ],
+          [
+            "for help",
+            "yardım"
+          ]
+        ]
       },
       {
         "en": "The driver was very kind and showed her the right stop on the map.",
-        "tr": "Şoför çok kibardı ve haritada doğru durağı ona gösterdi."
+        "tr": "Şoför çok kibardı ve haritada doğru durağı ona gösterdi.",
+        "words": [
+          [
+            "The driver",
+            "Şoför"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "very",
+            "çok"
+          ],
+          [
+            "kind",
+            "kibar"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "showed",
+            "gösterdi"
+          ],
+          [
+            "her",
+            "ona"
+          ],
+          [
+            "the right stop",
+            "doğru durağı"
+          ],
+          [
+            "on the map",
+            "haritada"
+          ]
+        ]
       },
       {
         "en": "She has made two friends at the university, one from Spain and one from Japan.",
-        "tr": "Üniversitede iki arkadaş edindi: biri İspanya'dan, biri Japonya'dan."
+        "tr": "Üniversitede iki arkadaş edindi: biri İspanya'dan, biri Japonya'dan.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "has made",
+            "edindi"
+          ],
+          [
+            "two friends",
+            "iki arkadaş"
+          ],
+          [
+            "at the university",
+            "üniversitede"
+          ],
+          [
+            "one",
+            "biri"
+          ],
+          [
+            "from Spain",
+            "İspanya'dan"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "one",
+            "biri"
+          ],
+          [
+            "from Japan",
+            "Japonya'dan"
+          ]
+        ]
       },
       {
         "en": "They have invited her to a small party on Saturday evening.",
-        "tr": "Onu cumartesi akşamı küçük bir partiye davet ettiler."
+        "tr": "Onu cumartesi akşamı küçük bir partiye davet ettiler.",
+        "words": [
+          [
+            "They",
+            "Onlar"
+          ],
+          [
+            "have invited",
+            "davet etti"
+          ],
+          [
+            "her",
+            "onu"
+          ],
+          [
+            "to a small party",
+            "küçük bir partiye"
+          ],
+          [
+            "on Saturday evening",
+            "cumartesi akşamı"
+          ]
+        ]
       },
       {
         "en": "Ayse misses her mother's food, but she has learned to cook rice and soup.",
-        "tr": "Ayşe annesinin yemeklerini özlüyor ama pilav ve çorba pişirmeyi öğrendi."
+        "tr": "Ayşe annesinin yemeklerini özlüyor ama pilav ve çorba pişirmeyi öğrendi.",
+        "words": [
+          [
+            "Ayse",
+            "Ayşe"
+          ],
+          [
+            "misses",
+            "özlüyor"
+          ],
+          [
+            "her mother's food",
+            "annesinin yemeklerini"
+          ],
+          [
+            "but",
+            "ama"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "has learned",
+            "öğrendi"
+          ],
+          [
+            "to",
+            "(mastar)"
+          ],
+          [
+            "cook",
+            "pişirmeyi"
+          ],
+          [
+            "rice",
+            "pilav"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "soup",
+            "çorba"
+          ]
+        ]
       },
       {
         "en": "She has not spoken Turkish for a week and her English is getting better.",
-        "tr": "Bir haftadır Türkçe konuşmadı ve İngilizcesi daha iyi oluyor."
+        "tr": "Bir haftadır Türkçe konuşmadı ve İngilizcesi daha iyi oluyor.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "has not spoken",
+            "konuşmadı"
+          ],
+          [
+            "Turkish",
+            "Türkçe"
+          ],
+          [
+            "for a week",
+            "bir haftadır"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "her English",
+            "İngilizcesi"
+          ],
+          [
+            "is getting",
+            "oluyor"
+          ],
+          [
+            "better",
+            "daha iyi"
+          ]
+        ]
       },
       {
         "en": "Her landlady has told her that the winter here is long and grey.",
-        "tr": "Ev sahibi ona buradaki kışın uzun ve gri olduğunu söyledi."
+        "tr": "Ev sahibi ona buradaki kışın uzun ve gri olduğunu söyledi.",
+        "words": [
+          [
+            "Her landlady",
+            "Ev sahibi"
+          ],
+          [
+            "has told",
+            "söyledi"
+          ],
+          [
+            "her",
+            "ona"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "the winter",
+            "kışın"
+          ],
+          [
+            "here",
+            "burada"
+          ],
+          [
+            "is",
+            "olduğunu"
+          ],
+          [
+            "long",
+            "uzun"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "grey",
+            "gri"
+          ]
+        ]
       },
       {
         "en": "Ayse has bought a warm coat and a big umbrella from a small shop.",
-        "tr": "Ayşe küçük bir dükkândan sıcak bir palto ve büyük bir şemsiye aldı."
+        "tr": "Ayşe küçük bir dükkândan sıcak bir palto ve büyük bir şemsiye aldı.",
+        "words": [
+          [
+            "Ayse",
+            "Ayşe"
+          ],
+          [
+            "has bought",
+            "aldı"
+          ],
+          [
+            "a warm coat",
+            "sıcak bir palto"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "a big umbrella",
+            "büyük bir şemsiye"
+          ],
+          [
+            "from a small shop",
+            "küçük bir dükkândan"
+          ]
+        ]
       },
       {
         "en": "She calls her family every night and tells them about her new life.",
-        "tr": "Her gece ailesini arar ve onlara yeni hayatını anlatır."
+        "tr": "Her gece ailesini arar ve onlara yeni hayatını anlatır.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "calls",
+            "arar"
+          ],
+          [
+            "her family",
+            "ailesini"
+          ],
+          [
+            "every night",
+            "her gece"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "tells",
+            "anlatır"
+          ],
+          [
+            "them",
+            "onlara"
+          ],
+          [
+            "about her new life",
+            "yeni hayatını"
+          ]
+        ]
       },
       {
         "en": "It has been a difficult week, but Ayse has not cried once.",
-        "tr": "Zor bir hafta oldu ama Ayşe bir kez bile ağlamadı."
+        "tr": "Zor bir hafta oldu ama Ayşe bir kez bile ağlamadı.",
+        "words": [
+          [
+            "It",
+            "(özne)"
+          ],
+          [
+            "has been",
+            "oldu"
+          ],
+          [
+            "a difficult week",
+            "zor bir hafta"
+          ],
+          [
+            "but",
+            "ama"
+          ],
+          [
+            "Ayse",
+            "Ayşe"
+          ],
+          [
+            "has not cried",
+            "ağlamadı"
+          ],
+          [
+            "once",
+            "bir kez bile"
+          ]
+        ]
       }
     ]
   },
@@ -445,55 +2607,509 @@
     "lines": [
       {
         "en": "Last Friday Can told Berk that he would come to the cinema at seven.",
-        "tr": "Geçen cuma Can, Berk'e sinemaya yedide geleceğini söyledi."
+        "tr": "Geçen cuma Can, Berk'e sinemaya yedide geleceğini söyledi.",
+        "words": [
+          [
+            "Last Friday",
+            "Geçen cuma"
+          ],
+          [
+            "Can",
+            "Can"
+          ],
+          [
+            "told",
+            "söyledi"
+          ],
+          [
+            "Berk",
+            "Berk'e"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "he",
+            "onun"
+          ],
+          [
+            "would come",
+            "geleceğini"
+          ],
+          [
+            "to the cinema",
+            "sinemaya"
+          ],
+          [
+            "at seven",
+            "yedide"
+          ]
+        ]
       },
       {
         "en": "Berk bought two tickets and waited in front of the door.",
-        "tr": "Berk iki bilet aldı ve kapının önünde bekledi."
+        "tr": "Berk iki bilet aldı ve kapının önünde bekledi.",
+        "words": [
+          [
+            "Berk",
+            "Berk"
+          ],
+          [
+            "bought",
+            "aldı"
+          ],
+          [
+            "two tickets",
+            "iki bilet"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "waited",
+            "bekledi"
+          ],
+          [
+            "in front of the door",
+            "kapının önünde"
+          ]
+        ]
       },
       {
         "en": "Can did not arrive, and his phone was closed all evening.",
-        "tr": "Can gelmedi ve telefonu bütün akşam kapalıydı."
+        "tr": "Can gelmedi ve telefonu bütün akşam kapalıydı.",
+        "words": [
+          [
+            "Can",
+            "Can"
+          ],
+          [
+            "did not",
+            "(olumsuz)"
+          ],
+          [
+            "arrive",
+            "gelmek"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "his phone",
+            "telefonu"
+          ],
+          [
+            "was",
+            "-dı"
+          ],
+          [
+            "closed",
+            "kapalı"
+          ],
+          [
+            "all evening",
+            "bütün akşam"
+          ]
+        ]
       },
       {
         "en": "Berk watched the film alone and thought that his friend did not care.",
-        "tr": "Berk filmi yalnız izledi ve arkadaşının umursamadığını düşündü."
+        "tr": "Berk filmi yalnız izledi ve arkadaşının umursamadığını düşündü.",
+        "words": [
+          [
+            "Berk",
+            "Berk"
+          ],
+          [
+            "watched",
+            "izledi"
+          ],
+          [
+            "the film",
+            "filmi"
+          ],
+          [
+            "alone",
+            "yalnız"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "thought",
+            "düşündü"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "his friend",
+            "arkadaşının"
+          ],
+          [
+            "did not care",
+            "umursamadığını"
+          ]
+        ]
       },
       {
         "en": "On Saturday he did not answer Can's messages because he was angry.",
-        "tr": "Cumartesi günü Can'ın mesajlarına cevap vermedi çünkü kızgındı."
+        "tr": "Cumartesi günü Can'ın mesajlarına cevap vermedi çünkü kızgındı.",
+        "words": [
+          [
+            "On Saturday",
+            "Cumartesi günü"
+          ],
+          [
+            "he",
+            "o"
+          ],
+          [
+            "did not",
+            "(olumsuz)"
+          ],
+          [
+            "answer",
+            "cevap vermek"
+          ],
+          [
+            "Can's messages",
+            "Can'ın mesajlarına"
+          ],
+          [
+            "because",
+            "çünkü"
+          ],
+          [
+            "he",
+            "o"
+          ],
+          [
+            "was",
+            "-dı"
+          ],
+          [
+            "angry",
+            "kızgın"
+          ]
+        ]
       },
       {
         "en": "On Monday they met at school and Can said that his father had been ill.",
-        "tr": "Pazartesi günü okulda karşılaştılar ve Can babasının hasta olduğunu söyledi."
+        "tr": "Pazartesi günü okulda karşılaştılar ve Can babasının hasta olduğunu söyledi.",
+        "words": [
+          [
+            "On Monday",
+            "Pazartesi günü"
+          ],
+          [
+            "they",
+            "onlar"
+          ],
+          [
+            "met",
+            "karşılaştı"
+          ],
+          [
+            "at school",
+            "okulda"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "Can",
+            "Can"
+          ],
+          [
+            "said",
+            "söyledi"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "his father",
+            "babasının"
+          ],
+          [
+            "had been",
+            "olduğunu"
+          ],
+          [
+            "ill",
+            "hasta"
+          ]
+        ]
       },
       {
         "en": "He told Berk that they had gone to the hospital at six o'clock.",
-        "tr": "Berk'e saat altıda hastaneye gittiklerini söyledi."
+        "tr": "Berk'e saat altıda hastaneye gittiklerini söyledi.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "told",
+            "söyledi"
+          ],
+          [
+            "Berk",
+            "Berk'e"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "they",
+            "onların"
+          ],
+          [
+            "had gone",
+            "gittiklerini"
+          ],
+          [
+            "to the hospital",
+            "hastaneye"
+          ],
+          [
+            "at six o'clock",
+            "saat altıda"
+          ]
+        ]
       },
       {
         "en": "His phone battery had died in the taxi and he could not call anybody.",
-        "tr": "Telefonunun şarjı takside bitmişti ve kimseyi arayamadı."
+        "tr": "Telefonunun şarjı takside bitmişti ve kimseyi arayamadı.",
+        "words": [
+          [
+            "His phone battery",
+            "Telefonunun şarjı"
+          ],
+          [
+            "had died",
+            "bitmişti"
+          ],
+          [
+            "in the taxi",
+            "takside"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "he",
+            "o"
+          ],
+          [
+            "could not",
+            "-emedi"
+          ],
+          [
+            "call",
+            "aramak"
+          ],
+          [
+            "anybody",
+            "kimseyi"
+          ]
+        ]
       },
       {
         "en": "Berk felt bad because he had judged his friend too quickly.",
-        "tr": "Berk kötü hissetti çünkü arkadaşını çok çabuk yargılamıştı."
+        "tr": "Berk kötü hissetti çünkü arkadaşını çok çabuk yargılamıştı.",
+        "words": [
+          [
+            "Berk",
+            "Berk"
+          ],
+          [
+            "felt",
+            "hissetti"
+          ],
+          [
+            "bad",
+            "kötü"
+          ],
+          [
+            "because",
+            "çünkü"
+          ],
+          [
+            "he",
+            "o"
+          ],
+          [
+            "had judged",
+            "yargılamıştı"
+          ],
+          [
+            "his friend",
+            "arkadaşını"
+          ],
+          [
+            "too quickly",
+            "çok çabuk"
+          ]
+        ]
       },
       {
         "en": "He said that he was sorry and asked about Can's father.",
-        "tr": "Üzgün olduğunu söyledi ve Can'ın babasını sordu."
+        "tr": "Üzgün olduğunu söyledi ve Can'ın babasını sordu.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "said",
+            "söyledi"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "he",
+            "onun"
+          ],
+          [
+            "was sorry",
+            "üzgün olduğunu"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "asked",
+            "sordu"
+          ],
+          [
+            "about Can's father",
+            "Can'ın babasını"
+          ]
+        ]
       },
       {
         "en": "Can smiled and said that his father was at home again.",
-        "tr": "Can gülümsedi ve babasının yine evde olduğunu söyledi."
+        "tr": "Can gülümsedi ve babasının yine evde olduğunu söyledi.",
+        "words": [
+          [
+            "Can",
+            "Can"
+          ],
+          [
+            "smiled",
+            "gülümsedi"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "said",
+            "söyledi"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "his father",
+            "babasının"
+          ],
+          [
+            "was",
+            "olduğunu"
+          ],
+          [
+            "at home",
+            "evde"
+          ],
+          [
+            "again",
+            "yine"
+          ]
+        ]
       },
       {
         "en": "The two friends learned that a closed phone can break a friendship.",
-        "tr": "İki arkadaş, kapalı bir telefonun bir dostluğu bitirebileceğini öğrendi."
+        "tr": "İki arkadaş, kapalı bir telefonun bir dostluğu bitirebileceğini öğrendi.",
+        "words": [
+          [
+            "The two friends",
+            "İki arkadaş"
+          ],
+          [
+            "learned",
+            "öğrendi"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "a closed phone",
+            "kapalı bir telefonun"
+          ],
+          [
+            "can break",
+            "bitirebileceğini"
+          ],
+          [
+            "a friendship",
+            "bir dostluğu"
+          ]
+        ]
       },
       {
         "en": "Now they always ask first and never jump to conclusions.",
-        "tr": "Artık her zaman önce sorarlar ve asla hemen sonuca varmazlar."
+        "tr": "Artık her zaman önce sorarlar ve asla hemen sonuca varmazlar.",
+        "words": [
+          [
+            "Now",
+            "Artık"
+          ],
+          [
+            "they",
+            "onlar"
+          ],
+          [
+            "always",
+            "her zaman"
+          ],
+          [
+            "ask",
+            "sorar"
+          ],
+          [
+            "first",
+            "önce"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "never",
+            "asla"
+          ],
+          [
+            "jump to conclusions",
+            "hemen sonuca varmaz"
+          ]
+        ]
       }
     ]
   },
@@ -506,55 +3122,469 @@
     "lines": [
       {
         "en": "Zeynep will open a small coffee shop near the university next year.",
-        "tr": "Zeynep gelecek yıl üniversitenin yanında küçük bir kahve dükkânı açacak."
+        "tr": "Zeynep gelecek yıl üniversitenin yanında küçük bir kahve dükkânı açacak.",
+        "words": [
+          [
+            "Zeynep",
+            "Zeynep"
+          ],
+          [
+            "will open",
+            "açacak"
+          ],
+          [
+            "a small coffee shop",
+            "küçük bir kahve dükkânı"
+          ],
+          [
+            "near the university",
+            "üniversitenin yanında"
+          ],
+          [
+            "next year",
+            "gelecek yıl"
+          ]
+        ]
       },
       {
         "en": "She has saved money for three years and she is going to rent a place.",
-        "tr": "Üç yıldır para biriktiriyor ve bir yer kiralayacak."
+        "tr": "Üç yıldır para biriktiriyor ve bir yer kiralayacak.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "has saved",
+            "biriktirdi"
+          ],
+          [
+            "money",
+            "para"
+          ],
+          [
+            "for three years",
+            "üç yıldır"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "is going to",
+            "-ecek"
+          ],
+          [
+            "rent",
+            "kiralamak"
+          ],
+          [
+            "a place",
+            "bir yer"
+          ]
+        ]
       },
       {
         "en": "Tomorrow morning she is going to meet the owner of an empty shop.",
-        "tr": "Yarın sabah boş bir dükkânın sahibiyle buluşacak."
+        "tr": "Yarın sabah boş bir dükkânın sahibiyle buluşacak.",
+        "words": [
+          [
+            "Tomorrow morning",
+            "Yarın sabah"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "is going to",
+            "-ecek"
+          ],
+          [
+            "meet",
+            "buluşmak"
+          ],
+          [
+            "the owner",
+            "sahibiyle"
+          ],
+          [
+            "of an empty shop",
+            "boş bir dükkânın"
+          ]
+        ]
       },
       {
         "en": "If the rent is not too high, she will sign the contract immediately.",
-        "tr": "Kira çok yüksek değilse sözleşmeyi hemen imzalayacak."
+        "tr": "Kira çok yüksek değilse sözleşmeyi hemen imzalayacak.",
+        "words": [
+          [
+            "If",
+            "Eğer"
+          ],
+          [
+            "the rent",
+            "kira"
+          ],
+          [
+            "is not",
+            "değilse"
+          ],
+          [
+            "too high",
+            "çok yüksek"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "will sign",
+            "imzalayacak"
+          ],
+          [
+            "the contract",
+            "sözleşmeyi"
+          ],
+          [
+            "immediately",
+            "hemen"
+          ]
+        ]
       },
       {
         "en": "If she signs it tomorrow, the shop will be ready in two months.",
-        "tr": "Yarın imzalarsa dükkân iki ay içinde hazır olacak."
+        "tr": "Yarın imzalarsa dükkân iki ay içinde hazır olacak.",
+        "words": [
+          [
+            "If",
+            "Eğer"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "signs",
+            "imzalarsa"
+          ],
+          [
+            "it",
+            "onu"
+          ],
+          [
+            "tomorrow",
+            "yarın"
+          ],
+          [
+            "the shop",
+            "dükkân"
+          ],
+          [
+            "will be",
+            "olacak"
+          ],
+          [
+            "ready",
+            "hazır"
+          ],
+          [
+            "in two months",
+            "iki ay içinde"
+          ]
+        ]
       },
       {
         "en": "Her brother is going to paint the walls and build the wooden shelves.",
-        "tr": "Kardeşi duvarları boyayacak ve ahşap rafları yapacak."
+        "tr": "Kardeşi duvarları boyayacak ve ahşap rafları yapacak.",
+        "words": [
+          [
+            "Her brother",
+            "Kardeşi"
+          ],
+          [
+            "is going to",
+            "-ecek"
+          ],
+          [
+            "paint",
+            "boyamak"
+          ],
+          [
+            "the walls",
+            "duvarları"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "build",
+            "yapmak"
+          ],
+          [
+            "the wooden shelves",
+            "ahşap rafları"
+          ]
+        ]
       },
       {
         "en": "She will buy a coffee machine from Italy if she finds a good price.",
-        "tr": "İyi bir fiyat bulursa İtalya'dan bir kahve makinesi alacak."
+        "tr": "İyi bir fiyat bulursa İtalya'dan bir kahve makinesi alacak.",
+        "words": [
+          [
+            "She",
+            "O"
+          ],
+          [
+            "will buy",
+            "alacak"
+          ],
+          [
+            "a coffee machine",
+            "bir kahve makinesi"
+          ],
+          [
+            "from Italy",
+            "İtalya'dan"
+          ],
+          [
+            "if",
+            "eğer"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "finds",
+            "bulursa"
+          ],
+          [
+            "a good price",
+            "iyi bir fiyat"
+          ]
+        ]
       },
       {
         "en": "The menu will be short: three kinds of coffee, tea and homemade cake.",
-        "tr": "Menü kısa olacak: üç çeşit kahve, çay ve ev yapımı kek."
+        "tr": "Menü kısa olacak: üç çeşit kahve, çay ve ev yapımı kek.",
+        "words": [
+          [
+            "The menu",
+            "Menü"
+          ],
+          [
+            "will be",
+            "olacak"
+          ],
+          [
+            "short",
+            "kısa"
+          ],
+          [
+            "three kinds of",
+            "üç çeşit"
+          ],
+          [
+            "coffee",
+            "kahve"
+          ],
+          [
+            "tea",
+            "çay"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "homemade cake",
+            "ev yapımı kek"
+          ]
+        ]
       },
       {
         "en": "Students will study there in the afternoon if the music is quiet.",
-        "tr": "Müzik sessiz olursa öğrenciler öğleden sonraları orada ders çalışacak."
+        "tr": "Müzik sessiz olursa öğrenciler öğleden sonraları orada ders çalışacak.",
+        "words": [
+          [
+            "Students",
+            "Öğrenciler"
+          ],
+          [
+            "will study",
+            "ders çalışacak"
+          ],
+          [
+            "there",
+            "orada"
+          ],
+          [
+            "in the afternoon",
+            "öğleden sonraları"
+          ],
+          [
+            "if",
+            "eğer"
+          ],
+          [
+            "the music",
+            "müzik"
+          ],
+          [
+            "is",
+            "-sa"
+          ],
+          [
+            "quiet",
+            "sessiz"
+          ]
+        ]
       },
       {
         "en": "Zeynep is not going to work alone because her best friend will help her.",
-        "tr": "Zeynep yalnız çalışmayacak çünkü en yakın arkadaşı ona yardım edecek."
+        "tr": "Zeynep yalnız çalışmayacak çünkü en yakın arkadaşı ona yardım edecek.",
+        "words": [
+          [
+            "Zeynep",
+            "Zeynep"
+          ],
+          [
+            "is not going to",
+            "-meyecek"
+          ],
+          [
+            "work",
+            "çalışmak"
+          ],
+          [
+            "alone",
+            "yalnız"
+          ],
+          [
+            "because",
+            "çünkü"
+          ],
+          [
+            "her best friend",
+            "en yakın arkadaşı"
+          ],
+          [
+            "will help",
+            "yardım edecek"
+          ],
+          [
+            "her",
+            "ona"
+          ]
+        ]
       },
       {
         "en": "They will open the door at seven in the morning every day.",
-        "tr": "Her gün sabah yedide kapıyı açacaklar."
+        "tr": "Her gün sabah yedide kapıyı açacaklar.",
+        "words": [
+          [
+            "They",
+            "Onlar"
+          ],
+          [
+            "will open",
+            "açacak"
+          ],
+          [
+            "the door",
+            "kapıyı"
+          ],
+          [
+            "at seven",
+            "yedide"
+          ],
+          [
+            "in the morning",
+            "sabah"
+          ],
+          [
+            "every day",
+            "her gün"
+          ]
+        ]
       },
       {
         "en": "If the first month is difficult, she will not give up easily.",
-        "tr": "İlk ay zor olursa kolayca pes etmeyecek."
+        "tr": "İlk ay zor olursa kolayca pes etmeyecek.",
+        "words": [
+          [
+            "If",
+            "Eğer"
+          ],
+          [
+            "the first month",
+            "ilk ay"
+          ],
+          [
+            "is",
+            "-sa"
+          ],
+          [
+            "difficult",
+            "zor"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "will not",
+            "-meyecek"
+          ],
+          [
+            "give up",
+            "pes etmek"
+          ],
+          [
+            "easily",
+            "kolayca"
+          ]
+        ]
       },
       {
         "en": "In five years she hopes that there will be three Zeynep coffee shops.",
-        "tr": "Beş yıl içinde üç Zeynep kahve dükkânı olacağını umuyor."
+        "tr": "Beş yıl içinde üç Zeynep kahve dükkânı olacağını umuyor.",
+        "words": [
+          [
+            "In five years",
+            "Beş yıl içinde"
+          ],
+          [
+            "she",
+            "o"
+          ],
+          [
+            "hopes",
+            "umuyor"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "there will be",
+            "olacağını"
+          ],
+          [
+            "three",
+            "üç"
+          ],
+          [
+            "Zeynep coffee shops",
+            "Zeynep kahve dükkânı"
+          ]
+        ]
       }
     ]
   },
@@ -567,59 +3597,471 @@
     "lines": [
       {
         "en": "Last week Mr Yilmaz found a white envelope in his letterbox.",
-        "tr": "Geçen hafta Yılmaz Bey posta kutusunda beyaz bir zarf buldu."
+        "tr": "Geçen hafta Yılmaz Bey posta kutusunda beyaz bir zarf buldu.",
+        "words": [
+          [
+            "Last week",
+            "Geçen hafta"
+          ],
+          [
+            "Mr Yilmaz",
+            "Yılmaz Bey"
+          ],
+          [
+            "found",
+            "buldu"
+          ],
+          [
+            "a white envelope",
+            "beyaz bir zarf"
+          ],
+          [
+            "in his letterbox",
+            "posta kutusunda"
+          ]
+        ]
       },
       {
         "en": "He was a teacher for forty years and he has been retired since June.",
-        "tr": "Kırk yıl boyunca öğretmendi ve haziran ayından beri emekli."
+        "tr": "Kırk yıl boyunca öğretmendi ve haziran ayından beri emekli.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "a teacher",
+            "öğretmen"
+          ],
+          [
+            "for forty years",
+            "kırk yıl boyunca"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "he",
+            "o"
+          ],
+          [
+            "has been retired",
+            "emekli"
+          ],
+          [
+            "since June",
+            "haziran ayından beri"
+          ]
+        ]
       },
       {
         "en": "The name on the envelope was old and he did not remember it.",
-        "tr": "Zarftaki isim eskiydi ve onu hatırlamadı."
+        "tr": "Zarftaki isim eskiydi ve onu hatırlamadı.",
+        "words": [
+          [
+            "The name",
+            "İsim"
+          ],
+          [
+            "on the envelope",
+            "zarftaki"
+          ],
+          [
+            "was",
+            "-di"
+          ],
+          [
+            "old",
+            "eski"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "he",
+            "o"
+          ],
+          [
+            "did not",
+            "(olumsuz)"
+          ],
+          [
+            "remember",
+            "hatırlamak"
+          ],
+          [
+            "it",
+            "onu"
+          ]
+        ]
       },
       {
         "en": "He opened the letter slowly and sat down in his old chair.",
-        "tr": "Mektubu yavaşça açtı ve eski koltuğuna oturdu."
+        "tr": "Mektubu yavaşça açtı ve eski koltuğuna oturdu.",
+        "words": [
+          [
+            "He",
+            "O"
+          ],
+          [
+            "opened",
+            "açtı"
+          ],
+          [
+            "the letter",
+            "mektubu"
+          ],
+          [
+            "slowly",
+            "yavaşça"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "sat down",
+            "oturdu"
+          ],
+          [
+            "in his old chair",
+            "eski koltuğuna"
+          ]
+        ]
       },
       {
         "en": "Dear teacher, you probably do not remember me after thirty years.",
-        "tr": "Sevgili öğretmenim, otuz yıl sonra muhtemelen beni hatırlamıyorsunuz."
+        "tr": "Sevgili öğretmenim, otuz yıl sonra muhtemelen beni hatırlamıyorsunuz.",
+        "words": [
+          [
+            "Dear teacher",
+            "Sevgili öğretmenim"
+          ],
+          [
+            "you",
+            "siz"
+          ],
+          [
+            "probably",
+            "muhtemelen"
+          ],
+          [
+            "do not",
+            "(olumsuz)"
+          ],
+          [
+            "remember",
+            "hatırlamak"
+          ],
+          [
+            "me",
+            "beni"
+          ],
+          [
+            "after thirty years",
+            "otuz yıl sonra"
+          ]
+        ]
       },
       {
         "en": "I was the quiet boy who always sat next to the window.",
-        "tr": "Hep pencerenin yanında oturan sessiz çocuktum."
+        "tr": "Hep pencerenin yanında oturan sessiz çocuktum.",
+        "words": [
+          [
+            "I",
+            "Ben"
+          ],
+          [
+            "was",
+            "-dum"
+          ],
+          [
+            "the quiet boy",
+            "sessiz çocuk"
+          ],
+          [
+            "who",
+            "(ki o)"
+          ],
+          [
+            "always",
+            "hep"
+          ],
+          [
+            "sat",
+            "otururdu"
+          ],
+          [
+            "next to the window",
+            "pencerenin yanında"
+          ]
+        ]
       },
       {
         "en": "One day you told me that I could write very well.",
-        "tr": "Bir gün bana çok iyi yazabildiğimi söylediniz."
+        "tr": "Bir gün bana çok iyi yazabildiğimi söylediniz.",
+        "words": [
+          [
+            "One day",
+            "Bir gün"
+          ],
+          [
+            "you",
+            "siz"
+          ],
+          [
+            "told",
+            "söylediniz"
+          ],
+          [
+            "me",
+            "bana"
+          ],
+          [
+            "that",
+            "(ki)"
+          ],
+          [
+            "I",
+            "benim"
+          ],
+          [
+            "could write",
+            "yazabildiğimi"
+          ],
+          [
+            "very well",
+            "çok iyi"
+          ]
+        ]
       },
       {
         "en": "Nobody had said such a thing to me before that afternoon.",
-        "tr": "O öğleden önce bana kimse böyle bir şey söylememişti."
+        "tr": "O öğleden önce bana kimse böyle bir şey söylememişti.",
+        "words": [
+          [
+            "Nobody",
+            "Hiç kimse"
+          ],
+          [
+            "had said",
+            "söylememişti"
+          ],
+          [
+            "such a thing",
+            "böyle bir şey"
+          ],
+          [
+            "to me",
+            "bana"
+          ],
+          [
+            "before that afternoon",
+            "o öğleden önce"
+          ]
+        ]
       },
       {
         "en": "I have written four books since then and the last one won a prize.",
-        "tr": "O günden beri dört kitap yazdım ve sonuncusu bir ödül kazandı."
+        "tr": "O günden beri dört kitap yazdım ve sonuncusu bir ödül kazandı.",
+        "words": [
+          [
+            "I",
+            "Ben"
+          ],
+          [
+            "have written",
+            "yazdım"
+          ],
+          [
+            "four books",
+            "dört kitap"
+          ],
+          [
+            "since then",
+            "o günden beri"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "the last one",
+            "sonuncusu"
+          ],
+          [
+            "won",
+            "kazandı"
+          ],
+          [
+            "a prize",
+            "bir ödül"
+          ]
+        ]
       },
       {
         "en": "I have never forgotten your voice and your patience in that classroom.",
-        "tr": "O sınıftaki sesinizi ve sabrınızı hiç unutmadım."
+        "tr": "O sınıftaki sesinizi ve sabrınızı hiç unutmadım.",
+        "words": [
+          [
+            "I",
+            "Ben"
+          ],
+          [
+            "have never forgotten",
+            "hiç unutmadım"
+          ],
+          [
+            "your voice",
+            "sesinizi"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "your patience",
+            "sabrınızı"
+          ],
+          [
+            "in that classroom",
+            "o sınıftaki"
+          ]
+        ]
       },
       {
         "en": "Next month I will come to your city for a book meeting.",
-        "tr": "Gelecek ay bir kitap buluşması için şehrinize geleceğim."
+        "tr": "Gelecek ay bir kitap buluşması için şehrinize geleceğim.",
+        "words": [
+          [
+            "Next month",
+            "Gelecek ay"
+          ],
+          [
+            "I",
+            "ben"
+          ],
+          [
+            "will come",
+            "geleceğim"
+          ],
+          [
+            "to your city",
+            "şehrinize"
+          ],
+          [
+            "for a book meeting",
+            "bir kitap buluşması için"
+          ]
+        ]
       },
       {
         "en": "If you have time, I would like to drink a coffee with you.",
-        "tr": "Vaktiniz varsa sizinle bir kahve içmek isterim."
+        "tr": "Vaktiniz varsa sizinle bir kahve içmek isterim.",
+        "words": [
+          [
+            "If",
+            "Eğer"
+          ],
+          [
+            "you",
+            "sizin"
+          ],
+          [
+            "have",
+            "varsa"
+          ],
+          [
+            "time",
+            "vaktiniz"
+          ],
+          [
+            "I would like to",
+            "isterim"
+          ],
+          [
+            "drink",
+            "içmek"
+          ],
+          [
+            "a coffee",
+            "bir kahve"
+          ],
+          [
+            "with you",
+            "sizinle"
+          ]
+        ]
       },
       {
         "en": "Mr Yilmaz read the letter three times and his eyes were wet.",
-        "tr": "Yılmaz Bey mektubu üç kez okudu ve gözleri ıslandı."
+        "tr": "Yılmaz Bey mektubu üç kez okudu ve gözleri ıslandı.",
+        "words": [
+          [
+            "Mr Yilmaz",
+            "Yılmaz Bey"
+          ],
+          [
+            "read",
+            "okudu"
+          ],
+          [
+            "the letter",
+            "mektubu"
+          ],
+          [
+            "three times",
+            "üç kez"
+          ],
+          [
+            "and",
+            "ve"
+          ],
+          [
+            "his eyes",
+            "gözleri"
+          ],
+          [
+            "were",
+            "-di"
+          ],
+          [
+            "wet",
+            "ıslak"
+          ]
+        ]
       },
       {
         "en": "A teacher never knows which word will change a whole life.",
-        "tr": "Bir öğretmen hangi kelimenin koca bir hayatı değiştireceğini asla bilmez."
+        "tr": "Bir öğretmen hangi kelimenin koca bir hayatı değiştireceğini asla bilmez.",
+        "words": [
+          [
+            "A teacher",
+            "Bir öğretmen"
+          ],
+          [
+            "never knows",
+            "asla bilmez"
+          ],
+          [
+            "which word",
+            "hangi kelimenin"
+          ],
+          [
+            "will change",
+            "değiştireceğini"
+          ],
+          [
+            "a whole life",
+            "koca bir hayatı"
+          ]
+        ]
       }
     ]
   }
