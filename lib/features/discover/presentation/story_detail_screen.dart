@@ -87,7 +87,37 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
-          Text('Hikâye', style: AppTypography.displayXs),
+          Row(
+            children: [
+              Expanded(
+                child: Text('Hikâye', style: AppTypography.displayXs),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  setState(() {
+                    if (_revealedTranslations.length == story.lines.length) {
+                      _revealedTranslations.clear();
+                    } else {
+                      _revealedTranslations
+                        ..clear()
+                        ..addAll(List<int>.generate(story.lines.length, (index) => index));
+                    }
+                  });
+                },
+                icon: Icon(
+                  _revealedTranslations.length == story.lines.length
+                      ? Iconsax.eye_slash
+                      : Iconsax.eye,
+                  size: 17,
+                ),
+                label: Text(
+                  _revealedTranslations.length == story.lines.length
+                      ? 'Çevirileri gizle'
+                      : 'Tüm çevirileri göster',
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: AppSpacing.md),
           ...story.lines.map(
             (line) => Padding(
