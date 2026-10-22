@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
-
 /// Subtle elevation tokens. The source design uses shadows sparingly.
 abstract final class AppShadows {
   static const List<BoxShadow> card = [
@@ -27,6 +25,4 @@ abstract final class AppShadows {
       spreadRadius: 0,
     ),
   ];
-
-  static const BorderSide hairline = BorderSide(color: AppColors.hairline);
 }
