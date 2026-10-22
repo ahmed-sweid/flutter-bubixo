@@ -18,20 +18,27 @@ class BubixoShell extends StatefulWidget {
 
 class _BubixoShellState extends State<BubixoShell> {
   int _selectedIndex = 0;
+  int _wordsRefreshKey = 0;
+  int _learnRefreshKey = 0;
 
   void _selectTab(int index) {
-    setState(() => _selectedIndex = index);
+    setState(() {
+      if (index == 1 && _selectedIndex != 1) _wordsRefreshKey++;
+      if (index == 0 && _selectedIndex != 0) _learnRefreshKey++;
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final screens = <Widget>[
       LearnScreen(
+        key: ValueKey('learn-$_learnRefreshKey'),
         onOpenDiscover: () => _selectTab(3),
         onOpenWords: () => _selectTab(1),
         onOpenPractice: () => _selectTab(2),
       ),
-      const WordsScreen(),
+      WordsScreen(key: ValueKey('words-$_wordsRefreshKey')),
       const PracticeScreen(),
       const DiscoverScreen(),
     ];

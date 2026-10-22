@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
@@ -18,6 +21,18 @@ class StoryDetailScreen extends StatefulWidget {
 
 class _StoryDetailScreenState extends State<StoryDetailScreen> {
   final Set<int> _revealedTranslations = <int>{};
+
+  @override
+  void initState() {
+    super.initState();
+    _rememberStory();
+  }
+
+  Future<void> _rememberStory() async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setString('bubixo.last_story_id', widget.story.id);
+    await preferences.setString('bubixo.last_story_title', widget.story.title);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -185,20 +200,50 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
                         runSpacing: AppSpacing.xs,
                         children: line.words
                             .map(
-                              (word) => Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: AppSpacing.sm,
-                                  vertical: AppSpacing.xs,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: AppColors.hairline.withValues(
-                                    alpha: 0.25,
+                              (word) => InkWell(
+                                borderRadius: BorderRadius.circular(6),
+                                onTap: () async {
+                                  final preferences = await SharedPreferences.getInstance();
+                                  final saved = preferences.getStringList('bubixo.saved_words') ?? <String>[];
+                                  if (!saved.contains(word.english)) {
+                                    saved.add(word.english);
+                                    await preferences.setStringList('bubixo.saved_words', saved);
+                                  }
+                                  final rawEntries = preferences.getString('bubixo.custom_words');
+                                  final entries = rawEntries == null
+                                      ? <Map<String, dynamic>>[]
+                                      : (jsonDecode(rawEntries) as List<dynamic>)
+                                          .cast<Map<String, dynamic>>();
+                                  final exists = entries.any((entry) => entry['english'] == word.english);
+                                  if (!exists) {
+                                    entries.add({
+                                      'english': word.english,
+                                      'turkish': word.turkish,
+                                      'kind': 'Hikâyeden',
+                                    });
+                                    await preferences.setString('bubixo.custom_words', jsonEncode(entries));
+                                  }
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context)
+                                      ..hideCurrentSnackBar()
+                                      ..showSnackBar(
+                                        SnackBar(content: Text('${word.english} kaydedilen kelimelere eklendi')),
+                                      );
+                                  }
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppSpacing.sm,
+                                    vertical: AppSpacing.xs,
                                   ),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: Text(
-                                  '${word.english} · ${word.turkish}',
-                                  style: AppTypography.eyebrowSmall,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.hairline.withValues(alpha: 0.25),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Text(
+                                    '${word.english} · ${word.turkish}',
+                                    style: AppTypography.eyebrowSmall,
+                                  ),
                                 ),
                               ),
                             )
