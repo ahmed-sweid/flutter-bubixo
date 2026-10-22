@@ -23,6 +23,18 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
   final Set<int> _revealedTranslations = <int>{};
 
   @override
+  void initState() {
+    super.initState();
+    _rememberStory();
+  }
+
+  Future<void> _rememberStory() async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setString('bubixo.last_story_id', widget.story.id);
+    await preferences.setString('bubixo.last_story_title', widget.story.title);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final story = widget.story;
     return Scaffold(
