@@ -46,14 +46,13 @@ void main() {
     await tester.tap(find.text('Cevabı kontrol et'));
     await tester.pump();
 
-    expect(find.textContaining('Doğru!'), findsOneWidget);
-    expect(find.text('Sonraki derse geç'), findsOneWidget);
-
     await tester.scrollUntilVisible(
       find.text('Sonraki derse geç'),
       200,
       scrollable: find.byType(Scrollable).last,
     );
+    expect(find.textContaining('Doğru!'), findsOneWidget);
+    expect(find.text('Sonraki derse geç'), findsOneWidget);
     await tester.tap(find.text('Sonraki derse geç'));
     await pumpRouteTransition(tester);
 
