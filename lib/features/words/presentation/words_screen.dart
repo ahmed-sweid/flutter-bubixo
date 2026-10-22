@@ -11,7 +11,9 @@ import '../../../core/theme/tokens/app_typography.dart';
 /// Vocabulary UI uses examples from the original Bubixo data2.js source.
 /// Saved and review lists are stored locally on the device.
 class WordsScreen extends StatefulWidget {
-  const WordsScreen({super.key});
+  const WordsScreen({super.key, this.refreshToken = 0});
+
+  final int refreshToken;
 
   @override
   State<WordsScreen> createState() => _WordsScreenState();
@@ -28,6 +30,14 @@ class _WordsScreenState extends State<WordsScreen> {
   void initState() {
     super.initState();
     _loadWordState();
+  }
+
+  @override
+  void didUpdateWidget(covariant WordsScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.refreshToken != widget.refreshToken) {
+      _loadWordState();
+    }
   }
 
   Future<void> _loadWordState() async {
