@@ -306,7 +306,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
                     child: const LinearProgressIndicator(
-                      value: 0.33,
+                      value: 1.0,
                       minHeight: 5,
                       backgroundColor: Color(0xFFEAEAEA),
                       valueColor: AlwaysStoppedAnimation(AppColors.accentPurple),
@@ -314,7 +314,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
                   ),
                 ),
                 const SizedBox(width: AppSpacing.md),
-                Text('1 / 3', style: AppTypography.eyebrowSmall),
+                Text('1 / 1', style: AppTypography.eyebrowSmall),
               ],
             ),
             const SizedBox(height: AppSpacing.xxl),
