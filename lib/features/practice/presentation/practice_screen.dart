@@ -143,7 +143,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
 
   bool get _sentenceMode => widget.mode.kind == _ActivityKind.sentence;
   bool get _wordMode => widget.mode.kind == _ActivityKind.words;
-  int get _total => _wordMode ? gameWords.length : builderExercises.where((e) => widget.mode.kind != _ActivityKind.grammar || e.category != 'question').length;
+  int get _total => _wordMode ? gameWords.length : builderExercises.length;
   List<BuilderExercise> get _exercises => widget.mode.kind == _ActivityKind.grammar
       ? builderExercises.where((e) => e.category != 'question').toList()
       : builderExercises;
@@ -320,17 +320,25 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
   Widget _completion() => Scaffold(
     backgroundColor: AppColors.canvas,
     appBar: AppBar(title: Text('Alıştırma tamamlandı', style: AppTypography.bodyMd), leading: IconButton(onPressed: () => Navigator.of(context).pop(), icon: const Icon(Iconsax.arrow_left_2))),
-    body: Padding(
-      padding: const EdgeInsets.all(AppSpacing.xl),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Icon(Iconsax.award, size: 64, color: AppColors.accentPurple),
-        const SizedBox(height: AppSpacing.lg),
-        Text('Güzel ilerleme!', style: AppTypography.displaySm),
-        const SizedBox(height: AppSpacing.sm),
-        Text('$_score doğru cevap · $_total alıştırma', style: AppTypography.bodyMd),
-        const SizedBox(height: AppSpacing.xl),
-        SizedBox(width: double.infinity, child: FilledButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Pratiğe dön'))),
-      ]),
+    body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.xl),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Icon(Iconsax.award, size: 64, color: AppColors.accentPurple),
+          const SizedBox(height: AppSpacing.lg),
+          Text('Güzel ilerleme!', style: AppTypography.displaySm, textAlign: TextAlign.center),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            widget.mode.kind == _ActivityKind.grammar
+                ? '$_total konu incelendi'
+                : '$_score doğru cevap · $_total alıştırma',
+            style: AppTypography.bodyMd,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          SizedBox(width: double.infinity, child: FilledButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Pratiğe dön'))),
+        ]),
+      ),
     ),
   );
 
