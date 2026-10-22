@@ -6,8 +6,7 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import 'lesson_detail_screen.dart';
 
-/// Lesson catalogue using the titles and durations from Bubixo's original data.js.
-/// Lesson bodies and quizzes will be connected from the source data in the next pass.
+/// Lesson catalogue using titles and durations from Bubixo's original data.js.
 class LessonsScreen extends StatelessWidget {
   const LessonsScreen({super.key});
 
@@ -82,13 +81,11 @@ class LessonsScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(13),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(13),
-                  onTap: index == 0
-                      ? () => Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (_) => const LessonDetailScreen(),
-                            ),
-                          )
-                      : null,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => LessonDetailScreen(lessonIndex: index),
+                    ),
+                  ),
                   child: Container(
                     padding: const EdgeInsets.all(AppSpacing.md),
                     decoration: BoxDecoration(
@@ -135,7 +132,7 @@ class LessonsScreen extends StatelessWidget {
           }),
           const SizedBox(height: AppSpacing.md),
           Text(
-            'Bu sayfa ders kataloğudur. Ders anlatımları ve mini sınavlar henüz kaynak veriden uygulamaya aktarılmadı.',
+            'Her derste konu özeti, örnekler, öğrenme ipucu ve mini sınav bulunur.',
             style: AppTypography.bodySm.copyWith(color: AppColors.muted),
           ),
         ],
