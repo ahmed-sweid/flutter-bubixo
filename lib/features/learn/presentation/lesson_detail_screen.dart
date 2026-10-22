@@ -71,7 +71,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
       '“I ___ at home yesterday.”', ['were','was','am','is'], 1, 'I öznesi için am’in geçmişi olan was kullanılır.'),
   ];
 
-  _LessonContent get _lesson => _lessons[widget.lessonIndex.clamp(0, _lessons.length - 1)];
+  _LessonContent get _lesson => _lessons[widget.lessonIndex.clamp(0, _lessons.length - 1).toInt()];
 
   @override
   Widget build(BuildContext context) {
