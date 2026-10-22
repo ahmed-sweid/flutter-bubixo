@@ -3,6 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bubixo/features/learn/presentation/lessons_screen.dart';
 
+Future<void> pumpRouteTransition(WidgetTester tester) async {
+  await tester.pump();
+  await tester.pump(const Duration(milliseconds: 350));
+  await tester.pump();
+}
+
 void main() {
   testWidgets('lesson flow checks an answer and opens the next lesson', (
     tester,
@@ -13,7 +19,7 @@ void main() {
     expect(find.text('Alfabe ve Telaffuzun Temelleri'), findsOneWidget);
 
     await tester.tap(find.text('Alfabe ve Telaffuzun Temelleri'));
-    await tester.pump(const Duration(milliseconds: 350));
+    await pumpRouteTransition(tester);
 
     expect(find.text('Konu özeti'), findsOneWidget);
     expect(find.text('Kendini dene'), findsOneWidget);
@@ -33,7 +39,7 @@ void main() {
 
     await tester.ensureVisible(find.text('Sonraki derse geç'));
     await tester.tap(find.text('Sonraki derse geç'));
-    await tester.pump(const Duration(milliseconds: 350));
+    await pumpRouteTransition(tester);
 
     expect(find.text('Selamlaşma ve Tanışma'), findsOneWidget);
   });
