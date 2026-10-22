@@ -53,8 +53,8 @@ class PracticeScreen extends StatelessWidget {
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
           icon: Iconsax.book_1, tint: const Color(0xFFE3F2FF), iconColor: AppColors.accentBlueDeep,
-          title: 'Dil bilgisi', subtitle: 'Soru cümleleri, geniş zaman, geçmiş ve gelecek.',
-          meta: '${builderExercises.length} kaynak sorusu',
+          title: 'Dil bilgisi', subtitle: 'Geniş zaman, geçmiş ve gelecek konularını örneklerle incele.',
+          meta: '${builderExercises.where((e) => e.category != 'question').length} konu örneği',
           onTap: () => _open(context, const _ActivityMode.grammar()),
         ),
         const SizedBox(height: AppSpacing.lg),
