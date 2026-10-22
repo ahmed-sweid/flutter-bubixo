@@ -143,7 +143,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
 
   bool get _sentenceMode => widget.mode.kind == _ActivityKind.sentence;
   bool get _wordMode => widget.mode.kind == _ActivityKind.words;
-  int get _total => _wordMode ? gameWords.length : builderExercises.length;
+  int get _total => _wordMode ? gameWords.length : _exercises.length;
   List<BuilderExercise> get _exercises => widget.mode.kind == _ActivityKind.grammar
       ? builderExercises.where((e) => e.category != 'question').toList()
       : builderExercises;
