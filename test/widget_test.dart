@@ -34,7 +34,9 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Bugün İngilizceye küçük bir adım at.'), findsOneWidget);
 
-    await tester.tap(find.text('Kısa bir pratik yap'));
+    final practiceAction = find.text('Kısa bir pratik yap');
+    await tester.ensureVisible(practiceAction);
+    await tester.tap(practiceAction);
     await tester.pumpAndSettle();
     expect(find.text('Alıştırmalar burada olacak'), findsOneWidget);
   });
