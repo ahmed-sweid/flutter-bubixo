@@ -71,29 +71,6 @@ class LearnScreen extends StatelessWidget {
           label: 'PRATİK',
           onTap: onOpenPractice,
         ),
-        const SizedBox(height: AppSpacing.xxl),
-        Text('Hızlı erişim', style: AppTypography.displayXs),
-        const SizedBox(height: AppSpacing.md),
-        _QuickActionTile(
-          icon: Iconsax.bookmark_2,
-          title: 'Kaydettiğin kelimeler',
-          description: 'Kelime listeni aç ve kayıtlarını gözden geçir.',
-          onTap: onOpenWords,
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        _QuickActionTile(
-          icon: Iconsax.activity,
-          title: 'Kısa bir pratik yap',
-          description: 'Öğrendiklerini alıştırmalarla pekiştir.',
-          onTap: onOpenPractice,
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        _QuickActionTile(
-          icon: Iconsax.discover,
-          title: 'Yeni içerikler keşfet',
-          description: 'Hikâyelere ve diğer öğrenme içeriklerine göz at.',
-          onTap: onOpenDiscover,
-        ),
       ],
     );
   }
@@ -171,69 +148,6 @@ class _TodayRecommendationCard extends StatelessWidget {
     );
   }
 }
-
-class _QuickActionTile extends StatelessWidget {
-  const _QuickActionTile({
-    required this.icon,
-    required this.title,
-    required this.description,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String title;
-  final String description;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.canvas,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.hairline),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: AppColors.canvas,
-                  border: Border.all(color: AppColors.hairline),
-                  borderRadius: BorderRadius.circular(9),
-                ),
-                alignment: Alignment.center,
-                child: Icon(icon, color: AppColors.ink, size: 21),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: AppTypography.bodyMd.copyWith(
-                      fontWeight: FontWeight.w600,
-                    )),
-                    const SizedBox(height: AppSpacing.xxs),
-                    Text(description, style: AppTypography.bodySm),
-                  ],
-                ),
-              ),
-              const SizedBox(width: AppSpacing.sm),
-              const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 
 class _LearningPathCard extends StatelessWidget {
   const _LearningPathCard({
