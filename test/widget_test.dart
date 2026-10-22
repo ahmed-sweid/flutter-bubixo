@@ -75,6 +75,7 @@ void main() {
     expect(find.text('wakes up kaydedilen kelimelere eklendi'), findsOneWidget);
     final preferences = await SharedPreferences.getInstance();
     expect(preferences.getStringList('bubixo.saved_words'), contains('wakes up'));
+    expect(preferences.getString('bubixo.custom_words'), contains('wakes up'));
 
     await tester.tap(find.byTooltip('Geri'));
     await pumpRouteTransition(tester);
@@ -83,10 +84,18 @@ void main() {
 
     await tester.tap(find.text('Kelimeler').first);
     await tester.pump(const Duration(milliseconds: 400));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 100)),
+    );
+    await tester.pump();
     expect(find.text('Kelime listelerin'), findsOneWidget);
     expect(find.text('İngilizce veya Türkçe ara'), findsOneWidget);
     await tester.tap(find.text('Kaydedilenler'));
     await tester.pump(const Duration(milliseconds: 250));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 100)),
+    );
+    await tester.pump();
     expect(find.text('wakes up'), findsOneWidget);
 
     await tester.tap(find.text('Pratik').first);
