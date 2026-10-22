@@ -1,0 +1,626 @@
+[
+  {
+    "id": "s1",
+    "level": 1,
+    "title": "Tom's Morning",
+    "titleTr": "Tom'un Sabahı",
+    "intro": "Sıradan bir sabahın en basit cümlelerle anlatımı; Tom'un rutinini adım adım takip ediyorsun. Bu hikayede geniş zamana dikkat et: he/she/it öznesiyle fiil -s eki alır (wakes, drinks, starts).",
+    "lines": [
+      {
+        "en": "Tom wakes up early every morning.",
+        "tr": "Tom her sabah erken uyanır."
+      },
+      {
+        "en": "He drinks a cup of coffee.",
+        "tr": "Bir fincan kahve içer."
+      },
+      {
+        "en": "His wife makes breakfast in the kitchen.",
+        "tr": "Karısı mutfakta kahvaltı hazırlar."
+      },
+      {
+        "en": "They eat bread, cheese and olives.",
+        "tr": "Ekmek, peynir ve zeytin yerler."
+      },
+      {
+        "en": "Tom is a taxi driver.",
+        "tr": "Tom taksi şoförüdür."
+      },
+      {
+        "en": "He starts work at eight o'clock.",
+        "tr": "İşe saat sekizde başlar."
+      },
+      {
+        "en": "The city is busy in the morning.",
+        "tr": "Şehir sabahları kalabalıktır."
+      },
+      {
+        "en": "Tom likes his job very much.",
+        "tr": "Tom işini çok sever."
+      }
+    ]
+  },
+  {
+    "id": "s2",
+    "level": 1,
+    "title": "At the Market",
+    "titleTr": "Markette",
+    "intro": "Emma akşam yemeği için markete gider ve fiyat sorup alışveriş yapar. Bu hikayede sayılara ve fiyat sorma kalıbına dikkat et: How much is...?",
+    "lines": [
+      {
+        "en": "Emma goes to the market on Monday.",
+        "tr": "Emma pazartesi günü markete gider."
+      },
+      {
+        "en": "She needs eggs, milk and rice.",
+        "tr": "Yumurtaya, süte ve pirince ihtiyacı var."
+      },
+      {
+        "en": "The apples are very fresh today.",
+        "tr": "Elmalar bugün çok tazedir."
+      },
+      {
+        "en": "How much is one kilo of apples?",
+        "tr": "Bir kilo elma ne kadar?"
+      },
+      {
+        "en": "The apples are thirty liras.",
+        "tr": "Elmalar otuz liradır."
+      },
+      {
+        "en": "Emma buys two kilos of apples.",
+        "tr": "Emma iki kilo elma alır."
+      },
+      {
+        "en": "She pays sixty liras.",
+        "tr": "Altmış lira öder."
+      },
+      {
+        "en": "Her bag is very heavy now.",
+        "tr": "Çantası şimdi çok ağırdır."
+      }
+    ]
+  },
+  {
+    "id": "s3",
+    "level": 1,
+    "title": "My Family",
+    "titleTr": "Ailem",
+    "intro": "Ali ailesini tanıtıyor: kim ne iş yapar, kaç kişilerdir, akşamları ne yaparlar. Bu hikayede 'have got / has got' kalıbına dikkat et; sahiplik bildirir.",
+    "lines": [
+      {
+        "en": "My name is Ali.",
+        "tr": "Adım Ali."
+      },
+      {
+        "en": "I have got a big family.",
+        "tr": "Büyük bir ailem var."
+      },
+      {
+        "en": "My father is a teacher.",
+        "tr": "Babam öğretmendir."
+      },
+      {
+        "en": "My mother works in a hospital.",
+        "tr": "Annem hastanede çalışır."
+      },
+      {
+        "en": "I have got two sisters.",
+        "tr": "İki kız kardeşim var."
+      },
+      {
+        "en": "They are eight and fifteen years old.",
+        "tr": "Sekiz ve on beş yaşındalar."
+      },
+      {
+        "en": "We live in a small house.",
+        "tr": "Küçük bir evde yaşarız."
+      },
+      {
+        "en": "We eat dinner together every evening.",
+        "tr": "Her akşam birlikte akşam yemeği yeriz."
+      }
+    ]
+  },
+  {
+    "id": "s4",
+    "level": 1,
+    "title": "School Days",
+    "titleTr": "Okul Günleri",
+    "intro": "Deniz'in bir okul günü saat saat anlatılıyor. Bu hikayede saat ve gün ifadelerine dikkat et: at seven, on Friday, in the afternoon.",
+    "lines": [
+      {
+        "en": "Deniz is a student.",
+        "tr": "Deniz bir öğrencidir."
+      },
+      {
+        "en": "She gets up at seven o'clock.",
+        "tr": "Saat yedide kalkar."
+      },
+      {
+        "en": "Her school starts at eight thirty.",
+        "tr": "Okulu sekiz buçukta başlar."
+      },
+      {
+        "en": "She has five lessons every day.",
+        "tr": "Her gün beş dersi vardır."
+      },
+      {
+        "en": "Her favourite lesson is English.",
+        "tr": "En sevdiği ders İngilizcedir."
+      },
+      {
+        "en": "She goes home in the afternoon.",
+        "tr": "Öğleden sonra eve gider."
+      },
+      {
+        "en": "On Friday she plays with her friends.",
+        "tr": "Cuma günü arkadaşlarıyla oynar."
+      },
+      {
+        "en": "She does her homework after dinner.",
+        "tr": "Ödevini akşam yemeğinden sonra yapar."
+      }
+    ]
+  },
+  {
+    "id": "s5",
+    "level": 2,
+    "title": "The Lost Suitcase",
+    "titleTr": "Kaybolan Bavul",
+    "intro": "Murat havaalanında bavulunu bulamaz ve kayıp bagaj ofisine gider. Bu hikayede düzensiz geçmiş zaman fiillerine dikkat et: went, saw, took, brought.",
+    "lines": [
+      {
+        "en": "Murat landed in Berlin at nine in the evening.",
+        "tr": "Murat akşam dokuzda Berlin'e indi."
+      },
+      {
+        "en": "He was very tired because the flight was long.",
+        "tr": "Çok yorgundu çünkü uçuş uzundu."
+      },
+      {
+        "en": "He waited for his suitcase for forty minutes.",
+        "tr": "Bavulunu kırk dakika bekledi."
+      },
+      {
+        "en": "The other passengers took their bags and left.",
+        "tr": "Diğer yolcular çantalarını alıp gitti."
+      },
+      {
+        "en": "But his black suitcase did not come out.",
+        "tr": "Ama onun siyah bavulu çıkmadı."
+      },
+      {
+        "en": "He went to the lost luggage office and asked for help.",
+        "tr": "Kayıp bagaj ofisine gidip yardım istedi."
+      },
+      {
+        "en": "A young woman was working at the desk.",
+        "tr": "Bankoda genç bir kadın çalışıyordu."
+      },
+      {
+        "en": "She took his name, his address and his phone number.",
+        "tr": "Adını, adresini ve telefon numarasını aldı."
+      },
+      {
+        "en": "The computer showed that the suitcase was still in Istanbul.",
+        "tr": "Bilgisayar bavulun hâlâ İstanbul'da olduğunu gösterdi."
+      },
+      {
+        "en": "Murat must wait until tomorrow morning for his bag.",
+        "tr": "Murat çantası için yarın sabaha kadar beklemeli."
+      },
+      {
+        "en": "The airline brought the suitcase to his hotel the next day.",
+        "tr": "Havayolu bavulu ertesi gün oteline getirdi."
+      }
+    ]
+  },
+  {
+    "id": "s6",
+    "level": 2,
+    "title": "The First Interview",
+    "titleTr": "İlk İş Görüşmesi",
+    "intro": "Selin hayatındaki ilk iş görüşmesine girer ve sorulara tek tek cevap verir. Bu hikayede soru cümlelerine ve 'can' ile yetenek anlatımına dikkat et.",
+    "lines": [
+      {
+        "en": "Selin had an interview at a big company on Tuesday.",
+        "tr": "Selin salı günü büyük bir şirkette iş görüşmesine girdi."
+      },
+      {
+        "en": "She wore a dark blue jacket and clean shoes.",
+        "tr": "Koyu mavi bir ceket ve temiz ayakkabılar giydi."
+      },
+      {
+        "en": "She arrived ten minutes early because she was nervous.",
+        "tr": "On dakika erken vardı çünkü heyecanlıydı."
+      },
+      {
+        "en": "The manager asked: Can you tell me about yourself?",
+        "tr": "Müdür sordu: Bana kendinden bahsedebilir misin?"
+      },
+      {
+        "en": "Selin talked about her school and her computer skills.",
+        "tr": "Selin okulundan ve bilgisayar becerilerinden bahsetti."
+      },
+      {
+        "en": "Why do you want to work here?",
+        "tr": "Neden burada çalışmak istiyorsun?"
+      },
+      {
+        "en": "She answered slowly but her voice was clear.",
+        "tr": "Yavaşça cevap verdi ama sesi netti."
+      },
+      {
+        "en": "She can speak English and she can use Excel well.",
+        "tr": "İngilizce konuşabilir ve Excel'i iyi kullanabilir."
+      },
+      {
+        "en": "The manager was writing notes while she was talking.",
+        "tr": "O konuşurken müdür not alıyordu."
+      },
+      {
+        "en": "At the end he shook her hand and smiled.",
+        "tr": "Sonunda elini sıktı ve gülümsedi."
+      },
+      {
+        "en": "Selin was very happy when she left the building.",
+        "tr": "Selin binadan ayrıldığında çok mutluydu."
+      }
+    ]
+  },
+  {
+    "id": "s7",
+    "level": 2,
+    "title": "A Rainy Sunday",
+    "titleTr": "Yağmurlu Bir Pazar",
+    "intro": "İki arkadaş piknik planlar ama hava bozunca planlarını değiştirirler. Bu hikayede sürerlik bildiren 'was/were + -ing' yapısına ve 'because' bağlacına dikkat et.",
+    "lines": [
+      {
+        "en": "Kerem and Ela were planning a picnic on Sunday.",
+        "tr": "Kerem ile Ela pazar günü için piknik planlıyorlardı."
+      },
+      {
+        "en": "They bought bread, cheese and cold lemonade on Saturday.",
+        "tr": "Cumartesi günü ekmek, peynir ve soğuk limonata aldılar."
+      },
+      {
+        "en": "But on Sunday morning it was raining very hard.",
+        "tr": "Ama pazar sabahı çok şiddetli yağmur yağıyordu."
+      },
+      {
+        "en": "The wind was blowing and the streets were empty.",
+        "tr": "Rüzgâr esiyordu ve sokaklar boştu."
+      },
+      {
+        "en": "Ela called Kerem because she was worried about the picnic.",
+        "tr": "Ela Kerem'i aradı çünkü piknik için endişeliydi."
+      },
+      {
+        "en": "We must change our plan because of the rain.",
+        "tr": "Yağmur yüzünden planımızı değiştirmeliyiz."
+      },
+      {
+        "en": "They decided to have the picnic in Ela's living room.",
+        "tr": "Pikniği Ela'nın oturma odasında yapmaya karar verdiler."
+      },
+      {
+        "en": "Ela put a big blanket on the floor.",
+        "tr": "Ela yere büyük bir battaniye serdi."
+      },
+      {
+        "en": "Kerem was making sandwiches while the rain was falling outside.",
+        "tr": "Dışarıda yağmur yağarken Kerem sandviç yapıyordu."
+      },
+      {
+        "en": "They ate everything and laughed a lot.",
+        "tr": "Her şeyi yediler ve çok güldüler."
+      },
+      {
+        "en": "The picnic was not outside but it was perfect.",
+        "tr": "Piknik dışarıda değildi ama mükemmeldi."
+      }
+    ]
+  },
+  {
+    "id": "s8",
+    "level": 2,
+    "title": "At the Doctor",
+    "titleTr": "Doktorda",
+    "intro": "Ahmet üç gündür kendini iyi hissetmez ve doktora gider. Bu hikayede 'must' ve 'should' ile verilen tavsiyelerin farkına dikkat et.",
+    "lines": [
+      {
+        "en": "Ahmet did not feel well for three days.",
+        "tr": "Ahmet üç gündür kendini iyi hissetmiyordu."
+      },
+      {
+        "en": "His head was hot and his throat was sore.",
+        "tr": "Başı sıcaktı ve boğazı ağrıyordu."
+      },
+      {
+        "en": "He went to the doctor on Wednesday morning.",
+        "tr": "Çarşamba sabahı doktora gitti."
+      },
+      {
+        "en": "The doctor listened to his chest and looked at his throat.",
+        "tr": "Doktor göğsünü dinledi ve boğazına baktı."
+      },
+      {
+        "en": "The doctor asked: Where does it hurt the most?",
+        "tr": "Doktor sordu: En çok neresi acıyor?"
+      },
+      {
+        "en": "You have got a bad cold, the doctor said.",
+        "tr": "Kötü bir soğuk algınlığın var, dedi doktor."
+      },
+      {
+        "en": "You must drink a lot of water.",
+        "tr": "Bol su içmelisin."
+      },
+      {
+        "en": "You should stay at home for two days.",
+        "tr": "İki gün evde kalmalısın."
+      },
+      {
+        "en": "You should not go out when the weather is cold.",
+        "tr": "Hava soğukken dışarı çıkmamalısın."
+      },
+      {
+        "en": "Ahmet bought the medicine and went home.",
+        "tr": "Ahmet ilacı aldı ve eve gitti."
+      },
+      {
+        "en": "He felt much better after two days.",
+        "tr": "İki gün sonra kendini çok daha iyi hissetti."
+      }
+    ]
+  },
+  {
+    "id": "s9",
+    "level": 3,
+    "title": "Ayse's First Week in London",
+    "titleTr": "Ayşe'nin Londra'daki İlk Haftası",
+    "intro": "Ayşe okumak için Londra'ya taşınır ve ilk haftasında neler yaşadığını anlatır. Bu hikayede present perfect'e dikkat et: 'have/has + fiilin 3. hâli' bitmiş ama etkisi bugüne uzanan olayları anlatır.",
+    "lines": [
+      {
+        "en": "Ayse has lived in London for six days and everything still feels new.",
+        "tr": "Ayşe altı gündür Londra'da yaşıyor ve her şey hâlâ yeni geliyor."
+      },
+      {
+        "en": "She has already learned the way from her flat to the university.",
+        "tr": "Dairesinden üniversiteye giden yolu çoktan öğrendi."
+      },
+      {
+        "en": "She has never seen so much rain in a single week.",
+        "tr": "Tek bir haftada bu kadar çok yağmuru hiç görmemişti."
+      },
+      {
+        "en": "On the first day she got lost and asked a bus driver for help.",
+        "tr": "İlk gün kayboldu ve bir otobüs şoföründen yardım istedi."
+      },
+      {
+        "en": "The driver was very kind and showed her the right stop on the map.",
+        "tr": "Şoför çok kibardı ve haritada doğru durağı ona gösterdi."
+      },
+      {
+        "en": "She has made two friends at the university, one from Spain and one from Japan.",
+        "tr": "Üniversitede iki arkadaş edindi: biri İspanya'dan, biri Japonya'dan."
+      },
+      {
+        "en": "They have invited her to a small party on Saturday evening.",
+        "tr": "Onu cumartesi akşamı küçük bir partiye davet ettiler."
+      },
+      {
+        "en": "Ayse misses her mother's food, but she has learned to cook rice and soup.",
+        "tr": "Ayşe annesinin yemeklerini özlüyor ama pilav ve çorba pişirmeyi öğrendi."
+      },
+      {
+        "en": "She has not spoken Turkish for a week and her English is getting better.",
+        "tr": "Bir haftadır Türkçe konuşmadı ve İngilizcesi daha iyi oluyor."
+      },
+      {
+        "en": "Her landlady has told her that the winter here is long and grey.",
+        "tr": "Ev sahibi ona buradaki kışın uzun ve gri olduğunu söyledi."
+      },
+      {
+        "en": "Ayse has bought a warm coat and a big umbrella from a small shop.",
+        "tr": "Ayşe küçük bir dükkândan sıcak bir palto ve büyük bir şemsiye aldı."
+      },
+      {
+        "en": "She calls her family every night and tells them about her new life.",
+        "tr": "Her gece ailesini arar ve onlara yeni hayatını anlatır."
+      },
+      {
+        "en": "It has been a difficult week, but Ayse has not cried once.",
+        "tr": "Zor bir hafta oldu ama Ayşe bir kez bile ağlamadı."
+      }
+    ]
+  },
+  {
+    "id": "s10",
+    "level": 3,
+    "title": "A Misunderstanding",
+    "titleTr": "Bir Yanlış Anlaşılma",
+    "intro": "İki arkadaş arasında telefondan doğan küçük bir yanlış anlaşılma büyür, sonra çözülür. Bu hikayede dolaylı anlatıma dikkat et: 'said that' ve 'told me' ile zaman bir adım geriye kayar.",
+    "lines": [
+      {
+        "en": "Last Friday Can told Berk that he would come to the cinema at seven.",
+        "tr": "Geçen cuma Can, Berk'e sinemaya yedide geleceğini söyledi."
+      },
+      {
+        "en": "Berk bought two tickets and waited in front of the door.",
+        "tr": "Berk iki bilet aldı ve kapının önünde bekledi."
+      },
+      {
+        "en": "Can did not arrive, and his phone was closed all evening.",
+        "tr": "Can gelmedi ve telefonu bütün akşam kapalıydı."
+      },
+      {
+        "en": "Berk watched the film alone and thought that his friend did not care.",
+        "tr": "Berk filmi yalnız izledi ve arkadaşının umursamadığını düşündü."
+      },
+      {
+        "en": "On Saturday he did not answer Can's messages because he was angry.",
+        "tr": "Cumartesi günü Can'ın mesajlarına cevap vermedi çünkü kızgındı."
+      },
+      {
+        "en": "On Monday they met at school and Can said that his father had been ill.",
+        "tr": "Pazartesi günü okulda karşılaştılar ve Can babasının hasta olduğunu söyledi."
+      },
+      {
+        "en": "He told Berk that they had gone to the hospital at six o'clock.",
+        "tr": "Berk'e saat altıda hastaneye gittiklerini söyledi."
+      },
+      {
+        "en": "His phone battery had died in the taxi and he could not call anybody.",
+        "tr": "Telefonunun şarjı takside bitmişti ve kimseyi arayamadı."
+      },
+      {
+        "en": "Berk felt bad because he had judged his friend too quickly.",
+        "tr": "Berk kötü hissetti çünkü arkadaşını çok çabuk yargılamıştı."
+      },
+      {
+        "en": "He said that he was sorry and asked about Can's father.",
+        "tr": "Üzgün olduğunu söyledi ve Can'ın babasını sordu."
+      },
+      {
+        "en": "Can smiled and said that his father was at home again.",
+        "tr": "Can gülümsedi ve babasının yine evde olduğunu söyledi."
+      },
+      {
+        "en": "The two friends learned that a closed phone can break a friendship.",
+        "tr": "İki arkadaş, kapalı bir telefonun bir dostluğu bitirebileceğini öğrendi."
+      },
+      {
+        "en": "Now they always ask first and never jump to conclusions.",
+        "tr": "Artık her zaman önce sorarlar ve asla hemen sonuca varmazlar."
+      }
+    ]
+  },
+  {
+    "id": "s11",
+    "level": 3,
+    "title": "Tomorrow's Plan",
+    "titleTr": "Yarının Planı",
+    "intro": "Zeynep kendi kahve dükkânını açmayı planlıyor ve ilk adımı yarın atacak. Bu hikayede gelecek zamana ve birinci tip koşul cümlelerine dikkat et: 'If it rains, we will stay at home.'",
+    "lines": [
+      {
+        "en": "Zeynep will open a small coffee shop near the university next year.",
+        "tr": "Zeynep gelecek yıl üniversitenin yanında küçük bir kahve dükkânı açacak."
+      },
+      {
+        "en": "She has saved money for three years and she is going to rent a place.",
+        "tr": "Üç yıldır para biriktiriyor ve bir yer kiralayacak."
+      },
+      {
+        "en": "Tomorrow morning she is going to meet the owner of an empty shop.",
+        "tr": "Yarın sabah boş bir dükkânın sahibiyle buluşacak."
+      },
+      {
+        "en": "If the rent is not too high, she will sign the contract immediately.",
+        "tr": "Kira çok yüksek değilse sözleşmeyi hemen imzalayacak."
+      },
+      {
+        "en": "If she signs it tomorrow, the shop will be ready in two months.",
+        "tr": "Yarın imzalarsa dükkân iki ay içinde hazır olacak."
+      },
+      {
+        "en": "Her brother is going to paint the walls and build the wooden shelves.",
+        "tr": "Kardeşi duvarları boyayacak ve ahşap rafları yapacak."
+      },
+      {
+        "en": "She will buy a coffee machine from Italy if she finds a good price.",
+        "tr": "İyi bir fiyat bulursa İtalya'dan bir kahve makinesi alacak."
+      },
+      {
+        "en": "The menu will be short: three kinds of coffee, tea and homemade cake.",
+        "tr": "Menü kısa olacak: üç çeşit kahve, çay ve ev yapımı kek."
+      },
+      {
+        "en": "Students will study there in the afternoon if the music is quiet.",
+        "tr": "Müzik sessiz olursa öğrenciler öğleden sonraları orada ders çalışacak."
+      },
+      {
+        "en": "Zeynep is not going to work alone because her best friend will help her.",
+        "tr": "Zeynep yalnız çalışmayacak çünkü en yakın arkadaşı ona yardım edecek."
+      },
+      {
+        "en": "They will open the door at seven in the morning every day.",
+        "tr": "Her gün sabah yedide kapıyı açacaklar."
+      },
+      {
+        "en": "If the first month is difficult, she will not give up easily.",
+        "tr": "İlk ay zor olursa kolayca pes etmeyecek."
+      },
+      {
+        "en": "In five years she hopes that there will be three Zeynep coffee shops.",
+        "tr": "Beş yıl içinde üç Zeynep kahve dükkânı olacağını umuyor."
+      }
+    ]
+  },
+  {
+    "id": "s12",
+    "level": 3,
+    "title": "A Letter After Many Years",
+    "titleTr": "Yıllar Sonra Bir Mektup",
+    "intro": "Emekli bir öğretmen, otuz yıl önceki öğrencisinden beklenmedik bir mektup alır. Bu hikayede karışık zamanlara dikkat et: geçmiş, present perfect ve gelecek aynı metinde yan yana kullanılır.",
+    "lines": [
+      {
+        "en": "Last week Mr Yilmaz found a white envelope in his letterbox.",
+        "tr": "Geçen hafta Yılmaz Bey posta kutusunda beyaz bir zarf buldu."
+      },
+      {
+        "en": "He was a teacher for forty years and he has been retired since June.",
+        "tr": "Kırk yıl boyunca öğretmendi ve haziran ayından beri emekli."
+      },
+      {
+        "en": "The name on the envelope was old and he did not remember it.",
+        "tr": "Zarftaki isim eskiydi ve onu hatırlamadı."
+      },
+      {
+        "en": "He opened the letter slowly and sat down in his old chair.",
+        "tr": "Mektubu yavaşça açtı ve eski koltuğuna oturdu."
+      },
+      {
+        "en": "Dear teacher, you probably do not remember me after thirty years.",
+        "tr": "Sevgili öğretmenim, otuz yıl sonra muhtemelen beni hatırlamıyorsunuz."
+      },
+      {
+        "en": "I was the quiet boy who always sat next to the window.",
+        "tr": "Hep pencerenin yanında oturan sessiz çocuktum."
+      },
+      {
+        "en": "One day you told me that I could write very well.",
+        "tr": "Bir gün bana çok iyi yazabildiğimi söylediniz."
+      },
+      {
+        "en": "Nobody had said such a thing to me before that afternoon.",
+        "tr": "O öğleden önce bana kimse böyle bir şey söylememişti."
+      },
+      {
+        "en": "I have written four books since then and the last one won a prize.",
+        "tr": "O günden beri dört kitap yazdım ve sonuncusu bir ödül kazandı."
+      },
+      {
+        "en": "I have never forgotten your voice and your patience in that classroom.",
+        "tr": "O sınıftaki sesinizi ve sabrınızı hiç unutmadım."
+      },
+      {
+        "en": "Next month I will come to your city for a book meeting.",
+        "tr": "Gelecek ay bir kitap buluşması için şehrinize geleceğim."
+      },
+      {
+        "en": "If you have time, I would like to drink a coffee with you.",
+        "tr": "Vaktiniz varsa sizinle bir kahve içmek isterim."
+      },
+      {
+        "en": "Mr Yilmaz read the letter three times and his eyes were wet.",
+        "tr": "Yılmaz Bey mektubu üç kez okudu ve gözleri ıslandı."
+      },
+      {
+        "en": "A teacher never knows which word will change a whole life.",
+        "tr": "Bir öğretmen hangi kelimenin koca bir hayatı değiştireceğini asla bilmez."
+      }
+    ]
+  }
+]

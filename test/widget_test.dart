@@ -7,7 +7,6 @@ void main() {
 
     expect(find.text('İngilizceyi, adım adım keşfet.'), findsOneWidget);
 
-    // Allow the short splash delay and route transition to complete.
     await tester.pump(const Duration(milliseconds: 1500));
     await tester.pumpAndSettle();
 
@@ -17,6 +16,13 @@ void main() {
     await tester.tap(find.text('Hikâyeleri keşfet'));
     await tester.pumpAndSettle();
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text("Tom's Morning"), findsOneWidget);
+
+    await tester.tap(find.text("Tom's Morning"));
+    await tester.pumpAndSettle();
+    expect(find.text("Tom her sabah erken uyanır."), findsOneWidget);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('Kelimeler').first);
     await tester.pumpAndSettle();
