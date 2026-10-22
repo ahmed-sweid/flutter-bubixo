@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/persistent-vocabulary
+      - feature/finish-learning-screens
   pull_request:
     branches:
       - feature/discover-stories
