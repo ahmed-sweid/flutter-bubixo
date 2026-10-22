@@ -217,6 +217,12 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
             style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: AppSpacing.lg),
+          OutlinedButton.icon(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const Icon(Iconsax.arrow_left_2, size: 18),
+            label: const Text('Hikâyelere dön'),
+          ),
         ],
       ),
     );
