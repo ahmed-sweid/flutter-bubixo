@@ -6,13 +6,21 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/story.dart';
 
-class StoryDetailScreen extends StatelessWidget {
+class StoryDetailScreen extends StatefulWidget {
   const StoryDetailScreen({required this.story, super.key});
 
   final Story story;
 
   @override
+  State<StoryDetailScreen> createState() => _StoryDetailScreenState();
+}
+
+class _StoryDetailScreenState extends State<StoryDetailScreen> {
+  final Set<int> _revealedTranslations = <int>{};
+
+  @override
   Widget build(BuildContext context) {
+    final story = widget.story;
     return Scaffold(
       backgroundColor: AppColors.canvas,
       appBar: AppBar(
@@ -84,13 +92,26 @@ class StoryDetailScreen extends StatelessWidget {
           ...story.lines.map(
             (line) => Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.md),
-              child: Container(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.hairline),
+              child: Material(
+                color: AppColors.canvas,
+                borderRadius: BorderRadius.circular(10),
+                child: InkWell(
+                  onTap: () {
+                    final index = story.lines.indexOf(line);
+                    setState(() {
+                      if (!_revealedTranslations.add(index)) {
+                        _revealedTranslations.remove(index);
+                      }
+                    });
+                  },
                   borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
+                  child: Container(
+                    padding: const EdgeInsets.all(AppSpacing.lg),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.hairline),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -100,7 +121,32 @@ class StoryDetailScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: AppSpacing.sm),
-                    Text(line.tr, style: AppTypography.bodySm),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            _revealedTranslations.contains(story.lines.indexOf(line))
+                                ? line.tr
+                                : 'Türkçe anlamı görmek için dokun',
+                            style: AppTypography.bodySm.copyWith(
+                              color: _revealedTranslations.contains(story.lines.indexOf(line))
+                                  ? AppColors.body
+                                  : AppColors.bodyMid,
+                              fontStyle: _revealedTranslations.contains(story.lines.indexOf(line))
+                                  ? FontStyle.normal
+                                  : FontStyle.italic,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          _revealedTranslations.contains(story.lines.indexOf(line))
+                              ? Iconsax.eye
+                              : Iconsax.eye_slash,
+                          size: 18,
+                          color: AppColors.bodyMid,
+                        ),
+                      ],
+                    ),
                     if (line.words.isNotEmpty) ...[
                       const SizedBox(height: AppSpacing.md),
                       Wrap(
@@ -129,6 +175,8 @@ class StoryDetailScreen extends StatelessWidget {
                       ),
                     ],
                   ],
+                    ),
+                  ),
                 ),
               ),
             ),
