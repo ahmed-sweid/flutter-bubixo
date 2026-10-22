@@ -175,7 +175,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
     if (_checked) return;
     final correct = _sentenceMode
         ? _answer.join(' ').toLowerCase() == _exercise.english.toLowerCase()
-        : _selected == 0;
+        : _selected != null && _currentWordOptions[_selected!] == _word.turkish;
     setState(() {
       _checked = true;
       if (correct) _score++;
