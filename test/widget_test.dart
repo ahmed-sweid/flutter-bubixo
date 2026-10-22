@@ -93,6 +93,10 @@ void main() {
 
     await tester.tap(navigationLabel('Kelimeler'));
     await tester.pump(const Duration(milliseconds: 400));
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      1,
+    );
     await tester.runAsync(
       () => Future<void>.delayed(const Duration(milliseconds: 100)),
     );
@@ -109,6 +113,10 @@ void main() {
 
     await tester.tap(navigationLabel('Pratik'));
     await tester.pump(const Duration(milliseconds: 400));
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      2,
+    );
     expect(find.text('Alıştırma türleri'), findsOneWidget);
     expect(find.text('Cümle kurma'), findsOneWidget);
 
@@ -121,10 +129,18 @@ void main() {
 
     await tester.tap(navigationLabel('Keşfet'));
     await tester.pump(const Duration(milliseconds: 400));
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      3,
+    );
     expect(find.text("Tom's Morning"), findsOneWidget);
 
     await tester.tap(navigationLabel('Öğren'));
     await tester.pump(const Duration(milliseconds: 400));
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      0,
+    );
     await tester.runAsync(
       () => Future<void>.delayed(const Duration(milliseconds: 300)),
     );
