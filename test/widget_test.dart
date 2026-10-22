@@ -27,6 +27,12 @@ void main() {
 
     await tester.tap(find.text('Hikâyeleri keşfet'));
     await tester.pump(const Duration(milliseconds: 400));
+
+    // Allow the real asset-bundle future to finish outside fake test time.
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 300)),
+    );
+    await tester.pump();
     await pumpUntilFound(tester, find.text("Tom's Morning"));
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
     expect(find.text("Tom's Morning"), findsOneWidget);
