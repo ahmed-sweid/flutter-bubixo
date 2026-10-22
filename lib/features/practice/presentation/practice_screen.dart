@@ -196,9 +196,11 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
     if (_index >= _total) return _completion();
     final exercise = _wordMode ? null : _exercise;
     if (_wordMode && _currentWordOptions.isEmpty) _currentWordOptions = _wordOptions;
-    final isCorrect = _sentenceMode
-        ? _answer.join(' ').toLowerCase() == exercise!.english.toLowerCase()
-        : _selected != null && (_wordMode ? _currentWordOptions[_selected!] == _word.turkish : _selected == 0);
+    final isCorrect = widget.mode.kind == _ActivityKind.grammar
+        ? _checked
+        : _sentenceMode
+            ? _answer.join(' ').toLowerCase() == exercise!.english.toLowerCase()
+            : _selected != null && _currentWordOptions[_selected!] == _word.turkish;
     return Scaffold(
       backgroundColor: AppColors.canvas,
       appBar: AppBar(
