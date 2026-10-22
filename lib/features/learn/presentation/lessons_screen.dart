@@ -4,6 +4,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import 'lesson_detail_screen.dart';
 
 /// Lesson catalogue using the titles and durations from Bubixo's original data.js.
 /// Lesson bodies and quizzes will be connected from the source data in the next pass.
@@ -76,14 +77,25 @@ class LessonsScreen extends StatelessWidget {
             final lesson = entry.value;
             return Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-              child: Container(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                decoration: BoxDecoration(
-                  color: AppColors.canvas,
-                  border: Border.all(color: AppColors.hairline),
+              child: Material(
+                color: AppColors.canvas,
+                borderRadius: BorderRadius.circular(13),
+                child: InkWell(
                   borderRadius: BorderRadius.circular(13),
-                ),
-                child: Row(
+                  onTap: index == 0
+                      ? () => Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => const LessonDetailScreen(),
+                            ),
+                          )
+                      : null,
+                  child: Container(
+                    padding: const EdgeInsets.all(AppSpacing.md),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.hairline),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    child: Row(
                   children: [
                     Container(
                       width: 42,
@@ -115,6 +127,8 @@ class LessonsScreen extends StatelessWidget {
                       ),
                     ),
                   ],
+                    ),
+                  ),
                 ),
               ),
             );
