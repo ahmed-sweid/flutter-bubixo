@@ -4,6 +4,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import 'lessons_screen.dart';
 
 /// Learning landing screen.
 ///
@@ -45,28 +46,45 @@ class LearnScreen extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.xxl),
         _TodayRecommendationCard(onTap: onOpenDiscover),
-        const SizedBox(height: AppSpacing.xxl),
-        Text('Hızlı erişim', style: AppTypography.displayXs),
+        const SizedBox(height: AppSpacing.xl),
+        Text('Temel dersler', style: AppTypography.displayXs),
         const SizedBox(height: AppSpacing.md),
-        _QuickActionTile(
-          icon: Iconsax.bookmark_2,
-          title: 'Kaydettiğin kelimeler',
-          description: 'Kelime listeni aç ve kayıtlarını gözden geçir.',
+        _LearningPathCard(
+          icon: Iconsax.teacher,
+          title: 'Ders sırasını takip et',
+          subtitle: 'Alfabe, tanışma ve temel dil bilgisi konuları.',
+          label: 'DERSLER',
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => const LessonsScreen(),
+            ),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.xl),
+        Text('Nasıl öğrenmek istersin?', style: AppTypography.displayXs),
+        const SizedBox(height: AppSpacing.md),
+        _LearningPathCard(
+          icon: Iconsax.book_1,
+          title: 'Hikâye okuyarak öğren',
+          subtitle: 'Cümleleri İngilizce ve Türkçe birlikte incele.',
+          label: 'OKUMA',
+          onTap: onOpenDiscover,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        _LearningPathCard(
+          icon: Iconsax.translate,
+          title: 'Yeni kelimeler keşfet',
+          subtitle: 'Anlamları incele ve tekrar etmek istediklerini kaydet.',
+          label: 'KELİME',
           onTap: onOpenWords,
         ),
         const SizedBox(height: AppSpacing.sm),
-        _QuickActionTile(
+        _LearningPathCard(
           icon: Iconsax.activity,
-          title: 'Kısa bir pratik yap',
-          description: 'Öğrendiklerini alıştırmalarla pekiştir.',
+          title: 'Öğrendiklerini uygula',
+          subtitle: 'Kısa örnek sorularla pratik yap.',
+          label: 'PRATİK',
           onTap: onOpenPractice,
-        ),
-        const SizedBox(height: AppSpacing.sm),
-        _QuickActionTile(
-          icon: Iconsax.discover,
-          title: 'Yeni içerikler keşfet',
-          description: 'Hikâyelere ve diğer öğrenme içeriklerine göz at.',
-          onTap: onOpenDiscover,
         ),
       ],
     );
@@ -146,55 +164,63 @@ class _TodayRecommendationCard extends StatelessWidget {
   }
 }
 
-class _QuickActionTile extends StatelessWidget {
-  const _QuickActionTile({
+class _LearningPathCard extends StatelessWidget {
+  const _LearningPathCard({
     required this.icon,
     required this.title,
-    required this.description,
+    required this.subtitle,
+    required this.label,
     required this.onTap,
   });
 
   final IconData icon;
   final String title;
-  final String description;
+  final String subtitle;
+  final String label;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: AppColors.canvas,
+      borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(12),
         child: Container(
           padding: const EdgeInsets.all(AppSpacing.md),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.hairline),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
             children: [
               Container(
-                width: 44,
-                height: 44,
+                width: 46,
+                height: 46,
                 decoration: BoxDecoration(
-                  color: AppColors.canvas,
-                  border: Border.all(color: AppColors.hairline),
-                  borderRadius: BorderRadius.circular(9),
+                  color: const Color(0xFFF1ECFF),
+                  borderRadius: BorderRadius.circular(11),
                 ),
-                alignment: Alignment.center,
-                child: Icon(icon, color: AppColors.ink, size: 21),
+                child: Icon(icon, color: AppColors.accentPurple, size: 22),
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: AppTypography.bodyMd.copyWith(
-                      fontWeight: FontWeight.w600,
+                    Text(label, style: AppTypography.eyebrowSmall.copyWith(
+                      color: AppColors.muted,
+                      fontSize: 10,
                     )),
                     const SizedBox(height: AppSpacing.xxs),
-                    Text(description, style: AppTypography.bodySm),
+                    Text(title, style: AppTypography.bodyMd.copyWith(
+                      fontWeight: FontWeight.w700,
+                    )),
+                    const SizedBox(height: AppSpacing.xxs),
+                    Text(subtitle, style: AppTypography.bodySm.copyWith(
+                      color: AppColors.bodyMid,
+                    )),
                   ],
                 ),
               ),
