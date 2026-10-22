@@ -93,7 +93,10 @@ class _WordsScreenState extends State<WordsScreen> {
           ],
         ),
         const SizedBox(height: AppSpacing.xl),
-        _WordOverviewCard(savedCount: _savedWords.length),
+        _WordOverviewCard(
+          savedCount: _savedWords.length,
+          reviewCount: _reviewWords.length,
+        ),
         const SizedBox(height: AppSpacing.xl),
         TextField(
           controller: _searchController,
@@ -216,9 +219,13 @@ class _WordEntry {
 }
 
 class _WordOverviewCard extends StatelessWidget {
-  const _WordOverviewCard({required this.savedCount});
+  const _WordOverviewCard({
+    required this.savedCount,
+    required this.reviewCount,
+  });
 
   final int savedCount;
+  final int reviewCount;
 
   @override
   Widget build(BuildContext context) {
@@ -245,29 +252,80 @@ class _WordOverviewCard extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
-            '$savedCount kelime seçtin',
+            'Kelime listelerin',
             style: AppTypography.displayXs.copyWith(color: AppColors.onPrimary),
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            'Yeni kelimeleri bul, anlamlarını incele ve kişisel listene ekle.',
+            'Kaydettiklerini ve tekrar etmek istediklerini ayrı ayrı yönet.',
             style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
           ),
           const SizedBox(height: AppSpacing.lg),
           Row(
             children: [
-              const Icon(Iconsax.book_1, color: AppColors.onPrimary, size: 17),
-              const SizedBox(width: AppSpacing.xs),
-              Text(
-                'Sözlük',
-                style: AppTypography.bodySm.copyWith(
-                  color: AppColors.onPrimary,
-                  fontWeight: FontWeight.w600,
+              Expanded(
+                child: _WordCountPill(
+                  icon: Iconsax.bookmark_2,
+                  label: 'Kaydedilen',
+                  count: savedCount,
                 ),
               ),
-              const Spacer(),
-              const Icon(Iconsax.arrow_right_3, color: AppColors.onPrimary, size: 17),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(
+                child: _WordCountPill(
+                  icon: Iconsax.refresh,
+                  label: 'Tekrar',
+                  count: reviewCount,
+                ),
+              ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _WordCountPill extends StatelessWidget {
+  const _WordCountPill({
+    required this.icon,
+    required this.label,
+    required this.count,
+  });
+
+  final IconData icon;
+  final String label;
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: AppSpacing.md,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.onPrimary.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.onPrimary.withValues(alpha: 0.12)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: AppColors.onPrimary, size: 17),
+          const SizedBox(width: AppSpacing.xs),
+          Expanded(
+            child: Text(
+              label,
+              style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Text(
+            '$count',
+            style: AppTypography.bodyMd.copyWith(
+              color: AppColors.onPrimary,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),
