@@ -62,6 +62,10 @@ void main() {
     expect(find.text('Tom her sabah erken uyanır.'), findsOneWidget);
     expect(find.text('wakes up · uyanır'), findsOneWidget);
 
+    // Saving a phrase from the reader should make it available in vocabulary.
+    await tester.tap(find.text('wakes up · uyanır'));
+    await tester.pump(const Duration(milliseconds: 250));
+
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
@@ -70,6 +74,9 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Kelime listelerin'), findsOneWidget);
     expect(find.text('İngilizce veya Türkçe ara'), findsOneWidget);
+    await tester.tap(find.text('Kaydedilenler'));
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(find.text('wakes up'), findsOneWidget);
 
     await tester.tap(find.text('Pratik').first);
     await tester.pump(const Duration(milliseconds: 400));
@@ -89,7 +96,13 @@ void main() {
 
     await tester.tap(find.text('Öğren').first);
     await tester.pump(const Duration(milliseconds: 400));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 300)),
+    );
+    await tester.pump();
     expect(find.text('Bugün İngilizceye küçük bir adım at.'), findsOneWidget);
+    expect(find.text('Son hikâyene dön'), findsOneWidget);
+    expect(find.text("Tom's Morning"), findsOneWidget);
 
     final practiceAction = find.text('Öğrendiklerini uygula');
     await tester.ensureVisible(practiceAction);
