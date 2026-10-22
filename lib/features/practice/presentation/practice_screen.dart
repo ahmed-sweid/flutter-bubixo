@@ -256,12 +256,45 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(AppSpacing.md),
                 decoration: BoxDecoration(border: Border.all(color: AppColors.hairline), borderRadius: BorderRadius.circular(12)),
-                child: Wrap(spacing: 8, runSpacing: 8, children: _answer.isEmpty
-                    ? [Text('Kelimeleri aşağıdan seç', style: AppTypography.bodySm.copyWith(color: AppColors.muted))]
-                    : _answer.asMap().entries.map((entry) => ActionChip(label: Text(entry.value), onPressed: _checked ? null : () => setState(() { _tiles.add(entry.value); _answer.removeAt(entry.key); })).toList()),
+                child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: _answer.isEmpty
+                    ? [
+                        Text(
+                          'Kelimeleri aşağıdan seç',
+                          style: AppTypography.bodySm.copyWith(color: AppColors.muted),
+                        ),
+                      ]
+                    : _answer.asMap().entries.map((entry) {
+                        return ActionChip(
+                          label: Text(entry.value),
+                          onPressed: _checked
+                              ? null
+                              : () => setState(() {
+                                    _tiles.add(entry.value);
+                                    _answer.removeAt(entry.key);
+                                  }),
+                        );
+                      }).toList(),
               ),
-              const SizedBox(height: AppSpacing.md),
-              Wrap(spacing: 8, runSpacing: 8, children: _tiles.map((tile) => ActionChip(label: Text(tile), onPressed: _checked ? null : () => setState(() { _answer.add(tile); _tiles.remove(tile); })).toList()),
+            ),
+            const SizedBox(height: AppSpacing.md),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: _tiles.map((tile) {
+                return ActionChip(
+                  label: Text(tile),
+                  onPressed: _checked
+                      ? null
+                      : () => setState(() {
+                            _answer.add(tile);
+                            _tiles.remove(tile);
+                          }),
+                );
+              }).toList(),
+            ),
             ] else if (_wordMode) ...[
               ...List.generate(_currentWordOptions.length, (i) => _option(_currentWordOptions[i], i, isCorrect)),
             ] else ...[
