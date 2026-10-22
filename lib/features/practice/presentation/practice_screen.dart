@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import '../data/builder_exercises.dart';
+import '../data/game_words.dart';
 
 class PracticeScreen extends StatelessWidget {
   const PracticeScreen({super.key});
@@ -11,180 +15,69 @@ class PracticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.lg,
-        AppSpacing.xl,
-        AppSpacing.lg,
-        AppSpacing.xxxl,
-      ),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.xl, AppSpacing.lg, AppSpacing.xxxl),
       children: [
         Text('Pratik', style: AppTypography.displaySm),
         const SizedBox(height: AppSpacing.xs),
-        Text(
-          'Kısa alıştırmalarla öğrendiklerini kullan.',
-          style: AppTypography.bodyMd,
-        ),
+        Text('Kısa alıştırmalarla öğrendiklerini kullan.', style: AppTypography.bodyMd),
         const SizedBox(height: AppSpacing.xl),
         Container(
           padding: const EdgeInsets.all(AppSpacing.lg),
-          decoration: BoxDecoration(
-            color: AppColors.ink,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Hazır olduğunda başla',
-                      style: AppTypography.displayXs.copyWith(
-                        color: AppColors.onPrimary,
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.xs),
-                    Text(
-                      'Bir alıştırma seç ve kendi hızında ilerle.',
-                      style: AppTypography.bodySm.copyWith(
-                        color: AppColors.mutedSoft,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              const Icon(
-                Iconsax.flash_1,
-                color: AppColors.accentPurple,
-                size: 34,
-              ),
-            ],
-          ),
+          decoration: BoxDecoration(color: AppColors.ink, borderRadius: BorderRadius.circular(16)),
+          child: Row(children: [
+            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('Hazır olduğunda başla', style: AppTypography.displayXs.copyWith(color: AppColors.onPrimary)),
+              const SizedBox(height: AppSpacing.xs),
+              Text('Gerçek kaynak alıştırmalarıyla kendi hızında ilerle.', style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft)),
+            ])),
+            const SizedBox(width: AppSpacing.md),
+            const Icon(Iconsax.flash_1, color: AppColors.accentPurple, size: 34),
+          ]),
         ),
         const SizedBox(height: AppSpacing.xl),
         Text('Alıştırma türleri', style: AppTypography.displayXs),
         const SizedBox(height: AppSpacing.md),
-        _PracticeCategoryCard(
-          icon: Iconsax.text_block,
-          tint: const Color(0xFFECE7FF),
-          iconColor: AppColors.accentPurple,
-          title: 'Cümle kurma',
-          subtitle: 'Türkçe cümleyi İngilizce sıraya yerleştir.',
-          meta: 'Cümle oluşturma',
-          onTap: () => _openActivity(
-            context,
-            title: 'Cümle kurma',
-            subtitle: 'Kelimeleri doğru sırada düşün.',
-            question: 'Ben her sabah kahve içerim.',
-            prompt: 'Doğru İngilizce cümleyi seç',
-            options: const [
-              'I drink coffee every morning.',
-              'I coffee drink every morning.',
-              'Every morning coffee I drink.',
-            ],
-            correctIndex: 0,
-          ),
+        _PracticeCard(
+          icon: Iconsax.text_block, tint: const Color(0xFFECE7FF), iconColor: AppColors.accentPurple,
+          title: 'Cümle kurma', subtitle: 'Türkçe cümleden doğru İngilizce sırasını oluştur.',
+          meta: '${builderExercises.length} alıştırma · 3 seviye',
+          onTap: () => _open(context, const _ActivityMode.sentence()),
         ),
         const SizedBox(height: AppSpacing.md),
-        _PracticeCategoryCard(
-          icon: Iconsax.book_1,
-          tint: const Color(0xFFE3F2FF),
-          iconColor: AppColors.accentBlueDeep,
-          title: 'Dil bilgisi',
-          subtitle: 'Zamanları ve cümle yapılarını pekiştir.',
-          meta: 'Present Simple',
-          onTap: () => _openActivity(
-            context,
-            title: 'Dil bilgisi',
-            subtitle: 'Geniş zaman · Present Simple',
-            question: 'She ___ coffee every morning.',
-            prompt: 'Boşluğu doğru seçenekle tamamla',
-            options: const ['drink', 'drinks', 'drinking'],
-            correctIndex: 1,
-          ),
+        _PracticeCard(
+          icon: Iconsax.category_2, tint: const Color(0xFFFFEBD9), iconColor: AppColors.accentOrange,
+          title: 'Kelime oyunları', subtitle: 'İngilizce kelimeyi doğru Türkçe anlamıyla eşleştir.',
+          meta: '${gameWords.length} kelime · 12 tema',
+          onTap: () => _open(context, const _ActivityMode.words()),
         ),
         const SizedBox(height: AppSpacing.md),
-        _PracticeCategoryCard(
-          icon: Iconsax.category_2,
-          tint: const Color(0xFFFFEBD9),
-          iconColor: AppColors.accentOrange,
-          title: 'Kelime oyunları',
-          subtitle: 'İngilizce kelimeleri Türkçe anlamlarıyla eşleştir.',
-          meta: 'Kelime eşleştirme',
-          onTap: () => _openActivity(
-            context,
-            title: 'Kelime eşleştirme',
-            subtitle: 'Kelimeyi doğru anlamıyla eşleştir.',
-            question: '“explore” ne demek?',
-            prompt: 'Doğru anlamı seç',
-            options: const ['unutmak', 'keşfetmek', 'beklemek'],
-            correctIndex: 1,
-          ),
+        _PracticeCard(
+          icon: Iconsax.book_1, tint: const Color(0xFFE3F2FF), iconColor: AppColors.accentBlueDeep,
+          title: 'Dil bilgisi', subtitle: 'Soru cümleleri, geniş zaman, geçmiş ve gelecek.',
+          meta: '${builderExercises.length} kaynak sorusu',
+          onTap: () => _open(context, const _ActivityMode.grammar()),
         ),
         const SizedBox(height: AppSpacing.lg),
         Container(
           padding: const EdgeInsets.all(AppSpacing.md),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF7F7F8),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Icon(Iconsax.info_circle, size: 19, color: AppColors.bodyMid),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: Text(
-                  'Bu ekrandaki sorular arayüz ve geçişleri göstermek için örneklenmiştir. '
-                  'Gerçek soru havuzları sonraki aşamada kaynak dosyalara bağlanacak.',
-                  style: AppTypography.bodySm.copyWith(
-                    color: AppColors.bodyMid,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(12)),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Icon(Iconsax.info_circle, size: 19, color: AppColors.bodyMid),
+            const SizedBox(width: AppSpacing.sm),
+            Expanded(child: Text('Alıştırmalar Bubixo’nun kaynak soru ve kelime havuzlarından aktarılmıştır. İlerleme şu an oturum içinde tutulur.', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid))),
+          ]),
         ),
       ],
     );
   }
 
-  void _openActivity(
-    BuildContext context, {
-    required String title,
-    required String subtitle,
-    required String question,
-    required String prompt,
-    required List<String> options,
-    required int correctIndex,
-  }) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => _PracticeActivityScreen(
-          title: title,
-          subtitle: subtitle,
-          question: question,
-          prompt: prompt,
-          options: options,
-          correctIndex: correctIndex,
-        ),
-      ),
-    );
+  void _open(BuildContext context, _ActivityMode mode) {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => _PracticeActivityScreen(mode: mode)));
   }
 }
 
-class _PracticeCategoryCard extends StatelessWidget {
-  const _PracticeCategoryCard({
-    required this.icon,
-    required this.tint,
-    required this.iconColor,
-    required this.title,
-    required this.subtitle,
-    required this.meta,
-    required this.onTap,
-  });
-
+class _PracticeCard extends StatelessWidget {
+  const _PracticeCard({required this.icon, required this.tint, required this.iconColor, required this.title, required this.subtitle, required this.meta, required this.onTap});
   final IconData icon;
   final Color tint;
   final Color iconColor;
@@ -194,228 +87,258 @@ class _PracticeCategoryCard extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.canvas,
+  Widget build(BuildContext context) => Material(
+    color: AppColors.canvas,
+    borderRadius: BorderRadius.circular(14),
+    child: InkWell(
+      onTap: onTap,
       borderRadius: BorderRadius.circular(14),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
-        child: Container(
-          padding: const EdgeInsets.all(AppSpacing.md),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.hairline),
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: tint,
-                  borderRadius: BorderRadius.circular(13),
-                ),
-                child: Icon(icon, color: iconColor, size: 23),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: AppTypography.bodyMd.copyWith(
-                      fontWeight: FontWeight.w700,
-                    )),
-                    const SizedBox(height: 4),
-                    Text(subtitle, style: AppTypography.bodySm.copyWith(
-                      color: AppColors.bodyMid,
-                    )),
-                    const SizedBox(height: 7),
-                    Text(meta.toUpperCase(), style: AppTypography.eyebrowSmall.copyWith(
-                      color: AppColors.muted,
-                      fontSize: 10,
-                    )),
-                  ],
-                ),
-              ),
-              const SizedBox(width: AppSpacing.xs),
-              const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
-            ],
-          ),
-        ),
+      child: Container(
+        padding: const EdgeInsets.all(AppSpacing.md),
+        decoration: BoxDecoration(border: Border.all(color: AppColors.hairline), borderRadius: BorderRadius.circular(14)),
+        child: Row(children: [
+          Container(width: 50, height: 50, decoration: BoxDecoration(color: tint, borderRadius: BorderRadius.circular(13)), child: Icon(icon, color: iconColor, size: 23)),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(title, style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
+            const SizedBox(height: 4),
+            Text(subtitle, style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
+            const SizedBox(height: 7),
+            Text(meta.toUpperCase(), style: AppTypography.eyebrowSmall.copyWith(color: AppColors.muted, fontSize: 10)),
+          ])),
+          const SizedBox(width: AppSpacing.xs),
+          const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
+        ]),
       ),
-    );
-  }
+    ),
+  );
+}
+
+enum _ActivityKind { sentence, words, grammar }
+
+class _ActivityMode {
+  const _ActivityMode.sentence() : kind = _ActivityKind.sentence, title = 'Cümle kurma';
+  const _ActivityMode.words() : kind = _ActivityKind.words, title = 'Kelime oyunları';
+  const _ActivityMode.grammar() : kind = _ActivityKind.grammar, title = 'Dil bilgisi';
+  final _ActivityKind kind;
+  final String title;
 }
 
 class _PracticeActivityScreen extends StatefulWidget {
-  const _PracticeActivityScreen({
-    required this.title,
-    required this.subtitle,
-    required this.question,
-    required this.prompt,
-    required this.options,
-    required this.correctIndex,
-  });
-
-  final String title;
-  final String subtitle;
-  final String question;
-  final String prompt;
-  final List<String> options;
-  final int correctIndex;
-
+  const _PracticeActivityScreen({required this.mode});
+  final _ActivityMode mode;
   @override
   State<_PracticeActivityScreen> createState() => _PracticeActivityScreenState();
 }
 
 class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
-  int? _selectedIndex;
+  final _random = Random();
+  int _index = 0;
+  int _score = 0;
+  int? _selected;
+  bool _checked = false;
+  late List<int> _questionOrder;
+  late List<String> _tiles;
+  final List<String> _answer = [];
+
+  bool get _sentenceMode => widget.mode.kind == _ActivityKind.sentence;
+  bool get _wordMode => widget.mode.kind == _ActivityKind.words;
+  int get _total => _wordMode ? gameWords.length : builderExercises.where((e) => widget.mode.kind != _ActivityKind.grammar || e.category != 'question').length;
+  List<BuilderExercise> get _exercises => widget.mode.kind == _ActivityKind.grammar
+      ? builderExercises.where((e) => e.category != 'question').toList()
+      : builderExercises;
+  BuilderExercise get _exercise => _exercises[_questionOrder[_index]];
+  GameWord get _word => gameWords[_questionOrder[_index]];
+
+  @override
+  void initState() {
+    super.initState();
+    _questionOrder = List<int>.generate(_total, (i) => i)..shuffle(_random);
+    _prepareQuestion();
+  }
+
+  void _prepareQuestion() {
+    _selected = null;
+    _checked = false;
+    _answer.clear();
+    if (_sentenceMode) {
+      final exercise = _exercise;
+      _tiles = [...exercise.english.split(' '), ...exercise.distractors]..shuffle(_random);
+    } else if (_wordMode) {
+      _tiles = [];
+    } else {
+      _tiles = [];
+    }
+  }
+
+  void _check() {
+    if (_checked) return;
+    final correct = _sentenceMode
+        ? _answer.join(' ').toLowerCase() == _exercise.english.toLowerCase()
+        : _selected == 0;
+    setState(() {
+      _checked = true;
+      if (correct) _score++;
+    });
+  }
+
+  List<String> get _wordOptions {
+    final correct = _word.turkish;
+    final others = gameWords.where((w) => w.turkish != correct).map((w) => w.turkish).toSet().toList()..shuffle(_random);
+    final options = <String>[correct, ...others.take(3)]..shuffle(_random);
+    return options;
+  }
+
+  late List<String> _currentWordOptions = [];
 
   @override
   Widget build(BuildContext context) {
-    final answered = _selectedIndex != null;
-    final isCorrect = _selectedIndex == widget.correctIndex;
-
+    if (_index >= _total) return _completion();
+    final exercise = _wordMode ? null : _exercise;
+    if (_wordMode && _currentWordOptions.isEmpty) _currentWordOptions = _wordOptions;
+    final isCorrect = _sentenceMode
+        ? _answer.join(' ').toLowerCase() == exercise!.english.toLowerCase()
+        : _selected != null && (_wordMode ? _currentWordOptions[_selected!] == _word.turkish : _selected == 0);
     return Scaffold(
       backgroundColor: AppColors.canvas,
       appBar: AppBar(
         backgroundColor: AppColors.canvas,
         surfaceTintColor: AppColors.transparent,
-        title: Text(widget.title, style: AppTypography.bodyMd.copyWith(
-          fontWeight: FontWeight.w700,
-        )),
-        leading: IconButton(
-          tooltip: 'Geri',
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Iconsax.arrow_left_2),
-        ),
+        title: Text(widget.mode.title, style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
+        leading: IconButton(tooltip: 'Geri', onPressed: () => Navigator.of(context).pop(), icon: const Icon(Iconsax.arrow_left_2)),
       ),
       body: SafeArea(
         top: false,
         child: ListView(
           padding: const EdgeInsets.all(AppSpacing.lg),
           children: [
-            Text(widget.subtitle, style: AppTypography.bodySm.copyWith(
-              color: AppColors.bodyMid,
-            )),
+            Row(children: [
+              Expanded(child: ClipRRect(borderRadius: BorderRadius.circular(6), child: LinearProgressIndicator(value: (_index + 1) / _total, minHeight: 5, backgroundColor: const Color(0xFFEAEAEA), valueColor: const AlwaysStoppedAnimation(AppColors.accentPurple)))),
+              const SizedBox(width: AppSpacing.md),
+              Text('${_index + 1} / $_total', style: AppTypography.eyebrowSmall),
+            ]),
             const SizedBox(height: AppSpacing.xl),
-            Row(
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6),
-                    child: const LinearProgressIndicator(
-                      value: 1.0,
-                      minHeight: 5,
-                      backgroundColor: Color(0xFFEAEAEA),
-                      valueColor: AlwaysStoppedAnimation(AppColors.accentPurple),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.md),
-                Text('1 / 1', style: AppTypography.eyebrowSmall),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.xxl),
-            Text(widget.prompt, style: AppTypography.bodySm.copyWith(
-              color: AppColors.bodyMid,
-            )),
+            Text(_wordMode ? 'Kelimeyi anlamıyla eşleştir' : widget.mode.kind == _ActivityKind.grammar ? 'Dil bilgisi · Seviye ${exercise!.level}' : 'Seviye ${exercise!.level} · ${_categoryLabel(exercise.category)}', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
             const SizedBox(height: AppSpacing.md),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(AppSpacing.xl),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF7F7F8),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                widget.question,
-                textAlign: TextAlign.center,
-                style: AppTypography.displayXs,
-              ),
+              decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(16)),
+              child: Column(children: [
+                if (_wordMode) ...[
+                  const Icon(Iconsax.book_1, size: 30, color: AppColors.accentPurple),
+                  const SizedBox(height: AppSpacing.md),
+                  Text(_word.english, textAlign: TextAlign.center, style: AppTypography.displaySm),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text('Hangi Türkçe anlam doğru?', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
+                ] else ...[
+                  Text(exercise!.turkish, textAlign: TextAlign.center, style: AppTypography.displayXs),
+                  if (_sentenceMode) ...[
+                    const SizedBox(height: AppSpacing.sm),
+                    Text('Kelimelere dokunarak İngilizce cümleyi oluştur.', textAlign: TextAlign.center, style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
+                  ] else ...[
+                    const SizedBox(height: AppSpacing.md),
+                    Text(exercise.english, textAlign: TextAlign.center, style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w600)),
+                    const SizedBox(height: AppSpacing.xs),
+                    Text('Cümleyi ve kuralı incele, ardından devam et.', textAlign: TextAlign.center, style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
+                  ],
+                ],
+              ]),
             ),
             const SizedBox(height: AppSpacing.xl),
-            ...List.generate(widget.options.length, (index) {
-              final selected = _selectedIndex == index;
-              final correctChoice = answered && index == widget.correctIndex;
-              final wrongChoice = selected && answered && !isCorrect;
-              final borderColor = correctChoice
-                  ? AppColors.accentGreen
-                  : wrongChoice
-                      ? AppColors.accentRed
-                      : selected
-                          ? AppColors.accentPurple
-                          : AppColors.hairline;
-              return Padding(
-                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(12),
-                  onTap: answered ? null : () => setState(() => _selectedIndex = index),
-                  child: Container(
-                    padding: const EdgeInsets.all(AppSpacing.md),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: borderColor, width: selected || correctChoice ? 1.5 : 1),
-                      color: correctChoice
-                          ? const Color(0xFFF0FFF3)
-                          : wrongChoice
-                              ? const Color(0xFFFFF1F2)
-                              : AppColors.canvas,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(child: Text(widget.options[index], style: AppTypography.bodyMd)),
-                        if (correctChoice)
-                          const Icon(Iconsax.tick_circle, color: AppColors.accentGreen, size: 20)
-                        else if (wrongChoice)
-                          const Icon(Iconsax.close_circle, color: AppColors.accentRed, size: 20)
-                        else
-                          Icon(
-                            selected ? Iconsax.radio : Iconsax.record,
-                            color: selected ? AppColors.accentPurple : AppColors.muted,
-                            size: 20,
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }),
-            if (answered) ...[
-              const SizedBox(height: AppSpacing.md),
+            if (_sentenceMode) ...[
+              Text('Cümlen', style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
+              const SizedBox(height: AppSpacing.sm),
               Container(
+                constraints: const BoxConstraints(minHeight: 70),
+                width: double.infinity,
                 padding: const EdgeInsets.all(AppSpacing.md),
-                decoration: BoxDecoration(
-                  color: isCorrect ? const Color(0xFFF0FFF3) : const Color(0xFFFFF7ED),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      isCorrect ? Iconsax.tick_circle : Iconsax.info_circle,
-                      color: isCorrect ? AppColors.accentGreen : AppColors.accentOrange,
-                    ),
-                    const SizedBox(width: AppSpacing.sm),
-                    Expanded(
-                      child: Text(
-                        isCorrect ? 'Doğru cevap!' : 'Doğru cevabı yeşil işaretle gösterdik.',
-                        style: AppTypography.bodySm,
-                      ),
-                    ),
-                  ],
-                ),
+                decoration: BoxDecoration(border: Border.all(color: AppColors.hairline), borderRadius: BorderRadius.circular(12)),
+                child: Wrap(spacing: 8, runSpacing: 8, children: _answer.isEmpty
+                    ? [Text('Kelimeleri aşağıdan seç', style: AppTypography.bodySm.copyWith(color: AppColors.muted))]
+                    : _answer.asMap().entries.map((entry) => ActionChip(label: Text(entry.value), onPressed: _checked ? null : () => setState(() { _tiles.add(entry.value); _answer.removeAt(entry.key); })).toList()),
               ),
               const SizedBox(height: AppSpacing.md),
-              OutlinedButton.icon(
-                onPressed: () => setState(() => _selectedIndex = null),
-                icon: const Icon(Iconsax.refresh),
-                label: const Text('Tekrar dene'),
-              ),
+              Wrap(spacing: 8, runSpacing: 8, children: _tiles.map((tile) => ActionChip(label: Text(tile), onPressed: _checked ? null : () => setState(() { _answer.add(tile); _tiles.remove(tile); })).toList()),
+            ] else if (_wordMode) ...[
+              ...List.generate(_currentWordOptions.length, (i) => _option(_currentWordOptions[i], i, isCorrect)),
+            ] else ...[
+              Container(padding: const EdgeInsets.all(AppSpacing.md), decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(12)), child: Text(exercise!.note, style: AppTypography.bodyMd)),
             ],
+            const SizedBox(height: AppSpacing.lg),
+            if (_checked) Container(
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(color: isCorrect ? const Color(0xFFF0FFF3) : const Color(0xFFFFF7ED), borderRadius: BorderRadius.circular(12)),
+              child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Icon(isCorrect ? Iconsax.tick_circle : Iconsax.info_circle, color: isCorrect ? AppColors.accentGreen : AppColors.accentOrange),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(child: Text(_wordMode ? (isCorrect ? 'Doğru: ${_word.turkish}' : 'Doğru cevap: ${_word.turkish}') : _sentenceMode ? (isCorrect ? exercise!.note : 'Doğru cevap: ${exercise!.english}. ${exercise.note}') : exercise!.note, style: AppTypography.bodySm)),
+              ]),
+            ),
+            const SizedBox(height: AppSpacing.md),
+            if (!_checked)
+              FilledButton(onPressed: _sentenceMode ? (_answer.isEmpty ? null : _check) : _wordMode ? (_selected == null ? null : _check) : () => setState(() => _checked = true), child: Text(_sentenceMode ? 'Cümleyi kontrol et' : _wordMode ? 'Cevabı kontrol et' : 'Anladım')),
+            if (_checked)
+              FilledButton(onPressed: _next, child: Text(_index + 1 == _total ? 'Sonuçları gör' : 'Sonraki alıştırma')),
           ],
         ),
       ),
     );
   }
+
+  Widget _option(String label, int index, bool isCorrect) {
+    final selected = _selected == index;
+    final correct = _checked && label == _word.turkish;
+    final wrong = _checked && selected && !correct;
+    final color = correct ? AppColors.accentGreen : wrong ? AppColors.accentRed : selected ? AppColors.accentPurple : AppColors.hairline;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+      child: InkWell(
+        onTap: _checked ? null : () => setState(() => _selected = index),
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: BoxDecoration(border: Border.all(color: color, width: selected || correct ? 1.5 : 1), borderRadius: BorderRadius.circular(12), color: correct ? const Color(0xFFF0FFF3) : wrong ? const Color(0xFFFFF1F2) : AppColors.canvas),
+          child: Row(children: [Expanded(child: Text(label, style: AppTypography.bodyMd)), if (correct) const Icon(Iconsax.tick_circle, color: AppColors.accentGreen) else if (wrong) const Icon(Iconsax.close_circle, color: AppColors.accentRed) else Icon(selected ? Iconsax.radio : Iconsax.record, color: selected ? AppColors.accentPurple : AppColors.muted)]),
+        ),
+      ),
+    );
+  }
+
+  void _next() {
+    if (_index + 1 >= _total) {
+      setState(() => _index = _total);
+      return;
+    }
+    setState(() {
+      _index++;
+      _currentWordOptions = [];
+      _prepareQuestion();
+    });
+  }
+
+  Widget _completion() => Scaffold(
+    backgroundColor: AppColors.canvas,
+    appBar: AppBar(title: Text('Alıştırma tamamlandı', style: AppTypography.bodyMd), leading: IconButton(onPressed: () => Navigator.of(context).pop(), icon: const Icon(Iconsax.arrow_left_2))),
+    body: Padding(
+      padding: const EdgeInsets.all(AppSpacing.xl),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Icon(Iconsax.award, size: 64, color: AppColors.accentPurple),
+        const SizedBox(height: AppSpacing.lg),
+        Text('Güzel ilerleme!', style: AppTypography.displaySm),
+        const SizedBox(height: AppSpacing.sm),
+        Text('$_score doğru cevap · $_total alıştırma', style: AppTypography.bodyMd),
+        const SizedBox(height: AppSpacing.xl),
+        SizedBox(width: double.infinity, child: FilledButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Pratiğe dön'))),
+      ]),
+    ),
+  );
+
+  String _categoryLabel(String category) => switch (category) {
+    'question' => 'Soru cümleleri',
+    'present' => 'Geniş zaman',
+    'past' => 'Geçmiş zaman',
+    'future' => 'Gelecek zaman',
+    _ => category,
+  };
 }
