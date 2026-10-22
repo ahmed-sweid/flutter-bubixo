@@ -189,20 +189,20 @@ class _WordsScreenState extends State<WordsScreen> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        Row(
+        Wrap(
+          spacing: AppSpacing.sm,
+          runSpacing: AppSpacing.sm,
           children: [
             _FilterPill(
               label: 'Tüm kelimeler',
               selected: _selectedFilter == 0,
               onTap: () => setState(() => _selectedFilter = 0),
             ),
-            const SizedBox(width: AppSpacing.sm),
             _FilterPill(
               label: 'Kaydedilenler',
               selected: _selectedFilter == 1,
               onTap: () => setState(() => _selectedFilter = 1),
             ),
-            const SizedBox(width: AppSpacing.sm),
             _FilterPill(
               label: 'Tekrar',
               selected: _selectedFilter == 2,
