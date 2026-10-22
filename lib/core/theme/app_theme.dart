@@ -90,7 +90,7 @@ abstract final class AppTheme {
             ),
           ),
           minimumSize: const WidgetStatePropertyAll(Size(0, 48)),
-          side: const WidgetStatePropertyAll(AppShadows.hairline),
+          side: const WidgetStatePropertyAll(BorderSide(color: AppColors.hairline)),
           shape: WidgetStatePropertyAll(shapeSm),
         ),
       ),
