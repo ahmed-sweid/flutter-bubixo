@@ -18,6 +18,7 @@ class _WordsScreenState extends State<WordsScreen> {
   final TextEditingController _searchController = TextEditingController();
   int _selectedFilter = 0;
   final Set<String> _savedWords = {'explore', 'challenge'};
+  final Set<String> _reviewWords = {'good'};
 
   static const _words = <_WordEntry>[
     _WordEntry('good', 'iyi', 'Sıfat'),
@@ -48,7 +49,7 @@ class _WordsScreenState extends State<WordsScreen> {
           word.turkish.toLowerCase().contains(query);
       final matchesFilter = _selectedFilter == 0 ||
           (_selectedFilter == 1 && _savedWords.contains(word.english)) ||
-          (_selectedFilter == 2 && _savedWords.contains(word.english));
+          (_selectedFilter == 2 && _reviewWords.contains(word.english));
       return matchesQuery && matchesFilter;
     }).toList(growable: false);
 
@@ -177,10 +178,18 @@ class _WordsScreenState extends State<WordsScreen> {
               child: _WordCard(
                 word: word,
                 saved: _savedWords.contains(word.english),
+                reviewing: _reviewWords.contains(word.english),
                 onToggleSaved: () {
                   setState(() {
                     if (!_savedWords.add(word.english)) {
                       _savedWords.remove(word.english);
+                    }
+                  });
+                },
+                onToggleReview: () {
+                  setState(() {
+                    if (!_reviewWords.add(word.english)) {
+                      _reviewWords.remove(word.english);
                     }
                   });
                 },
@@ -314,12 +323,16 @@ class _WordCard extends StatelessWidget {
   const _WordCard({
     required this.word,
     required this.saved,
+    required this.reviewing,
     required this.onToggleSaved,
+    required this.onToggleReview,
   });
 
   final _WordEntry word;
   final bool saved;
+  final bool reviewing;
   final VoidCallback onToggleSaved;
+  final VoidCallback onToggleReview;
 
   @override
   Widget build(BuildContext context) {
@@ -369,6 +382,15 @@ class _WordCard extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          IconButton(
+            tooltip: reviewing ? 'Tekrar listesinden çıkar' : 'Tekrar listesine ekle',
+            onPressed: onToggleReview,
+            icon: Icon(
+              reviewing ? Iconsax.refresh_circle : Iconsax.refresh,
+              color: reviewing ? AppColors.accentBlueDeep : AppColors.bodyMid,
+              size: 20,
             ),
           ),
           IconButton(
