@@ -12,7 +12,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(const MaterialApp(home: WordsScreen()));
+    await tester.pumpWidget(const MaterialApp(home: Scaffold(body: WordsScreen())));
     await tester.pump(const Duration(milliseconds: 100));
 
     expect(find.text('Tüm kelimeler'), findsOneWidget);
