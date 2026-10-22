@@ -38,7 +38,10 @@ class _BubixoShellState extends State<BubixoShell> {
         onOpenWords: () => _selectTab(1),
         onOpenPractice: () => _selectTab(2),
       ),
-      WordsScreen(key: ValueKey('words-$_wordsRefreshKey')),
+      WordsScreen(
+        key: const ValueKey('words'),
+        refreshToken: _wordsRefreshKey,
+      ),
       const PracticeScreen(),
       const DiscoverScreen(),
     ];
