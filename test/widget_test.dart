@@ -1,6 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bubixo/main.dart';
 
+Future<void> pumpUntilFound(
+  WidgetTester tester,
+  Finder finder, {
+  int maxAttempts = 20,
+}) async {
+  for (var i = 0; i < maxAttempts && finder.evaluate().isEmpty; i++) {
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+}
+
 void main() {
   testWidgets('main navigation and story reader interactions work', (tester) async {
     await tester.pumpWidget(const BubixoApp());
@@ -17,6 +27,7 @@ void main() {
 
     await tester.tap(find.text('Hikâyeleri keşfet'));
     await tester.pump(const Duration(milliseconds: 400));
+    await pumpUntilFound(tester, find.text("Tom's Morning"));
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
     expect(find.text("Tom's Morning"), findsOneWidget);
 
