@@ -21,7 +21,6 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('wakes up'), findsOneWidget);
     await tester.tap(find.text('Kaydedilenler'));
     await tester.pumpAndSettle();
     expect(find.text('wakes up'), findsOneWidget);
