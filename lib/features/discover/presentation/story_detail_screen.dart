@@ -61,6 +61,33 @@ class StoryDetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Text(line.tr, style: AppTypography.bodySm),
+                    if (line.words.isNotEmpty) ...[
+                      const SizedBox(height: AppSpacing.md),
+                      Wrap(
+                        spacing: AppSpacing.xs,
+                        runSpacing: AppSpacing.xs,
+                        children: line.words
+                            .map(
+                              (word) => Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: AppSpacing.sm,
+                                  vertical: AppSpacing.xs,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.hairline.withValues(
+                                    alpha: 0.25,
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Text(
+                                  '${word.english} · ${word.turkish}',
+                                  style: AppTypography.eyebrowSmall,
+                                ),
+                              ),
+                            )
+                            .toList(growable: false),
+                      ),
+                    ],
                   ],
                 ),
               ),
