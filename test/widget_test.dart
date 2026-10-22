@@ -152,9 +152,17 @@ void main() {
     expect(find.text("Tom's Morning"), findsOneWidget);
 
     final practiceAction = find.text('Öğrendiklerini uygula');
-    await tester.ensureVisible(practiceAction);
+    await tester.scrollUntilVisible(
+      practiceAction,
+      250,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(practiceAction);
     await tester.pump(const Duration(milliseconds: 400));
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      2,
+    );
     expect(find.text('Alıştırma türleri'), findsOneWidget);
   });
 }
