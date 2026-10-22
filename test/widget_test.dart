@@ -15,7 +15,7 @@ Future<void> pumpUntilFound(
 
 Future<void> pumpRouteTransition(WidgetTester tester) async {
   await tester.pump();
-  await tester.pump(const Duration(milliseconds: 350));
+  await tester.pump(const Duration(milliseconds: 700));
   await tester.pump();
 }
 
