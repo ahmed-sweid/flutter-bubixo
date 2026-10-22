@@ -26,7 +26,9 @@ void main() {
     expect(find.text('Bugün İngilizceye küçük bir adım at.'), findsOneWidget);
     expect(find.text('Bir hikâyeyle başla'), findsOneWidget);
 
-    await tester.tap(find.text('Hikâyeleri keşfet'));
+    final discoverAction = find.text('Hikâyeleri keşfet');
+    await tester.ensureVisible(discoverAction);
+    await tester.tap(discoverAction);
     await tester.pump(const Duration(milliseconds: 400));
 
     // Allow the real asset-bundle future to finish outside fake test time.
