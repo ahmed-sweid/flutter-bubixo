@@ -182,6 +182,36 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
               icon: const Icon(Iconsax.refresh, size: 18),
               label: const Text('Tekrar dene'),
             ),
+            const SizedBox(height: AppSpacing.sm),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                onPressed: () {
+                  if (widget.lessonIndex < _lessons.length - 1) {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute<void>(
+                        builder: (_) => LessonDetailScreen(
+                          lessonIndex: widget.lessonIndex + 1,
+                        ),
+                      ),
+                    );
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                },
+                icon: Icon(
+                  widget.lessonIndex < _lessons.length - 1
+                      ? Iconsax.arrow_right_3
+                      : Iconsax.tick_circle,
+                  size: 18,
+                ),
+                label: Text(
+                  widget.lessonIndex < _lessons.length - 1
+                      ? 'Sonraki derse geç'
+                      : 'Ders listesine dön',
+                ),
+              ),
+            ),
           ] else
             SizedBox(width: double.infinity, child: FilledButton(
               onPressed: _selectedAnswer == null ? null : () => setState(() => _showAnswer = true),
