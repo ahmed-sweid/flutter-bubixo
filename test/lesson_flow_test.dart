@@ -35,8 +35,17 @@ void main() {
       200,
       scrollable: find.byType(Scrollable).last,
     );
-    await tester.tap(correctAnswer);
+    final answerTile = find.ancestor(
+      of: correctAnswer,
+      matching: find.byType(InkWell),
+    ).first;
+    await tester.tap(answerTile);
     await tester.pump();
+    final checkButton = find.ancestor(
+      of: find.text('Cevabı kontrol et'),
+      matching: find.byType(FilledButton),
+    );
+    expect(tester.widget<FilledButton>(checkButton).onPressed, isNotNull);
 
     await tester.scrollUntilVisible(
       find.text('Cevabı kontrol et'),
