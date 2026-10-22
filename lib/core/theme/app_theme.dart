@@ -89,7 +89,9 @@ abstract final class AppTheme {
             ),
           ),
           minimumSize: const WidgetStatePropertyAll(Size(0, 48)),
-          side: const WidgetStatePropertyAll(BorderSide(color: AppColors.hairline)),
+          side: const WidgetStatePropertyAll(
+            BorderSide(color: AppColors.hairline),
+          ),
           shape: WidgetStatePropertyAll(shapeSm),
         ),
       ),
@@ -206,9 +208,7 @@ abstract final class AppTheme {
           color: AppColors.ink,
           borderRadius: BorderRadius.circular(AppRadius.xs),
         ),
-        textStyle: AppTypography.caption.copyWith(
-          color: AppColors.onPrimary,
-        ),
+        textStyle: AppTypography.caption.copyWith(color: AppColors.onPrimary),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../discover/presentation/discover_screen.dart';
@@ -30,10 +31,7 @@ class _BubixoShellState extends State<BubixoShell> {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: IndexedStack(
-          index: _selectedIndex,
-          children: _screens,
-        ),
+        child: IndexedStack(index: _selectedIndex, children: _screens),
       ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
@@ -57,23 +55,23 @@ class _BubixoShellState extends State<BubixoShell> {
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.school_outlined),
-              selectedIcon: Icon(Icons.school),
+              icon: Icon(Iconsax.teacher),
+              selectedIcon: Icon(Iconsax.teacher),
               label: 'Öğren',
             ),
             NavigationDestination(
-              icon: Icon(Icons.bookmarks_outlined),
-              selectedIcon: Icon(Icons.bookmarks),
+              icon: Icon(Iconsax.bookmark_2),
+              selectedIcon: Icon(Iconsax.bookmark_2),
               label: 'Kelimeler',
             ),
             NavigationDestination(
-              icon: Icon(Icons.fitness_center_outlined),
-              selectedIcon: Icon(Icons.fitness_center),
+              icon: Icon(Iconsax.activity),
+              selectedIcon: Icon(Iconsax.activity),
               label: 'Pratik',
             ),
             NavigationDestination(
-              icon: Icon(Icons.explore_outlined),
-              selectedIcon: Icon(Icons.explore),
+              icon: Icon(Iconsax.discover),
+              selectedIcon: Icon(Iconsax.discover),
               label: 'Keşfet',
             ),
           ],

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_typography.dart';
@@ -144,11 +145,7 @@ class _BubixoMark extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
             ),
             child: const SizedBox.expand(
-              child: Icon(
-                Icons.auto_stories_rounded,
-                color: AppColors.onPrimary,
-                size: 38,
-              ),
+              child: Icon(Iconsax.book_1, color: AppColors.onPrimary, size: 38),
             ),
           ),
           Positioned(
@@ -160,10 +157,7 @@ class _BubixoMark extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.accentPurple,
                 shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.canvas,
-                  width: 3,
-                ),
+                border: Border.all(color: AppColors.canvas, width: 3),
               ),
             ),
           ),

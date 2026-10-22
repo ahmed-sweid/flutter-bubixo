@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
@@ -27,7 +28,7 @@ class DiscoverScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.explore_outlined, size: 24),
+              const Icon(Iconsax.discover, size: 24),
               const SizedBox(height: AppSpacing.md),
               Text('Okuma ve hikâyeler', style: AppTypography.displayXs),
               const SizedBox(height: AppSpacing.xs),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
@@ -33,7 +34,7 @@ class LearnScreen extends StatelessWidget {
           title: 'Kaldığın yerden devam et',
           description:
               'Öğrenme içeriği ve kayıtlı ilerleme bir sonraki geliştirme adımında bağlanacak.',
-          icon: Icons.route_outlined,
+          icon: Iconsax.routing,
         ),
         const SizedBox(height: AppSpacing.md),
         _LearningEntryCard(
@@ -41,7 +42,7 @@ class LearnScreen extends StatelessWidget {
           title: 'Küçük bir adımla başla',
           description:
               'Günün dersi, önerisi ve tekrar zamanı gerçek öğrenme verileri bağlandığında burada görünecek.',
-          icon: Icons.wb_sunny_outlined,
+          icon: Iconsax.sun_1,
           accent: AppColors.accentPurple,
         ),
       ],
