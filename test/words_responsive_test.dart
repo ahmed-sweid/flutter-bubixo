@@ -16,7 +16,10 @@ void main() {
 
     await tester.pumpWidget(const MaterialApp(home: Scaffold(body: WordsScreen())));
     await tester.pump();
-    await tester.pump(const Duration(milliseconds: 200));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 100)),
+    );
+    await tester.pump();
 
     expect(find.text('wakes up'), findsOneWidget);
     await tester.tap(find.text('Kaydedilenler'));
