@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
@@ -22,7 +23,7 @@ class WordsScreen extends StatelessWidget {
           title: 'Kelime alanı hazırlanıyor',
           description:
               'Sözlük arama, kaydedilen kelimeler ve aralıklı tekrar akışı ayrı bir adımda eklenecek.',
-          icon: Icons.bookmarks_outlined,
+          icon: Iconsax.bookmark_2,
         ),
       ],
     );
