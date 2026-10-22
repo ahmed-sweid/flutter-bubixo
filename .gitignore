@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Git Auto Commit Generator learned data
+.git-auto-commit/
