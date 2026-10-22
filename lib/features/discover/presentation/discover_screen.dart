@@ -19,6 +19,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final StoryRepository _repository = const StoryRepository();
   late Future<List<Story>> _storiesFuture = _repository.loadStories();
   int? _selectedLevel;
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +54,24 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               style: AppTypography.bodySm,
             ),
             const SizedBox(height: AppSpacing.lg),
+            TextField(
+              controller: _searchController,
+              onChanged: (_) => setState(() {}),
+              decoration: InputDecoration(
+                hintText: 'Hikâye ara',
+                prefixIcon: const Icon(Iconsax.search_normal_1, size: 20),
+                suffixIcon: _searchController.text.isEmpty ? null : IconButton(
+                  tooltip: 'Aramayı temizle',
+                  onPressed: () { _searchController.clear(); setState(() {}); },
+                  icon: const Icon(Iconsax.close_circle, size: 19),
+                ),
+                filled: true,
+                fillColor: const Color(0xFFF7F7F8),
+                contentPadding: const EdgeInsets.symmetric(vertical: 15),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.lg),
             if (snapshot.connectionState == ConnectionState.waiting)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
@@ -67,11 +92,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               ),
               const SizedBox(height: AppSpacing.lg),
               ...snapshot.data!
-                  .where(
-                    (story) =>
-                        _selectedLevel == null ||
-                        story.level == _selectedLevel,
-                  )
+                  .where((story) {
+                    final query = _searchController.text.trim().toLowerCase();
+                    final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
+                    final queryMatches = query.isEmpty || story.title.toLowerCase().contains(query) || story.titleTr.toLowerCase().contains(query) || story.intro.toLowerCase().contains(query);
+                    return levelMatches && queryMatches;
+                  })
                   .map(
                     (story) => Padding(
                       padding: const EdgeInsets.only(bottom: AppSpacing.md),
