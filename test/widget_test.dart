@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bubixo/main.dart';
 
 void main() {
-  testWidgets('splash screen opens the four-tab app', (tester) async {
+  testWidgets('learning home quick actions open their destinations', (tester) async {
     await tester.pumpWidget(const BubixoApp());
 
     expect(find.text('İngilizceyi, adım adım keşfet.'), findsOneWidget);
@@ -11,35 +11,31 @@ void main() {
     await tester.pump(const Duration(milliseconds: 1500));
     await tester.pumpAndSettle();
 
-    expect(find.text('Öğrenmeye devam et.'), findsOneWidget);
+    expect(find.text('Bugün İngilizceye küçük bir adım at.'), findsOneWidget);
+    expect(find.text('Bir hikâyeyle başla'), findsOneWidget);
+
+    await tester.tap(find.text('Hikâyeleri keşfet'));
+    await tester.pumpAndSettle();
+    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
 
     await tester.tap(find.text('Kelimeler').first);
     await tester.pumpAndSettle();
-    expect(
-      find.text(
-        'Sözlük arama, kaydedilen kelimeler ve aralıklı tekrar akışı ayrı bir adımda eklenecek.',
-      ),
-      findsOneWidget,
-    );
+    expect(find.text('Kelime alanı hazırlanıyor'), findsOneWidget);
 
     await tester.tap(find.text('Pratik').first);
     await tester.pumpAndSettle();
-    expect(
-      find.text(
-        'Cümle kurma, dil bilgisi, dinleme ve kelime oyunları bu sekmede toplanacak.',
-      ),
-      findsOneWidget,
-    );
+    expect(find.text('Alıştırmalar burada olacak'), findsOneWidget);
 
     await tester.tap(find.text('Keşfet').first);
     await tester.pumpAndSettle();
-    expect(
-      find.text('Hikâyeler ve serbest okunabilir içerikler bu alana bağlanacak.'),
-      findsOneWidget,
-    );
+    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
 
     await tester.tap(find.text('Öğren').first);
     await tester.pumpAndSettle();
-    expect(find.text('Öğrenmeye devam et.'), findsOneWidget);
+    expect(find.text('Bugün İngilizceye küçük bir adım at.'), findsOneWidget);
+
+    await tester.tap(find.text('Kısa bir pratik yap'));
+    await tester.pumpAndSettle();
+    expect(find.text('Alıştırmalar burada olacak'), findsOneWidget);
   });
 }
