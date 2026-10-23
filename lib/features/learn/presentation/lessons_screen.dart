@@ -22,7 +22,6 @@ class LessonsScreen extends StatefulWidget {
 class _LessonsScreenState extends State<LessonsScreen> {
   late Future<List<Lesson>> _lessonsFuture;
   Set<String> _completedLessonIds = <String>{};
-  String? _lastLessonId;
   final LearningProgressRepository _progressRepository = const LearningProgressRepository();
 
   @override
@@ -33,14 +32,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
   }
 
   Future<void> _loadProgress() async {
-    final values = await Future.wait<Object?>([
-      _progressRepository.loadCompletedLessons(),
-      _progressRepository.loadLastLessonId(),
-    ]);
+    final completedLessonIds = await _progressRepository.loadCompletedLessons();
     if (!mounted) return;
     setState(() {
-      _completedLessonIds = values[0] as Set<String>;
-      _lastLessonId = values[1] as String?;
+      _completedLessonIds = completedLessonIds;
     });
   }
 
@@ -96,11 +91,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
           }
           final lessonIds = lessons.map((lesson) => lesson.id).toSet();
           final completedLessonIds = _completedLessonIds.intersection(lessonIds);
-          final totalMinutes = lessons.fold<int>(0, (sum, lesson) => sum + lesson.minutes);
-          final lastLessonIndex = lessons.indexWhere((lesson) => lesson.id == _lastLessonId);
-          final canResume =
-              lastLessonIndex >= 0 && !completedLessonIds.contains(_lastLessonId);
-
           return ListView(
             key: const PageStorageKey<String>('lessons-screen-scroll'),
             padding: const EdgeInsets.fromLTRB(
@@ -114,77 +104,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
                 style: AppTypography.bodyMd,
               ),
               const SizedBox(height: AppSpacing.xl),
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                decoration: BoxDecoration(
-                  color: AppColors.ink,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Iconsax.book_1, color: AppColors.accentPurple, size: 23),
-                    const SizedBox(width: AppSpacing.md),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Temel dersler',
-                            style: AppTypography.bodyMd.copyWith(
-                              color: AppColors.onPrimary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const SizedBox(height: 3),
-                          Text(
-                            '${lessons.length} ders · yaklaşık ${totalMinutes ~/ 60} saat ${totalMinutes % 60} dakika',
-                            style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: AppSpacing.md),
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF7F7F8),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.hairline),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: [
-                      Expanded(child: Text('İlerlemen', style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700))),
-                      Text('${completedLessonIds.length} / ${lessons.length} ders', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
-                    ]),
-                    const SizedBox(height: AppSpacing.sm),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: LinearProgressIndicator(
-                        value: lessons.isEmpty ? 0 : completedLessonIds.length / lessons.length,
-                        minHeight: 6,
-                        backgroundColor: AppColors.hairline,
-                        valueColor: const AlwaysStoppedAnimation(AppColors.accentPurple),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (canResume) ...[
-                const SizedBox(height: AppSpacing.md),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: () => _openLesson(lessons, lastLessonIndex),
-                    icon: const Icon(Iconsax.play_circle),
-                    label: Text('Kaldığın derse devam et · ${lessons[lastLessonIndex].title}'),
-                  ),
-                ),
-              ],
               const SizedBox(height: AppSpacing.lg),
               ...lessons.asMap().entries.map((entry) {
                 final index = entry.key;
@@ -253,7 +172,23 @@ class _LessonsScreenState extends State<LessonsScreen> {
                             ),
                             const SizedBox(width: AppSpacing.sm),
                             if (_completedLessonIds.contains(lesson.id))
-                              const Icon(Iconsax.tick_circle, size: 20, color: AppColors.accentGreen)
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: AppSpacing.sm,
+                                  vertical: AppSpacing.xs,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE8F7EE),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  'Bitirildi',
+                                  style: AppTypography.eyebrowSmall.copyWith(
+                                    color: AppColors.accentGreen,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              )
                             else
                               const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
                           ],
