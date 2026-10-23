@@ -208,6 +208,7 @@ class _StoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: AppColors.canvas,
+      borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
@@ -220,44 +221,23 @@ class _StoryCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 42,
-                    height: 42,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: AppColors.ink,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Icon(
-                      Iconsax.book_1,
-                      color: AppColors.onPrimary,
-                      size: 21,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          story.title,
-                          style: AppTypography.bodyMd.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.xxs),
-                        Text(story.titleTr, style: AppTypography.bodySm),
-                      ],
-                    ),
-                  ),
-                  const Icon(Iconsax.arrow_right_3, size: 18),
-                ],
+              Text(
+                story.title,
+                style: AppTypography.bodyMd.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.ink,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xxs),
+              Text(
+                story.titleTr,
+                style: AppTypography.bodySm.copyWith(
+                  color: AppColors.bodyMid,
+                ),
               ),
               const SizedBox(height: AppSpacing.md),
               Text(story.intro, style: AppTypography.bodySm),
-              const SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.lg),
               Row(
                 children: [
                   _MetaLabel(label: 'Seviye ${story.level}'),
