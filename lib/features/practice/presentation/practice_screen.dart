@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import '../../discover/presentation/discover_screen.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
 import '../data/practice_data_repository.dart';
@@ -130,6 +131,37 @@ class _PracticeScreenState extends State<PracticeScreen> {
           meta: '90 konu örneği',
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(builder: (_) => const GrammarScreen()),
+          ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _PracticeCard(
+          icon: Iconsax.book_1,
+          title: 'Hikâyeler',
+          subtitle: 'Kısa hikâyeler oku; İngilizce cümleleri ve Türkçe anlamlarını birlikte incele.',
+          meta: '3 seviye · İngilizce ve Türkçe',
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => Scaffold(
+                backgroundColor: AppColors.canvas,
+                appBar: AppBar(
+                  backgroundColor: AppColors.canvas,
+                  surfaceTintColor: AppColors.transparent,
+                  title: Text(
+                    'Hikâyeler',
+                    style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  leading: IconButton(
+                    tooltip: 'Geri',
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Iconsax.arrow_left_2),
+                  ),
+                ),
+                body: const SafeArea(
+                  top: false,
+                  child: DiscoverScreen(),
+                ),
+              ),
+            ),
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
