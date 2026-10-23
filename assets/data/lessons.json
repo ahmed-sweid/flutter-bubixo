@@ -1,0 +1,1006 @@
+[
+  {
+    "id": "u1",
+    "title": "Alfabe ve Telaffuzun Temelleri",
+    "mins": 8,
+    "intro": "İngilizce alfabe 26 harften oluşur; Türkçedeki ç, ğ, ı, ö, ş, ü yoktur, buna karşılık q, w, x vardır. En önemli fark şu: İngilizce yazıldığı gibi okunmaz. Bu yüzden her yeni kelimeyi SESİYLE birlikte öğreneceğiz — bu uygulamadaki bütün örneklerin yanındaki hoparlöre dokunup dinleyebilirsin.",
+    "points": [
+      {
+        "en": "A — apple",
+        "tr": "e harfi gibi başlar: “epıl” (elma)"
+      },
+      {
+        "en": "E — egg",
+        "tr": "kısa e: “eg” (yumurta)"
+      },
+      {
+        "en": "I — ice",
+        "tr": "“ays” diye okunur (buz) — i harfi çoğu zaman “ay”"
+      },
+      {
+        "en": "O — orange",
+        "tr": "“orınc” (portakal)"
+      },
+      {
+        "en": "U — umbrella",
+        "tr": "“ambrela” (şemsiye) — u çoğu zaman “a” sesi verir"
+      },
+      {
+        "en": "W — water",
+        "tr": "“uotır” (su) — w, dudaklar yuvarlanarak söylenir"
+      },
+      {
+        "en": "TH — thank you",
+        "tr": "“tenk yu” değil! Dil dişlerin arasına değer: “θenk yu” (teşekkürler)"
+      },
+      {
+        "en": "SH — she",
+        "tr": "Türkçedeki ş sesi: “şii” (o — kadın)"
+      }
+    ],
+    "tip": "TH sesi Türkçede yok, en çok zorlanacağın ses bu. Aynanın karşısında dilinin ucunu dişlerinin arasına koyup “think, three, thank you” de. İlk günler komik gelir, bir hafta sonra oturur.",
+    "quiz": [
+      {
+        "q": "İngilizcede olup Türkçe alfabede olmayan harf hangisi?",
+        "o": [
+          "ş",
+          "w",
+          "ö",
+          "ç"
+        ],
+        "a": 1,
+        "e": "q, w ve x İngilizcede var, Türkçede yok."
+      },
+      {
+        "q": "“Water” kelimesinin okunuşu hangisine yakın?",
+        "o": [
+          "vater",
+          "uotır",
+          "vatır",
+          "water"
+        ],
+        "a": 1,
+        "e": "W sesi dudaklar yuvarlanarak çıkar: “uotır”."
+      },
+      {
+        "q": "“Thank you” derken dil nerede olmalı?",
+        "o": [
+          "Damakta",
+          "Dişlerin arasında",
+          "Boğazda",
+          "Dudakta"
+        ],
+        "a": 1,
+        "e": "TH sesi için dilin ucu üst dişlerin altına hafifçe değer."
+      },
+      {
+        "q": "İngilizce için en doğru kural hangisi?",
+        "o": [
+          "Yazıldığı gibi okunur",
+          "Kelime sesiyle birlikte öğrenilir",
+          "Harfler hep aynı sesi verir",
+          "Telaffuz önemsizdir"
+        ],
+        "a": 1,
+        "e": "Aynı harf farklı kelimede farklı ses verebilir; kelimeyi sesiyle öğren."
+      },
+      {
+        "q": "“She” nasıl okunur?",
+        "o": [
+          "se",
+          "şii",
+          "sky",
+          "şe"
+        ],
+        "a": 1,
+        "e": "SH = Türkçedeki ş. “Şii” gibi uzatılır."
+      }
+    ]
+  },
+  {
+    "id": "u2",
+    "title": "Selamlaşma ve Tanışma",
+    "mins": 10,
+    "intro": "İlk gerçek konuşma dersin! İngilizcede selamlaşma günün saatine göre değişir ve tanışma cümleleri kalıptır — ezberle, yerine kendi bilgini koy, konuşmaya başla.",
+    "points": [
+      {
+        "en": "Hello! / Hi!",
+        "tr": "Merhaba! / Selam! (Hi daha samimi)"
+      },
+      {
+        "en": "Good morning.",
+        "tr": "Günaydın. (öğlene kadar)"
+      },
+      {
+        "en": "Good afternoon.",
+        "tr": "Tünaydın. (öğleden akşama)"
+      },
+      {
+        "en": "Good evening.",
+        "tr": "İyi akşamlar. (akşam karşılaşınca)"
+      },
+      {
+        "en": "My name is Ali. What is your name?",
+        "tr": "Benim adım Ali. Senin adın ne?"
+      },
+      {
+        "en": "Nice to meet you!",
+        "tr": "Tanıştığımıza memnun oldum!"
+      },
+      {
+        "en": "How are you? — I am fine, thank you. And you?",
+        "tr": "Nasılsın? — İyiyim, teşekkürler. Ya sen?"
+      },
+      {
+        "en": "Where are you from? — I am from Turkey.",
+        "tr": "Nerelisin? — Türkiye'denim."
+      },
+      {
+        "en": "Goodbye! / See you later!",
+        "tr": "Hoşça kal! / Sonra görüşürüz!"
+      }
+    ],
+    "tip": "“Good night” selamlaşma DEĞİL, vedadır — yatmaya giderken söylenir. Akşam birine merhaba derken “Good evening” kullan.",
+    "quiz": [
+      {
+        "q": "Sabah 09.00'da birine ne dersin?",
+        "o": [
+          "Good night",
+          "Good morning",
+          "Good evening",
+          "Goodbye"
+        ],
+        "a": 1,
+        "e": "Öğlene kadar “Good morning”."
+      },
+      {
+        "q": "“Nice to meet you” ne zaman söylenir?",
+        "o": [
+          "Vedalaşırken",
+          "Yeni tanışınca",
+          "Teşekkür ederken",
+          "Özür dilerken"
+        ],
+        "a": 1,
+        "e": "Biriyle ilk kez tanışınca söylenir."
+      },
+      {
+        "q": "“Where are you from?” sorusuna doğru cevap hangisi?",
+        "o": [
+          "I am fine",
+          "I am from Turkey",
+          "My name is Ali",
+          "See you later"
+        ],
+        "a": 1,
+        "e": "“Nerelisin?” → “I am from Turkey.”"
+      },
+      {
+        "q": "Akşam saat 20.00'de karşılaştığın komşuna ne dersin?",
+        "o": [
+          "Good night",
+          "Good evening",
+          "Good morning",
+          "Good afternoon"
+        ],
+        "a": 1,
+        "e": "Karşılaşırken “Good evening”; “Good night” sadece vedada."
+      },
+      {
+        "q": "“How are you?” sorusunun en yaygın cevabı?",
+        "o": [
+          "I am from Turkey",
+          "I am fine, thank you",
+          "Nice to meet you",
+          "My name is Ayşe"
+        ],
+        "a": 1,
+        "e": "Kalıp cevap: “I'm fine, thank you. And you?”"
+      }
+    ]
+  },
+  {
+    "id": "u3",
+    "title": "am / is / are — Olmak Fiili",
+    "mins": 12,
+    "intro": "İngilizcenin bel kemiği: “to be” (olmak). Türkçede “Ben öğretmenim” deriz; İngilizcede araya bir fiil girer: “I AM a teacher.” Kim için hangisi? I → am, he/she/it → is, you/we/they → are. Bu tabloyu söke söke öğrenirsen cümlelerin yarısı çözülür.",
+    "points": [
+      {
+        "en": "I am a student.",
+        "tr": "Ben bir öğrenciyim."
+      },
+      {
+        "en": "You are my friend.",
+        "tr": "Sen benim arkadaşımsın."
+      },
+      {
+        "en": "He is a doctor.",
+        "tr": "O (erkek) doktordur."
+      },
+      {
+        "en": "She is from Izmir.",
+        "tr": "O (kadın) İzmirlidir."
+      },
+      {
+        "en": "It is a cat.",
+        "tr": "O bir kedi. (hayvan ve nesneler için it)"
+      },
+      {
+        "en": "We are at home.",
+        "tr": "Biz evdeyiz."
+      },
+      {
+        "en": "They are happy.",
+        "tr": "Onlar mutlu."
+      },
+      {
+        "en": "I am not tired.",
+        "tr": "Yorgun değilim. (olumsuz için not eklenir)"
+      },
+      {
+        "en": "Are you ready? — Yes, I am.",
+        "tr": "Hazır mısın? — Evet, hazırım. (soru için fiil başa gelir)"
+      }
+    ],
+    "tip": "Konuşurken kısaltma kullan, herkes öyle konuşur: I am → I'm, he is → he's, we are → we're, is not → isn't, are not → aren't.",
+    "quiz": [
+      {
+        "q": "“Ben mutluyum” nasıl denir?",
+        "o": [
+          "I is happy",
+          "I am happy",
+          "I are happy",
+          "Me happy"
+        ],
+        "a": 1,
+        "e": "I daima am ile: “I am (I'm) happy.”"
+      },
+      {
+        "q": "“She ___ a nurse.” Boşluğa ne gelir?",
+        "o": [
+          "am",
+          "is",
+          "are",
+          "be"
+        ],
+        "a": 1,
+        "e": "he/she/it → is."
+      },
+      {
+        "q": "“They ___ in Istanbul.”",
+        "o": [
+          "is",
+          "are",
+          "am",
+          "was"
+        ],
+        "a": 1,
+        "e": "you/we/they → are."
+      },
+      {
+        "q": "“O bir köpek” (hayvan) nasıl denir?",
+        "o": [
+          "He is a dog",
+          "It is a dog",
+          "She is a dog",
+          "They is a dog"
+        ],
+        "a": 1,
+        "e": "Hayvanlar ve nesneler için “it” kullanılır."
+      },
+      {
+        "q": "“We are not ready” cümlesinin kısaltması?",
+        "o": [
+          "We're not ready",
+          "We am not ready",
+          "We isn't ready",
+          "We no ready"
+        ],
+        "a": 0,
+        "e": "we are → we're; “We're not (= We aren't) ready.”"
+      }
+    ]
+  },
+  {
+    "id": "u4",
+    "title": "Sayılar, Günler ve Saat",
+    "mins": 12,
+    "intro": "Pazarlık, randevu, otobüs saati… sayılar her yerde. Kritik tuzak: 13-19 arası “-teen”, 20-90 arası “-ty” ile biter ve vurgu farklıdır: thirTEEN (13) ama THIRty (30). Yanlış vurgu, yanlış fiyat demek!",
+    "points": [
+      {
+        "en": "one, two, three, four, five",
+        "tr": "1, 2, 3, 4, 5"
+      },
+      {
+        "en": "six, seven, eight, nine, ten",
+        "tr": "6, 7, 8, 9, 10"
+      },
+      {
+        "en": "thirteen (13) — thirty (30)",
+        "tr": "vurgu farkı: on üç → sondaki TEEN vurgulu; otuz → baştaki THIR"
+      },
+      {
+        "en": "a hundred / a thousand",
+        "tr": "yüz / bin"
+      },
+      {
+        "en": "Monday, Tuesday, Wednesday",
+        "tr": "Pazartesi, Salı, Çarşamba (Wednesday “uenzdey” okunur!)"
+      },
+      {
+        "en": "Thursday, Friday, Saturday, Sunday",
+        "tr": "Perşembe, Cuma, Cumartesi, Pazar"
+      },
+      {
+        "en": "What time is it? — It is three o'clock.",
+        "tr": "Saat kaç? — Saat üç."
+      },
+      {
+        "en": "It is half past two.",
+        "tr": "İki buçuk. (past = geçiyor)"
+      },
+      {
+        "en": "The bus is at ten to five.",
+        "tr": "Otobüs beşe on kala. (to = kala)"
+      }
+    ],
+    "tip": "Günlerin baş harfi İngilizcede DAİMA büyük yazılır: Monday, Friday. Küçük yazmak yazım hatasıdır.",
+    "quiz": [
+      {
+        "q": "“Thirteen” ile “thirty” arasındaki fark?",
+        "o": [
+          "Aynı sayı",
+          "13 ve 30",
+          "30 ve 13",
+          "3 ve 13"
+        ],
+        "a": 1,
+        "e": "thirteen = 13 (TEEN vurgulu), thirty = 30 (THIR vurgulu)."
+      },
+      {
+        "q": "“Wednesday” hangi gün?",
+        "o": [
+          "Salı",
+          "Çarşamba",
+          "Perşembe",
+          "Cuma"
+        ],
+        "a": 1,
+        "e": "Çarşamba — okunuşu “uenzdey”, d sessizdir."
+      },
+      {
+        "q": "“It is half past two” saat kaç demek?",
+        "o": [
+          "1.30",
+          "2.30",
+          "3.30",
+          "2.00"
+        ],
+        "a": 1,
+        "e": "half past two = ikiyi otuz geçe = 2.30."
+      },
+      {
+        "q": "“Beşe on kala” nasıl söylenir?",
+        "o": [
+          "ten past five",
+          "ten to five",
+          "five to ten",
+          "half past five"
+        ],
+        "a": 1,
+        "e": "to = kala → “ten to five” = 4.50."
+      },
+      {
+        "q": "Hangisi doğru yazım?",
+        "o": [
+          "monday",
+          "Monday",
+          "MONDAY her zaman",
+          "mondaY"
+        ],
+        "a": 1,
+        "e": "Gün adlarının baş harfi daima büyük: Monday."
+      }
+    ]
+  },
+  {
+    "id": "u5",
+    "title": "Ailem ve Sahiplik: my, your, have got",
+    "mins": 11,
+    "intro": "Aileni anlatmak, İngilizcede en çok sorulan sohbet konusu. İki araç öğreneceğiz: sahiplik sıfatları (my = benim, your = senin, his = onun-erkek, her = onun-kadın) ve “have got” (sahip olmak).",
+    "points": [
+      {
+        "en": "mother, father, sister, brother",
+        "tr": "anne, baba, kız kardeş, erkek kardeş"
+      },
+      {
+        "en": "This is my family.",
+        "tr": "Bu benim ailem."
+      },
+      {
+        "en": "My mother's name is Fatma.",
+        "tr": "Annemin adı Fatma. ('s = -in eki)"
+      },
+      {
+        "en": "I have got two brothers.",
+        "tr": "İki erkek kardeşim var."
+      },
+      {
+        "en": "Have you got any children? — Yes, I have got a son.",
+        "tr": "Çocuğun var mı? — Evet, bir oğlum var."
+      },
+      {
+        "en": "His car is new. Her house is big.",
+        "tr": "Onun (e) arabası yeni. Onun (k) evi büyük."
+      },
+      {
+        "en": "How old are you? — I am twenty-five years old.",
+        "tr": "Kaç yaşındasın? — Yirmi beş yaşındayım."
+      },
+      {
+        "en": "I haven't got a pet.",
+        "tr": "Evcil hayvanım yok."
+      }
+    ],
+    "tip": "Türklerin en klasik hatası: “his/her” karıştırmak. Sahip olan KİM ise ona bak: Ali'nin annesi → HIS mother (Ali erkek). Ayşe'nin arabası → HER car.",
+    "quiz": [
+      {
+        "q": "“Benim adım” nasıl denir?",
+        "o": [
+          "me name",
+          "my name",
+          "I name",
+          "mine name"
+        ],
+        "a": 1,
+        "e": "my = benim → “my name”."
+      },
+      {
+        "q": "“Ali'nin kız kardeşi” → “___ sister”",
+        "o": [
+          "her",
+          "his",
+          "my",
+          "your"
+        ],
+        "a": 1,
+        "e": "Ali erkek olduğu için his."
+      },
+      {
+        "q": "“İki çocuğum var” hangisi?",
+        "o": [
+          "I am two children",
+          "I have got two children",
+          "I got children two",
+          "My two children is"
+        ],
+        "a": 1,
+        "e": "“I have got + sayı + isim” kalıbı."
+      },
+      {
+        "q": "“How old are you?” ne soruyor?",
+        "o": [
+          "Nasılsın",
+          "Kaç yaşındasın",
+          "Nerelisin",
+          "Adın ne"
+        ],
+        "a": 1,
+        "e": "Yaş sorusu; cevap: “I'm ... years old.”"
+      },
+      {
+        "q": "“Annemin adı” nasıl yazılır?",
+        "o": [
+          "my mother name",
+          "my mother's name",
+          "my mothers name is",
+          "the name my mother"
+        ],
+        "a": 1,
+        "e": "'s eki -in anlamı katar: mother's name."
+      }
+    ]
+  },
+  {
+    "id": "u6",
+    "title": "Günlük Rutin — Geniş Zaman",
+    "mins": 13,
+    "intro": "“Her sabah kalkarım, kahvaltı ederim, işe giderim…” İngilizcede alışkanlıklar Present Simple ile anlatılır. Tek ama altın kural: he/she/it öznesinde fiile -s eklenir. “I work” ama “She workS”. Bu -s'yi unutmak, öğrenenlerin bir numaralı hatasıdır.",
+    "points": [
+      {
+        "en": "I get up at seven o'clock.",
+        "tr": "Saat yedide kalkarım."
+      },
+      {
+        "en": "I have breakfast with my family.",
+        "tr": "Ailemle kahvaltı ederim."
+      },
+      {
+        "en": "I go to work by bus.",
+        "tr": "İşe otobüsle giderim."
+      },
+      {
+        "en": "She works in a hospital.",
+        "tr": "O bir hastanede çalışır. (workS!)"
+      },
+      {
+        "en": "He drinks tea every morning.",
+        "tr": "O her sabah çay içer. (drinkS!)"
+      },
+      {
+        "en": "We watch TV in the evening.",
+        "tr": "Akşam televizyon izleriz."
+      },
+      {
+        "en": "I don't eat meat.",
+        "tr": "Et yemem. (olumsuz: don't)"
+      },
+      {
+        "en": "She doesn't like coffee.",
+        "tr": "O kahve sevmez. (he/she/it: doesn't + yalın fiil)"
+      },
+      {
+        "en": "Do you speak English? — Yes, a little.",
+        "tr": "İngilizce konuşuyor musun? — Evet, biraz."
+      }
+    ],
+    "tip": "“doesn't” geldiğinde fiildeki -s düşer: “She doesn't likeS”  → “She doesn't like” . -s ya fiilde ya doesn't'ta olur, ikisinde birden asla.",
+    "quiz": [
+      {
+        "q": "“He ___ in a bank.”",
+        "o": [
+          "work",
+          "works",
+          "working",
+          "is work"
+        ],
+        "a": 1,
+        "e": "he/she/it → fiile -s: works."
+      },
+      {
+        "q": "“Et yemem” hangisi?",
+        "o": [
+          "I no eat meat",
+          "I don't eat meat",
+          "I doesn't eat meat",
+          "I am not eat meat"
+        ],
+        "a": 1,
+        "e": "I/you/we/they olumsuzu: don't + fiil."
+      },
+      {
+        "q": "“She doesn't ___ coffee.”",
+        "o": [
+          "likes",
+          "like",
+          "liked",
+          "liking"
+        ],
+        "a": 1,
+        "e": "doesn't'tan sonra fiil yalın kalır: like."
+      },
+      {
+        "q": "“Do you speak English?” cevabı?",
+        "o": [
+          "Yes, I speak",
+          "Yes, a little",
+          "I am English",
+          "Speak yes"
+        ],
+        "a": 1,
+        "e": "En doğal cevap: “Yes, a little.”"
+      },
+      {
+        "q": "Hangi cümle DOĞRU?",
+        "o": [
+          "He drink tea",
+          "He drinks tea",
+          "He drinking tea",
+          "He is drinks tea"
+        ],
+        "a": 1,
+        "e": "he → drinkS. Geniş zamanda -s şart."
+      }
+    ]
+  },
+  {
+    "id": "u7",
+    "title": "Restoranda: Sipariş ve Rica",
+    "mins": 11,
+    "intro": "Karnın acıktı, menü İngilizce, garson bekliyor. Bu derste kibar rica kalıplarını öğreniyoruz: “Can I have...?” (alabilir miyim) her kapıyı açan anahtardır. Sonuna “please” eklemeyi hiç unutma — İngilizcede nezaket, gramerden önce gelir.",
+    "points": [
+      {
+        "en": "A table for two, please.",
+        "tr": "İki kişilik bir masa, lütfen."
+      },
+      {
+        "en": "Can I see the menu, please?",
+        "tr": "Menüyü görebilir miyim, lütfen?"
+      },
+      {
+        "en": "I would like a soup and a salad.",
+        "tr": "Bir çorba ve bir salata istiyorum. (I'd like = kibar “istiyorum”)"
+      },
+      {
+        "en": "Can I have a glass of water?",
+        "tr": "Bir bardak su alabilir miyim?"
+      },
+      {
+        "en": "What do you recommend?",
+        "tr": "Ne tavsiye edersiniz?"
+      },
+      {
+        "en": "I am vegetarian. Does it have meat?",
+        "tr": "Vejetaryenim. İçinde et var mı?"
+      },
+      {
+        "en": "It is delicious!",
+        "tr": "Çok lezzetli!"
+      },
+      {
+        "en": "The bill, please. / Can we pay by card?",
+        "tr": "Hesap, lütfen. / Kartla ödeyebilir miyiz?"
+      }
+    ],
+    "tip": "“I want” dilbilgisi olarak doğrudur ama emir gibi durur. Restoranda, mağazada, otelde daima “I'd like” veya “Can I have” de — aynı anlam, bambaşka nezaket.",
+    "quiz": [
+      {
+        "q": "Garsondan menü istemenin en kibar yolu?",
+        "o": [
+          "Give me the menu",
+          "Can I see the menu, please?",
+          "Menu!",
+          "I want menu now"
+        ],
+        "a": 1,
+        "e": "“Can I ...?” + please = kibar rica kalıbı."
+      },
+      {
+        "q": "“Hesap, lütfen” nasıl denir?",
+        "o": [
+          "Money, please",
+          "The bill, please",
+          "Pay now",
+          "Cost, please"
+        ],
+        "a": 1,
+        "e": "Hesap = the bill (ABD'de the check)."
+      },
+      {
+        "q": "“I'd like” ne demek?",
+        "o": [
+          "Seviyorum",
+          "İstiyorum (kibarca)",
+          "Beğendim",
+          "Bakıyorum"
+        ],
+        "a": 1,
+        "e": "I would like = kibar “istiyorum”."
+      },
+      {
+        "q": "“Ne tavsiye edersiniz?”",
+        "o": [
+          "What is this?",
+          "What do you recommend?",
+          "Do you like it?",
+          "How much is it?"
+        ],
+        "a": 1,
+        "e": "Kararsız kalınca: “What do you recommend?”"
+      },
+      {
+        "q": "“Kartla ödeyebilir miyiz?”",
+        "o": [
+          "We pay card",
+          "Can we pay by card?",
+          "Card money OK?",
+          "We are card"
+        ],
+        "a": 1,
+        "e": "“pay by card” kalıbı: Can we pay by card?"
+      }
+    ]
+  },
+  {
+    "id": "u8",
+    "title": "Yol Sorma ve Yön Tarifi",
+    "mins": 11,
+    "intro": "Kayboldun ve telefonun çekmiyor — işte bu ders o an için. “Where is...?” ile sor, “turn left / turn right / go straight” ile gelen cevabı anla. Bir de “there is / there are” (var) kalıbını öğreniyoruz.",
+    "points": [
+      {
+        "en": "Excuse me, where is the bus station?",
+        "tr": "Affedersiniz, otobüs durağı nerede?"
+      },
+      {
+        "en": "Go straight ahead.",
+        "tr": "Düz devam edin."
+      },
+      {
+        "en": "Turn left at the traffic lights.",
+        "tr": "Trafik ışıklarından sola dönün."
+      },
+      {
+        "en": "Turn right after the bank.",
+        "tr": "Bankadan sonra sağa dönün."
+      },
+      {
+        "en": "It is next to the pharmacy.",
+        "tr": "Eczanenin yanında."
+      },
+      {
+        "en": "It is between the market and the school.",
+        "tr": "Marketle okulun arasında."
+      },
+      {
+        "en": "Is it far? — No, it is five minutes on foot.",
+        "tr": "Uzak mı? — Hayır, yürüyerek beş dakika."
+      },
+      {
+        "en": "There is a hotel near here.",
+        "tr": "Buraya yakın bir otel var. (tekil: there is)"
+      },
+      {
+        "en": "There are two banks on this street.",
+        "tr": "Bu caddede iki banka var. (çoğul: there are)"
+      }
+    ],
+    "tip": "Sorudan önce “Excuse me” demek görgü kuralıdır — yabancı birini durduruyorsun. “Sorry” ise özür içindir; ikisini karıştırma.",
+    "quiz": [
+      {
+        "q": "Yabancıya yol sormadan önce ne denir?",
+        "o": [
+          "Sorry",
+          "Excuse me",
+          "Hello you",
+          "Hey"
+        ],
+        "a": 1,
+        "e": "Dikkat çekmek için “Excuse me”; “sorry” özürdür."
+      },
+      {
+        "q": "“Turn left” ne demek?",
+        "o": [
+          "Sağa dön",
+          "Sola dön",
+          "Düz git",
+          "Geri dön"
+        ],
+        "a": 1,
+        "e": "left = sol, right = sağ."
+      },
+      {
+        "q": "“Eczanenin yanında” hangisi?",
+        "o": [
+          "between the pharmacy",
+          "next to the pharmacy",
+          "far the pharmacy",
+          "on the pharmacy"
+        ],
+        "a": 1,
+        "e": "next to = yanında."
+      },
+      {
+        "q": "“Bu sokakta iki otel var.”",
+        "o": [
+          "There is two hotels",
+          "There are two hotels",
+          "It is two hotels",
+          "Two hotels is"
+        ],
+        "a": 1,
+        "e": "Çoğul isimle “there are”."
+      },
+      {
+        "q": "“Is it far?” sorusuna hangisi mantıklı cevap?",
+        "o": [
+          "Yes, five minutes on foot",
+          "No, it is five minutes on foot",
+          "It is far to left",
+          "I am far"
+        ],
+        "a": 1,
+        "e": "Yürüyerek 5 dk = yakın → “No, it's five minutes on foot.”"
+      }
+    ]
+  },
+  {
+    "id": "u9",
+    "title": "Alışveriş: Fiyat Sorma ve Beden",
+    "mins": 10,
+    "intro": "“How much is it?” — alışverişin sihirli cümlesi. Bu derste fiyat sorma, beden isteme ve “this/that” (bu/şu) ayrımını öğreniyoruz. Pazarda da işe yarar, mağazada da.",
+    "points": [
+      {
+        "en": "How much is this? — It is two hundred liras.",
+        "tr": "Bu ne kadar? — İki yüz lira."
+      },
+      {
+        "en": "How much are these shoes?",
+        "tr": "Bu ayakkabılar ne kadar? (çoğulda how much ARE)"
+      },
+      {
+        "en": "That is too expensive!",
+        "tr": "Bu çok pahalı!"
+      },
+      {
+        "en": "Do you have a cheaper one?",
+        "tr": "Daha ucuzu var mı?"
+      },
+      {
+        "en": "Can I try it on?",
+        "tr": "Deneyebilir miyim? (kıyafet için)"
+      },
+      {
+        "en": "Do you have this in medium?",
+        "tr": "Bunun medium bedeni var mı?"
+      },
+      {
+        "en": "I am just looking, thank you.",
+        "tr": "Sadece bakıyorum, teşekkürler. (satıcı sorunca)"
+      },
+      {
+        "en": "I will take it.",
+        "tr": "Bunu alıyorum."
+      }
+    ],
+    "tip": "Satıcı “Can I help you?” diye sorduğunda mecbur değilsin: “I'm just looking, thank you” dersen kibarca “kendim bakınıyorum” demiş olursun.",
+    "quiz": [
+      {
+        "q": "“Bu ne kadar?” nasıl sorulur?",
+        "o": [
+          "How many is this?",
+          "How much is this?",
+          "What money?",
+          "How this cost?"
+        ],
+        "a": 1,
+        "e": "Fiyat sorusu: How much is this?"
+      },
+      {
+        "q": "“Deneyebilir miyim?” (kıyafet)",
+        "o": [
+          "Can I try it on?",
+          "Can I test?",
+          "I try now",
+          "Try me it"
+        ],
+        "a": 0,
+        "e": "Giysi denemek = try on."
+      },
+      {
+        "q": "Satıcıya “sadece bakıyorum” demek için?",
+        "o": [
+          "No help",
+          "I am just looking, thank you",
+          "Go away please",
+          "I look you"
+        ],
+        "a": 1,
+        "e": "Kibar kalıp: “I'm just looking, thank you.”"
+      },
+      {
+        "q": "“Daha ucuzu var mı?”",
+        "o": [
+          "More cheap?",
+          "Do you have a cheaper one?",
+          "Cheap other give",
+          "Less money one?"
+        ],
+        "a": 1,
+        "e": "cheaper = daha ucuz; “Do you have a cheaper one?”"
+      },
+      {
+        "q": "“I will take it” ne demek?",
+        "o": [
+          "Bunu taşırım",
+          "Bunu alıyorum",
+          "Bunu denerim",
+          "Bunu beğenmedim"
+        ],
+        "a": 1,
+        "e": "Karar cümlesi: “Bunu alıyorum.”"
+      }
+    ]
+  },
+  {
+    "id": "u10",
+    "title": "Geçmişten Bahsetme: was / were",
+    "mins": 12,
+    "intro": "“Dün neredeydin?” — geçmişi anlatmadan sohbet olmaz. İlk adım: am/is'in geçmişi WAS, are'ın geçmişi WERE. Yanına dünün-geçen haftanın kelimelerini ekle (yesterday, last week), geçmişi konuşmaya başla.",
+    "points": [
+      {
+        "en": "I was at home yesterday.",
+        "tr": "Dün evdeydim."
+      },
+      {
+        "en": "You were late this morning.",
+        "tr": "Bu sabah geç kaldın."
+      },
+      {
+        "en": "She was very tired last night.",
+        "tr": "Dün gece çok yorgundu."
+      },
+      {
+        "en": "We were in Antalya last summer.",
+        "tr": "Geçen yaz Antalya'daydık."
+      },
+      {
+        "en": "Where were you? — I was at work.",
+        "tr": "Neredeydin? — İşteydim."
+      },
+      {
+        "en": "The weather was beautiful.",
+        "tr": "Hava çok güzeldi."
+      },
+      {
+        "en": "It wasn't expensive.",
+        "tr": "Pahalı değildi. (was not = wasn't)"
+      },
+      {
+        "en": "They weren't at school.",
+        "tr": "Okulda değillerdi. (were not = weren't)"
+      },
+      {
+        "en": "How was your weekend? — It was great!",
+        "tr": "Hafta sonun nasıldı? — Harikaydı!"
+      }
+    ],
+    "tip": "“How was your weekend?” pazartesi sohbetlerinin klasiğidir. Cevap hazır olsun: “It was great! I was with my family.” İki cümleyle sohbete katılırsın.",
+    "quiz": [
+      {
+        "q": "“I ___ at home yesterday.”",
+        "o": [
+          "were",
+          "was",
+          "am",
+          "is"
+        ],
+        "a": 1,
+        "e": "I → was (am'in geçmişi)."
+      },
+      {
+        "q": "“They ___ in Izmir last week.”",
+        "o": [
+          "was",
+          "were",
+          "are",
+          "is"
+        ],
+        "a": 1,
+        "e": "you/we/they → were."
+      },
+      {
+        "q": "“Pahalı değildi” hangisi?",
+        "o": [
+          "It isn't expensive",
+          "It wasn't expensive",
+          "It not expensive",
+          "It weren't expensive"
+        ],
+        "a": 1,
+        "e": "Geçmiş olumsuz tekil: wasn't."
+      },
+      {
+        "q": "“Neredeydin?” nasıl sorulur?",
+        "o": [
+          "Where are you?",
+          "Where were you?",
+          "Where was you?",
+          "You where?"
+        ],
+        "a": 1,
+        "e": "you → were: “Where were you?”"
+      },
+      {
+        "q": "“How was your weekend?” cevabı?",
+        "o": [
+          "It was great!",
+          "It is Monday",
+          "I am weekend",
+          "Yes, it was you"
+        ],
+        "a": 0,
+        "e": "“It was great / good / quiet” gibi geçmişle cevap verilir."
+      }
+    ]
+  }
+]
