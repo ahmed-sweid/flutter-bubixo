@@ -17,8 +17,30 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
   assets:
     - assets/data/stories.json
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/images/app_icon_1024.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21
+  adaptive_icon_background: "#080808"
+  adaptive_icon_foreground: "assets/images/app_icon_foreground_1024.png"
+  web:
+    generate: true
+    image_path: "assets/images/app_icon_1024.png"
+    background_color: "#080808"
+    theme_color: "#080808"
+  windows:
+    generate: true
+    image_path: "assets/images/app_icon_1024.png"
+    icon_size: 256
+  macos:
+    generate: true
+    image_path: "assets/images/app_icon_rounded_1024.png"
