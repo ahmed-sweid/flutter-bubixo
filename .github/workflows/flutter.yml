@@ -3,10 +3,10 @@ name: Flutter quality checks
 on:
   push:
     branches:
-      - feature/persistent-vocabulary
+      - '**'
   pull_request:
     branches:
-      - feature/discover-stories
+      - '**'
 
 jobs:
   flutter:

@@ -1,0 +1,1173 @@
+[
+  {
+    "category": "question",
+    "turkish": "Sen öğrenci misin?",
+    "english": "Are you a student",
+    "note": "to be sorusunda fiil başa gelir: Are you...? Ayrıca do/does gibi bir yardımcı fiile gerek yoktur.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Bu senin çantan mı?",
+    "english": "Is this your bag",
+    "note": "Tekil bir şey soruluyorsa is, çoğul soruluyorsa are kullanılır: Is this...? / Are these...?",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "O evde mi?",
+    "english": "Is he at home",
+    "note": "Evde olmak için at home kalıbı kullanılır; in the home denmez.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Onlar hazır mı?",
+    "english": "Are they ready",
+    "note": "Çoğul özne (they) her zaman are ister: Are they ready?",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Sen Türkiye'den misin?",
+    "english": "Are you from Turkey",
+    "note": "Nereli olduğunu sormanın kalıbı Are you from...? biçimindedir.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Adın ne?",
+    "english": "What is your name",
+    "note": "Soru kelimesi (what) en başa gelir, hemen ardından is gelir: What is...?",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "O nerede?",
+    "english": "Where is she",
+    "note": "Where + is + özne sırası kullanılır; bu, Türkçedeki sıranın tam tersidir.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Bu ne kadar?",
+    "english": "How much is this",
+    "note": "Fiyat sorarken How much is...? kalıbı kullanılır.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Saat kaç?",
+    "english": "What time is it",
+    "note": "Saati sormanın kalıbı budur; buradaki it özne olarak zorunludur, düşürülemez.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Bunlar senin arkadaşların mı?",
+    "english": "Are these your friends",
+    "note": "Çoğul için this değil these kullanılır: Are these your friends?",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "question",
+    "turkish": "Kahve sever misin?",
+    "english": "Do you like coffee",
+    "note": "do ile kurulan soruda ana fiil yalın kalır: do you like — do you likes değil.",
+    "level": 2,
+    "distractors": [
+      "likes"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "O nerede çalışıyor?",
+    "english": "Where does she work",
+    "note": "Cümlede does varsa -s ekini o üstlenir, fiil yalın kalır: does she work.",
+    "level": 2,
+    "distractors": [
+      "works"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Okula ne zaman gidersin?",
+    "english": "When do you go to school",
+    "note": "Sıralama şöyledir: soru kelimesi + do + özne + yalın fiil.",
+    "level": 2,
+    "distractors": [
+      "goes"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "O İngilizce konuşur mu?",
+    "english": "Does he speak English",
+    "note": "he / she / it öznelerinde soru does ile kurulur ve fiil yalındır.",
+    "level": 2,
+    "distractors": [
+      "speaks",
+      "is"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Neden geç kaldın?",
+    "english": "Why are you late",
+    "note": "Cümlede fiil değil sıfat (late) varsa to be kullanılır: Why are you late?",
+    "level": 2,
+    "distractors": [
+      "do"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Kaç kardeşin var?",
+    "english": "How many brothers do you have",
+    "note": "Sayılabilen şeyler için how many, sayılamayanlar için how much kullanılır.",
+    "level": 2,
+    "distractors": [
+      "much"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Sabahları ne yersin?",
+    "english": "What do you eat in the morning",
+    "note": "you öznesiyle her zaman do kullanılır; does yalnızca üçüncü tekil içindir.",
+    "level": 2,
+    "distractors": [
+      "does"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Kız kardeşin nerede yaşıyor?",
+    "english": "Where does your sister live",
+    "note": "your sister üçüncü tekil bir öznedir: does ister ve ana fiil yalın kalır.",
+    "level": 2,
+    "distractors": [
+      "lives",
+      "do"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Bu otobüs merkeze gider mi?",
+    "english": "Does this bus go to the centre",
+    "note": "this bus üçüncü tekildir; soru does ile açılır, fiil go olarak kalır.",
+    "level": 2,
+    "distractors": [
+      "goes"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Ne sıklıkla seyahat edersin?",
+    "english": "How often do you travel",
+    "note": "How often sıklık sorar ve iki kelimesi de cümlenin en başında birlikte durur.",
+    "level": 2,
+    "distractors": [
+      "does"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Anahtarlarını nereye koydun?",
+    "english": "Where have you put your keys",
+    "note": "Sonucu şu anda önemli olan geçmiş eylemde present perfect kullanılır. put fiilinin üçüncü hâli yine puttur.",
+    "level": 3,
+    "distractors": [
+      "did",
+      "putted"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Bana neden bundan bahsetmedin?",
+    "english": "Why didn't you tell me about it",
+    "note": "Olumsuz soruda yardımcı fiil kısalıp başa gelir; didn't zamanı taşıdığı için ana fiil yalın kalır.",
+    "level": 3,
+    "distractors": [
+      "did",
+      "don't"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Daha önce hiç Londra'ya gittin mi?",
+    "english": "Have you ever been to London",
+    "note": "been to gidip dönmeyi anlatır; gone to ise kişinin hâlâ orada olduğunu söyler.",
+    "level": 3,
+    "distractors": [
+      "gone",
+      "did"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Yarın ofise erken gelebilir misiniz?",
+    "english": "Could you come to the office early tomorrow",
+    "note": "Could you...? Can you...? kalıbından daha kibardır ve ardından yalın fiil gelir.",
+    "level": 3,
+    "distractors": [
+      "can",
+      "came"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Toplantı saat kaçta başlayacak?",
+    "english": "What time will the meeting start",
+    "note": "Gelecek için will + yalın fiil kullanılır; will starts biçimi yoktur.",
+    "level": 3,
+    "distractors": [
+      "starts",
+      "is"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Bu kelimenin ne anlama geldiğini biliyor musun?",
+    "english": "Do you know what this word means",
+    "note": "Soru içindeki yan cümle düz cümle sırasına döner: what this word means — what does this word mean değil.",
+    "level": 3,
+    "distractors": [
+      "mean",
+      "does"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Sana yardım etmemi ister misin?",
+    "english": "Would you like me to help you",
+    "note": "Would you like kibar bir tekliftir; ardından kişi ve to + yalın fiil gelir.",
+    "level": 3,
+    "distractors": [
+      "want",
+      "helping"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Dün gece beni neden aramadın?",
+    "english": "Why didn't you call me last night",
+    "note": "didn't geçmiş zamanı taşır, bu yüzden ana fiil called değil call olur.",
+    "level": 3,
+    "distractors": [
+      "don't",
+      "called"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "O yemeği daha önce hiç denedin mi?",
+    "english": "Have you ever tried that dish before",
+    "note": "ever present perfect sorularında hiç anlamı verir ve özneden hemen sonra gelir.",
+    "level": 3,
+    "distractors": [
+      "did",
+      "try"
+    ]
+  },
+  {
+    "category": "question",
+    "turkish": "Ne kadar zamandır İngilizce öğreniyorsun?",
+    "english": "How long have you been learning English",
+    "note": "Başlayıp hâlâ süren bir eylemin süresi için How long have you been + fiil-ing kullanılır.",
+    "level": 3,
+    "distractors": [
+      "are",
+      "learn"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Ben her gün su içerim.",
+    "english": "I drink water every day",
+    "note": "Geniş zamanda I / you / we / they ile fiil ek almaz: I drink — I drinks değil.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "O çikolatayı çok sever.",
+    "english": "She likes chocolate very much",
+    "note": "he / she / it özneleriyle fiil -s eki alır: she likes.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "Biz Ankara'da yaşarız.",
+    "english": "We live in Ankara",
+    "note": "Şehir adlarından önce in kullanılır: in Ankara, in Istanbul.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "O bir bankada çalışır.",
+    "english": "He works in a bank",
+    "note": "Çalışılan yer söylenirken a unutulmaz: in a bank, in a hospital.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "Onlar pazar günleri futbol oynar.",
+    "english": "They play football on Sundays",
+    "note": "Gün adı çoğul yapılırsa düzenli tekrar anlaşılır: on Sundays her pazar demektir.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "Babam gazete okur.",
+    "english": "My father reads the newspaper",
+    "note": "Belirli, bilinen bir şeyden söz edilirken the kullanılır: the newspaper.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "Her sabah okula giderim.",
+    "english": "I go to school every morning",
+    "note": "go to school kalıbında okul kurum olarak kastedilir, bu yüzden the konmaz.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "Kedi kanepede uyur.",
+    "english": "The cat sleeps on the sofa",
+    "note": "Bir şeyin üstünde olma durumu on ile anlatılır: on the sofa, on the table.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "Sen İngilizceyi çok iyi konuşursun.",
+    "english": "You speak English very well",
+    "note": "well fiili niteler (speak well), good ise ismi niteler (good English).",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "Her cuma bir film izleriz.",
+    "english": "We watch a film every Friday",
+    "note": "Zaman ifadesi (every Friday) genellikle cümlenin sonunda durur.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "present",
+    "turkish": "O pazar günleri çalışmaz.",
+    "english": "She does not work on Sundays",
+    "note": "Üçüncü tekilde olumsuzluk does not ile kurulur ve ana fiil yalın kalır: does not work.",
+    "level": 2,
+    "distractors": [
+      "do"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "O geceleri asla kahve içmez.",
+    "english": "He never drinks coffee at night",
+    "note": "never gibi sıklık zarfları ana fiilden önce gelir ve tek başına cümleyi olumsuz yapar.",
+    "level": 2,
+    "distractors": [
+      "drink"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Ablam her zaman erken kalkar.",
+    "english": "My sister always gets up early",
+    "note": "always özne ile fiil arasına girer: she always gets up.",
+    "level": 2,
+    "distractors": [
+      "get"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Sabahları televizyon izlemeyiz.",
+    "english": "We do not watch television in the morning",
+    "note": "we öznesiyle olumsuzluk do not ile kurulur; does not yalnızca üçüncü tekil içindir.",
+    "level": 2,
+    "distractors": [
+      "does"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Bu otobüs havaalanına gider.",
+    "english": "This bus goes to the airport",
+    "note": "this bus üçüncü tekildir ve -o ile biten fiil -es alır: go → goes.",
+    "level": 2,
+    "distractors": [
+      "go"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Genellikle akşam yemeğinden sonra ders çalışır.",
+    "english": "She usually studies after dinner",
+    "note": "Sonu ünsüz + y ile biten fiillerde -s eki ies olur: study → studies.",
+    "level": 2,
+    "distractors": [
+      "study",
+      "studys"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Onlar artık burada yaşamıyor.",
+    "english": "They do not live here anymore",
+    "note": "anymore artık anlamını verir ve olumsuz cümlenin sonunda durur.",
+    "level": 2,
+    "distractors": [
+      "does"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Her akşam bir film izler.",
+    "english": "He watches a film every evening",
+    "note": "-ch, -sh, -ss, -x ile biten fiiller -es alır: watch → watches.",
+    "level": 2,
+    "distractors": [
+      "watchs",
+      "watch"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Bu soruyu anlamıyorum.",
+    "english": "I do not understand this question",
+    "note": "I öznesiyle olumsuzluk do not ile kurulur; am not understand diye bir yapı yoktur.",
+    "level": 2,
+    "distractors": [
+      "does"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Erkek kardeşi üç dili akıcı konuşur.",
+    "english": "Her brother speaks three languages fluently",
+    "note": "Özne her brother üçüncü tekildir, bu yüzden fiil -s alır: speaks.",
+    "level": 2,
+    "distractors": [
+      "speak"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Genellikle altıda kalkar ama bugün hâlâ uyuyor.",
+    "english": "He usually gets up at six but today he is still sleeping",
+    "note": "Alışkanlık için geniş zaman, tam şu an olan için is + fiil-ing kullanılır. İkisi aynı cümlede karşılaştırılabilir.",
+    "level": 3,
+    "distractors": [
+      "sleeps",
+      "are"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Bir hastanede çalışır ama bu hafta çalışmıyor.",
+    "english": "She works in a hospital but she is not working this week",
+    "note": "Geniş zaman kalıcı durumu, continuous ise geçici durumu anlatır.",
+    "level": 3,
+    "distractors": [
+      "work",
+      "doesn't"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Normalde çay içmem ama şu anda bir tane içiyorum.",
+    "english": "I do not usually drink tea but I am drinking one now",
+    "note": "usually geniş zamanla, now ise continuous ile birlikte kullanılır.",
+    "level": 3,
+    "distractors": [
+      "drinks",
+      "was"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Ailem İzmir'de yaşar ve her yaz bizi ziyaret eder.",
+    "english": "My parents live in Izmir and they visit us every summer",
+    "note": "my parents çoğul bir öznedir; çoğul öznelerde fiil -s eki almaz.",
+    "level": 3,
+    "distractors": [
+      "lives",
+      "visits"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Tren yedide kalkıyor, bu yüzden istasyonda erken olmalıyız.",
+    "english": "The train leaves at seven so we must be at the station early",
+    "note": "Tarifeye bağlı gelecek olaylar geniş zamanla anlatılır: the train leaves at seven.",
+    "level": 3,
+    "distractors": [
+      "leave",
+      "leaving"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "İş arıyor çünkü ofisini sevmiyor.",
+    "english": "She is looking for a job because she does not like her office",
+    "note": "look for aramak demektir; for düşerse anlam bakmak olur.",
+    "level": 3,
+    "distractors": [
+      "look",
+      "doesn't"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Toplantıya neden hep geç kaldığını bilmiyoruz.",
+    "english": "We do not know why he is always late for the meeting",
+    "note": "Soru bir yan cümleye dönüşünce düz cümle sırasına geçer: why he is — why is he değil.",
+    "level": 3,
+    "distractors": [
+      "does",
+      "are"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Bu çorbanın tadı çok güzel ama kokusu hoş değil.",
+    "english": "This soup tastes very good but it does not smell nice",
+    "note": "Duyu fiilleri (taste, smell, look) genellikle continuous yapılmaz.",
+    "level": 3,
+    "distractors": [
+      "taste",
+      "is"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Tıp okuyor ve doktor olmak istiyor.",
+    "english": "He is studying medicine and he wants to become a doctor",
+    "note": "want bir durum fiilidir; is wanting denmez, geniş zaman biçimi kullanılır.",
+    "level": 3,
+    "distractors": [
+      "study",
+      "want"
+    ]
+  },
+  {
+    "category": "present",
+    "turkish": "Yeni bir daire bulana kadar otelde kalıyorlar.",
+    "english": "They are staying at a hotel until they find a new flat",
+    "note": "Geçici durum için continuous kullanılır; until ile başlayan zaman cümlesinde ise geniş zaman gelir.",
+    "level": 3,
+    "distractors": [
+      "stay",
+      "found"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Dün okula gittim.",
+    "english": "I went to school yesterday",
+    "note": "go fiilinin geçmişi düzensizdir: go → went. -ed eki almaz.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Yeni bir elbise aldı.",
+    "english": "She bought a new dress",
+    "note": "buy → bought. Düzensiz fiillerin geçmiş biçimi ezberlenir.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Dün gece bir film izledik.",
+    "english": "We watched a film last night",
+    "note": "Düzenli fiiller geçmişte -ed alır: watch → watched.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "O çok yorgundu.",
+    "english": "He was very tired",
+    "note": "Tekil özne ile was, çoğul özne ile were kullanılır.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Onlar evdeydi.",
+    "english": "They were at home",
+    "note": "they çoğul olduğu için were gelir: they were.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Dün arkadaşımı gördüm.",
+    "english": "I saw my friend yesterday",
+    "note": "see → saw. Geçmiş biçimde ayrıca -ed kullanılmaz.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Bir elma yedi.",
+    "english": "She ate an apple",
+    "note": "eat → ate. Ünlüyle başlayan kelimeden önce a değil an gelir.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Eve geç geldik.",
+    "english": "We came home late",
+    "note": "come → came. home kelimesi bu kalıpta to almaz.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Bana bir kitap verdi.",
+    "english": "He gave me a book",
+    "note": "give → gave. Önce kişi, sonra nesne gelir: gave me a book.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Dün gece seni aradım.",
+    "english": "I called you last night",
+    "note": "call düzenli bir fiildir: call → called.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "past",
+    "turkish": "Dün gece filmi izlemedik.",
+    "english": "We did not see the film last night",
+    "note": "did not zaten geçmişi taşır, bu yüzden ana fiil yalın kalır: did not see.",
+    "level": 2,
+    "distractors": [
+      "saw"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "O partiye gelmedi.",
+    "english": "She did not come to the party",
+    "note": "Olumsuz geçmişte came değil come kullanılır.",
+    "level": 2,
+    "distractors": [
+      "came"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Ödevini akşam yemeğinden önce bitirdi.",
+    "english": "He finished his homework before dinner",
+    "note": "Düzenli fiil -ed alır; before iki olayın sırasını belirtir.",
+    "level": 2,
+    "distractors": [
+      "finish"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Geçen yaz İtalya'ya seyahat ettiler.",
+    "english": "They travelled to Italy last summer",
+    "note": "last summer bitmiş bir zamandır ve genellikle cümlenin sonunda durur.",
+    "level": 2,
+    "distractors": [
+      "travel",
+      "travels"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "O zaman hiç param yoktu.",
+    "english": "I did not have any money then",
+    "note": "Olumsuzda did not have kullanılır; did not had biçimi yanlıştır.",
+    "level": 2,
+    "distractors": [
+      "had"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Dün geceki konserden keyif aldın mı?",
+    "english": "Did you enjoy the concert last night",
+    "note": "did ile açılan soruda ana fiil yalın olur: did you enjoy.",
+    "level": 2,
+    "distractors": [
+      "enjoyed"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Babam o fabrikada on yıl çalıştı.",
+    "english": "My father worked in that factory for ten years",
+    "note": "Bitmiş ve kapanmış bir süre için geçmiş zaman kullanılır: worked for ten years.",
+    "level": 2,
+    "distractors": [
+      "work",
+      "works"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Dün onlarla havaalanında buluştuk.",
+    "english": "We met them at the airport yesterday",
+    "note": "meet → met. Yazım kısalır, -ed eki almaz.",
+    "level": 2,
+    "distractors": [
+      "meet"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Cevabı bilmiyordu.",
+    "english": "She did not know the answer",
+    "note": "did not zaten geçmiştir; ardından knew değil know gelir.",
+    "level": 2,
+    "distractors": [
+      "knew"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Ofisten saat altıda ayrıldı.",
+    "english": "He left the office at six o'clock",
+    "note": "leave → left. leaved diye bir biçim yoktur.",
+    "level": 2,
+    "distractors": [
+      "leaved",
+      "leaves"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Ben yemek yaparken telefon çaldı ve tabağı düşürdüm.",
+    "english": "While I was cooking the phone rang and I dropped the plate",
+    "note": "Uzun süren eylem was + fiil-ing, araya giren kısa olay ise geçmiş zaman olur.",
+    "level": 3,
+    "distractors": [
+      "cooked",
+      "ringed"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "İstasyona vardığımızda tren çoktan kalkmıştı.",
+    "english": "When we arrived at the station the train had already left",
+    "note": "Geçmişteki bir andan daha önce olan olay için had + fiilin üçüncü hâli kullanılır.",
+    "level": 3,
+    "distractors": [
+      "has",
+      "leaved"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Kardeşi dışarıda oynarken o kitap okuyordu.",
+    "english": "She was reading a book while her brother was playing outside",
+    "note": "Aynı anda süren iki eylemin ikisi de was/were + fiil-ing biçiminde olur.",
+    "level": 3,
+    "distractors": [
+      "read",
+      "played"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "O geziden önce hiç bu kadar büyük bir şehir görmemiştim.",
+    "english": "I had never seen such a big city before that trip",
+    "note": "Geçmişteki bir ana kadarki deneyim için had + fiilin üçüncü hâli kullanılır.",
+    "level": 3,
+    "distractors": [
+      "have",
+      "saw"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "İşini kaybettiğini bize söylemedi.",
+    "english": "He did not tell us that he had lost his job",
+    "note": "Ana cümle geçmişse yan cümle bir adım geriye kayar: had lost.",
+    "level": 3,
+    "distractors": [
+      "has",
+      "losed"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Sonunda otele vardığımızda bizi bekliyorlardı.",
+    "english": "They were waiting for us when we finally arrived at the hotel",
+    "note": "Biz varmadan önce başlamış ve süren eylem için past continuous kullanılır.",
+    "level": 3,
+    "distractors": [
+      "waited",
+      "arrive"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Çocuklar uyuyordu, bu yüzden müziği açmadık.",
+    "english": "The children were sleeping so we did not turn on the music",
+    "note": "turn on bir öbek fiildir; on düşerse anlam tamamen değişir.",
+    "level": 3,
+    "distractors": [
+      "slept",
+      "didn't"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Raporu bitirdikten sonra eve gitti ve uyudu.",
+    "english": "After she had finished the report she went home and slept",
+    "note": "after ile önce olan eylem past perfect olur; sleep → slept.",
+    "level": 3,
+    "distractors": [
+      "has",
+      "sleeped"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Şiddetli yağmur yağıyordu, bu yüzden maç o akşam iptal edildi.",
+    "english": "It was raining hard so the match was cancelled that evening",
+    "note": "Edilgen çatı was + fiilin üçüncü hâli ile kurulur; maçı kimin iptal ettiği önemli değildir.",
+    "level": 3,
+    "distractors": [
+      "rained",
+      "cancel"
+    ]
+  },
+  {
+    "category": "past",
+    "turkish": "Eve yürürken okuldan eski bir arkadaşımla karşılaştım.",
+    "english": "I was walking home when I met an old friend from school",
+    "note": "Arka plandaki eylem past continuous, ani gelişen olay ise past simple olur.",
+    "level": 3,
+    "distractors": [
+      "walked",
+      "meeted"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Seni yarın arayacağım.",
+    "english": "I will call you tomorrow",
+    "note": "will + yalın fiil gelecek zamanı kurar: will call.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Bu akşam gelecek.",
+    "english": "She will come tonight",
+    "note": "will özneye göre değişmez: I will, she will, they will.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Orada olacağız.",
+    "english": "We will be there",
+    "note": "be fiili will'den sonra yalın kalır: will be.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Sana yardım edecek.",
+    "english": "He will help you",
+    "note": "will'den sonraki fiile -s eklenmez: he will help.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Yakında varacaklar.",
+    "english": "They will arrive soon",
+    "note": "soon yakın bir geleceği belirtir ve cümlenin sonunda durur.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Bunu unutmayacağım.",
+    "english": "I will not forget this",
+    "note": "Olumsuzluk will not ile kurulur; konuşmada won't biçimine kısalır.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Bu filmi seveceksin.",
+    "english": "You will like this film",
+    "note": "will yalnızca plan değil, tahmin bildirmek için de kullanılır.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Yarın yağmur yağacak.",
+    "english": "It will rain tomorrow",
+    "note": "Hava durumunda özne it'tir ve asla düşürülemez.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Yedide buluşacağız.",
+    "english": "We will meet at seven",
+    "note": "Saatlerden önce at kullanılır: at seven, at six.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Sana bir mesaj göndereceğim.",
+    "english": "I will send you a message",
+    "note": "Önce kişi, sonra nesne gelir: send you a message.",
+    "level": 1,
+    "distractors": []
+  },
+  {
+    "category": "future",
+    "turkish": "Gelecek ay yeni bir araba alacak.",
+    "english": "She is going to buy a new car next month",
+    "note": "Önceden verilmiş kararlar ve planlar için be going to kullanılır.",
+    "level": 2,
+    "distractors": [
+      "will"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Pazar günü büyükannemizi ziyaret edeceğiz.",
+    "english": "We are going to visit our grandmother on Sunday",
+    "note": "we öznesiyle are going to gelir; is going to üçüncü tekil içindir.",
+    "level": 2,
+    "distractors": [
+      "is"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Yeni bir işe başlayacağım.",
+    "english": "I am going to start a new job",
+    "note": "going to kalıbından sonra fiil yalın olur: going to start.",
+    "level": 2,
+    "distractors": [
+      "will",
+      "starting"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Toplantıya gelmeyecek.",
+    "english": "He is not going to come to the meeting",
+    "note": "Olumsuzluk is not going to biçiminde, not tam ortada kurulur.",
+    "level": 2,
+    "distractors": [
+      "will"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Başka bir şehre taşınacaklar.",
+    "english": "They are going to move to another city",
+    "note": "move to bir yere taşınmak demektir; to düşürülmez.",
+    "level": 2,
+    "distractors": [
+      "is",
+      "moving"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Bu hafta sonu muhtemelen evde kalacağım.",
+    "english": "I will probably stay at home this weekend",
+    "note": "probably will'den sonra, ana fiilden önce gelir: will probably stay.",
+    "level": 2,
+    "distractors": [
+      "am"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Film on dakika içinde başlayacak.",
+    "english": "The film is going to start in ten minutes",
+    "note": "Ortada belirti varsa (saat yaklaştıysa) be going to tercih edilir.",
+    "level": 2,
+    "distractors": [
+      "starts"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Haziranda bebeği olacak.",
+    "english": "She is going to have a baby in June",
+    "note": "have a baby bebeği olmak demektir; aylardan önce in kullanılır.",
+    "level": 2,
+    "distractors": [
+      "will",
+      "having"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Bir daha geç kalmayacağız.",
+    "english": "We are not going to be late again",
+    "note": "be going to + be yapısı gelecekteki bir durumu anlatır.",
+    "level": 2,
+    "distractors": [
+      "will"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Bu gece maçı izleyecek misin?",
+    "english": "Are you going to watch the match tonight",
+    "note": "Soruda be fiili başa gelir: Are you going to...?",
+    "level": 2,
+    "distractors": [
+      "will",
+      "watching"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Yarın yağmur yağarsa evde kalıp film izleyeceğiz.",
+    "english": "If it rains tomorrow we will stay at home and watch a film",
+    "note": "Birinci tip koşulda if cümlesi geniş zaman, sonuç cümlesi will ile kurulur.",
+    "level": 3,
+    "distractors": [
+      "rain",
+      "would"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Havaalanına varır varmaz seni arayacağım.",
+    "english": "I will call you as soon as I arrive at the airport",
+    "note": "as soon as, when, before gibi zaman bağlaçlarından sonra gelecek için will kullanılmaz.",
+    "level": 3,
+    "distractors": [
+      "arrived",
+      "would"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Bu ayın sonuna kadar projeyi bitirmiş olacak.",
+    "english": "She will have finished the project by the end of this month",
+    "note": "Gelecekte belli bir ana kadar tamamlanacak işler için will have + fiilin üçüncü hâli kullanılır.",
+    "level": 3,
+    "distractors": [
+      "finish",
+      "has"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Acele etmezsen son otobüsü kaçıracaksın.",
+    "english": "If you do not hurry you will miss the last bus",
+    "note": "Koşul cümlesinde olumsuzluk do not ile kurulur; sonuç cümlesi yine will alır.",
+    "level": 3,
+    "distractors": [
+      "missed",
+      "would"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Bebek doğduğunda daha büyük bir daireye taşınacağız.",
+    "english": "We are going to move to a bigger flat when the baby arrives",
+    "note": "when ile başlayan zaman cümlesinde gelecek için geniş zaman kullanılır: when the baby arrives.",
+    "level": 3,
+    "distractors": [
+      "arrive",
+      "moving"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Gelecek yıl bu zamanlar başka bir ülkede çalışıyor olacağım.",
+    "english": "This time next year I will be working in another country",
+    "note": "Gelecekte belli bir anda sürecek eylem için will be + fiil-ing kullanılır.",
+    "level": 3,
+    "distractors": [
+      "work",
+      "am"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Fiyat düşmedikçe teklifi kabul etmeyecekler.",
+    "english": "They will not accept the offer unless the price goes down",
+    "note": "unless kendi içinde olumsuzdur (eğer ...-mezse); ikinci kez olumsuz yapılmaz.",
+    "level": 3,
+    "distractors": [
+      "go",
+      "would"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Yerinde olsam önce müdürle konuşurdum.",
+    "english": "If I were you I would talk to the manager first",
+    "note": "Gerçek dışı durumlarda ikinci tip koşul kullanılır: if + geçmiş, would + yalın fiil. Bu kalıpta was yerine were tercih edilir.",
+    "level": 3,
+    "distractors": [
+      "was",
+      "will"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Müdür gelmezse toplantı ertelenecek.",
+    "english": "The meeting will be postponed if the director does not come",
+    "note": "Edilgen gelecek will be + fiilin üçüncü hâli ile kurulur: will be postponed.",
+    "level": 3,
+    "distractors": [
+      "postpone",
+      "doesn't"
+    ]
+  },
+  {
+    "category": "future",
+    "turkish": "Sonuçlar elimize geçer geçmez size haber vereceğiz.",
+    "english": "We will let you know as soon as we have the results",
+    "note": "let someone know haber vermek demektir ve araya to girmez: let you know.",
+    "level": 3,
+    "distractors": [
+      "knew",
+      "had"
+    ]
+  }
+]

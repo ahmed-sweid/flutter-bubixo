@@ -1,0 +1,382 @@
+[
+  {
+    "id": "g1",
+    "title": "Cümlenin İskeleti: Özne + Fiil + Nesne",
+    "badge": "TEMEL",
+    "formula": "ÖZNE + FİİL + NESNE  →  I drink tea.",
+    "when": "İngilizce cümlenin sırası Türkçeden FARKLIDIR. Türkçe: “Ben çay içerim” (fiil sonda). İngilizce: “I drink tea” (fiil ortada!). Bu sırayı beynine kazı: KİM + NE YAPIYOR + NEYİ. Yer ve zaman en sona gelir: I drink tea at home in the morning.",
+    "ex": [
+      {
+        "en": "I drink tea.",
+        "tr": "Ben çay içerim. (özne I + fiil drink + nesne tea)"
+      },
+      {
+        "en": "Ali watches TV in the evening.",
+        "tr": "Ali akşam televizyon izler. (zaman sonda!)"
+      },
+      {
+        "en": "We play football at school.",
+        "tr": "Okulda futbol oynarız. (yer sonda!)"
+      },
+      {
+        "en": "She reads a book every night.",
+        "tr": "O her gece kitap okur."
+      }
+    ],
+    "quiz": [
+      {
+        "q": "İngilizce cümlede fiil nerededir?",
+        "o": [
+          "Sonda",
+          "Öznenin hemen ardından",
+          "Başta",
+          "Fark etmez"
+        ],
+        "a": 1,
+        "e": "Türkçenin tersine fiil özneden hemen sonra gelir: I DRINK tea."
+      },
+      {
+        "q": "“Ben elma yerim” için doğru sıra?",
+        "o": [
+          "I apple eat",
+          "I eat apple",
+          "Eat I apple",
+          "Apple eat I"
+        ],
+        "a": 1,
+        "e": "Özne+Fiil+Nesne: I eat an apple."
+      },
+      {
+        "q": "Zaman ifadesi (every day) genelde nereye gelir?",
+        "o": [
+          "Cümlenin sonuna",
+          "Fiilin önüne",
+          "Öznenin önüne",
+          "Nesnenin önüne"
+        ],
+        "a": 0,
+        "e": "I go to work every day — zaman sona."
+      }
+    ]
+  },
+  {
+    "id": "g2",
+    "title": "Geniş Zaman — Present Simple",
+    "badge": "HER GÜN",
+    "formula": "Özne + fiil(-s)  →  She workS. | olumsuz: don't / doesn't | soru: Do / Does ...?",
+    "when": "Alışkanlıklar, rutinler, genel doğrular: “her gün, her sabah, genelde”. Tek tuzak: he/she/it öznesinde fiile -s gelir; olumsuz ve soruda bu -s, do'ya geçip doesn't/does olur, fiil yalın kalır.",
+    "ex": [
+      {
+        "en": "I work in Istanbul.",
+        "tr": "İstanbul'da çalışırım."
+      },
+      {
+        "en": "She speaks three languages.",
+        "tr": "O üç dil konuşur. (speakS)"
+      },
+      {
+        "en": "We don't watch TV at night.",
+        "tr": "Geceleri televizyon izlemeyiz."
+      },
+      {
+        "en": "Does he play football? — Yes, he does.",
+        "tr": "O futbol oynar mı? — Evet, oynar."
+      },
+      {
+        "en": "The sun rises in the east.",
+        "tr": "Güneş doğudan doğar. (genel doğru)"
+      }
+    ],
+    "quiz": [
+      {
+        "q": "“She ___ coffee every morning.”",
+        "o": [
+          "drink",
+          "drinks",
+          "drinking",
+          "is drink"
+        ],
+        "a": 1,
+        "e": "he/she/it → fiile -s: drinks."
+      },
+      {
+        "q": "“He doesn't ___ meat.”",
+        "o": [
+          "eats",
+          "eat",
+          "eating",
+          "ate"
+        ],
+        "a": 1,
+        "e": "doesn't'tan sonra fiil YALIN: eat."
+      },
+      {
+        "q": "Soru hâli: “___ they live in Ankara?”",
+        "o": [
+          "Does",
+          "Do",
+          "Are",
+          "Is"
+        ],
+        "a": 1,
+        "e": "they → Do; he/she/it → Does."
+      }
+    ]
+  },
+  {
+    "id": "g3",
+    "title": "Şimdiki Zaman — Present Continuous",
+    "badge": "ŞU AN",
+    "formula": "Özne + am/is/are + fiil-ing  →  I am learning English.",
+    "when": "ŞU ANDA olan işler: “şimdi, şu an, bak!”. Türkçedeki -yor ekinin karşılığıdır. am/is/are OLMADAN -ing kullanılmaz — “I learning” en yaygın hatadır, daima “I AM learning”.",
+    "ex": [
+      {
+        "en": "I am learning English now.",
+        "tr": "Şu an İngilizce öğreniyorum."
+      },
+      {
+        "en": "She is cooking dinner.",
+        "tr": "O akşam yemeği pişiriyor."
+      },
+      {
+        "en": "They are waiting for the bus.",
+        "tr": "Otobüsü bekliyorlar."
+      },
+      {
+        "en": "Look! It is raining.",
+        "tr": "Bak! Yağmur yağıyor."
+      },
+      {
+        "en": "What are you doing? — I am watching a film.",
+        "tr": "Ne yapıyorsun? — Film izliyorum."
+      }
+    ],
+    "quiz": [
+      {
+        "q": "“Şu an ders çalışıyorum” hangisi?",
+        "o": [
+          "I study now",
+          "I am studying now",
+          "I studying now",
+          "I studies now"
+        ],
+        "a": 1,
+        "e": "am/is/are + -ing: I am studying."
+      },
+      {
+        "q": "Hangisi YANLIŞ?",
+        "o": [
+          "She is sleeping",
+          "They are coming",
+          "He working now",
+          "I am reading"
+        ],
+        "a": 2,
+        "e": "“He working” olmaz — “He IS working” gerekir."
+      },
+      {
+        "q": "Geniş zaman ile farkı ne?",
+        "o": [
+          "Fark yok",
+          "Geniş: alışkanlık, şimdiki: şu an",
+          "Şimdiki: her gün",
+          "Geniş: yarın"
+        ],
+        "a": 1,
+        "e": "I drink tea (genelde) ≠ I am drinking tea (şu an elimde bardak)."
+      }
+    ]
+  },
+  {
+    "id": "g4",
+    "title": "Geçmiş Zaman — Past Simple",
+    "badge": "DÜN",
+    "formula": "Özne + fiil-ed / 2. hâl  →  I visitED Izmir. I WENT home. | olumsuz: didn't + yalın fiil",
+    "when": "Bitmiş, tarihi belli olaylar: “dün, geçen hafta, 2020'de”. Düzenli fiiller -ed alır (visit→visited); en sık kullanılan fiillerin çoğu düzensizdir ve 2. hâlleri ezberlenir: go→went, come→came, see→saw, eat→ate, have→had, do→did, make→made, get→got, take→took, say→said.",
+    "ex": [
+      {
+        "en": "I visited my grandmother yesterday.",
+        "tr": "Dün babaannemi ziyaret ettim."
+      },
+      {
+        "en": "We went to the beach last weekend.",
+        "tr": "Geçen hafta sonu plaja gittik. (go→went)"
+      },
+      {
+        "en": "She saw a great film.",
+        "tr": "Harika bir film izledi. (see→saw)"
+      },
+      {
+        "en": "I didn't sleep well.",
+        "tr": "İyi uyuyamadım. (didn't + yalın fiil!)"
+      },
+      {
+        "en": "Did you like Istanbul? — Yes, I loved it!",
+        "tr": "İstanbul'u beğendin mi? — Bayıldım!"
+      }
+    ],
+    "quiz": [
+      {
+        "q": "“go” fiilinin geçmişi?",
+        "o": [
+          "goed",
+          "went",
+          "gone yesterday",
+          "going"
+        ],
+        "a": 1,
+        "e": "Düzensiz: go → went."
+      },
+      {
+        "q": "“I didn't ___ breakfast.”",
+        "o": [
+          "ate",
+          "eat",
+          "eaten",
+          "eating"
+        ],
+        "a": 1,
+        "e": "didn't'tan sonra fiil YALIN kalır: eat."
+      },
+      {
+        "q": "“Dün çalıştım” hangisi?",
+        "o": [
+          "I work yesterday",
+          "I worked yesterday",
+          "I working yesterday",
+          "I am worked"
+        ],
+        "a": 1,
+        "e": "Düzenli fiil + -ed: worked."
+      }
+    ]
+  },
+  {
+    "id": "g5",
+    "title": "Gelecek Zaman — will / going to",
+    "badge": "YARIN",
+    "formula": "will + fiil (anlık karar/tahmin)  ·  am/is/are going to + fiil (plan)",
+    "when": "İki yol var: WILL → konuşma anında verilen karar, söz, tahmin (“Kapıyı ben açarım!”). GOING TO → önceden yapılmış plan (“Yazın Bodrum'a gideceğiz — biletler alındı”). İkisini karıştırsan da anlaşılırsın, ama farkı bilen bir seviye atlar.",
+    "ex": [
+      {
+        "en": "I will help you!",
+        "tr": "Sana yardım ederim! (anlık karar)"
+      },
+      {
+        "en": "It will rain tomorrow.",
+        "tr": "Yarın yağmur yağacak. (tahmin)"
+      },
+      {
+        "en": "We are going to visit Cappadocia in May.",
+        "tr": "Mayısta Kapadokya'yı gezeceğiz. (plan)"
+      },
+      {
+        "en": "She is going to start a new job.",
+        "tr": "Yeni bir işe başlayacak. (kararlaştırılmış)"
+      },
+      {
+        "en": "I won't be late.",
+        "tr": "Geç kalmayacağım. (will not = won't)"
+      }
+    ],
+    "quiz": [
+      {
+        "q": "Telefon çalıyor, “Ben bakarım!” dersin:",
+        "o": [
+          "I am going to answer",
+          "I will answer it!",
+          "I answering",
+          "I answered"
+        ],
+        "a": 1,
+        "e": "Anlık karar → will."
+      },
+      {
+        "q": "Biletler alınmış, “Yazın Roma'ya gideceğiz”:",
+        "o": [
+          "We will go maybe",
+          "We are going to go to Rome",
+          "We go Rome",
+          "We went to Rome"
+        ],
+        "a": 1,
+        "e": "Önceden plan → going to."
+      },
+      {
+        "q": "“won't” neyin kısaltması?",
+        "o": [
+          "want not",
+          "will not",
+          "was not",
+          "would not"
+        ],
+        "a": 1,
+        "e": "will not = won't."
+      }
+    ]
+  },
+  {
+    "id": "g6",
+    "title": "Yakın Geçmiş — Present Perfect (giriş)",
+    "badge": "HAYAT TECRÜBESİ",
+    "formula": "Özne + have/has + fiilin 3. hâli  →  I have seen Pamukkale.",
+    "when": "“Hayatında hiç ... yaptın mı?” sorularının zamanı. Ne ZAMAN olduğu önemli değil, OLMUŞ OLMASI önemli: “I have been to London” (gitmişliğim var). Tarih verirsen Past Simple'a dönersin: “I went to London in 2019.”",
+    "ex": [
+      {
+        "en": "I have been to Cappadocia twice.",
+        "tr": "Kapadokya'ya iki kez gittim (gitmişliğim var)."
+      },
+      {
+        "en": "Have you ever eaten sushi? — No, never.",
+        "tr": "Hiç suşi yedin mi? — Hayır, hiç."
+      },
+      {
+        "en": "She has just finished work.",
+        "tr": "İşi daha yeni bitirdi. (just = henüz)"
+      },
+      {
+        "en": "We have lived here for ten years.",
+        "tr": "On yıldır burada yaşıyoruz."
+      },
+      {
+        "en": "I haven't seen that film yet.",
+        "tr": "O filmi henüz izlemedim. (yet = henüz)"
+      }
+    ],
+    "quiz": [
+      {
+        "q": "“Hiç Londra'ya gittin mi?”",
+        "o": [
+          "Did you ever go London?",
+          "Have you ever been to London?",
+          "Are you go London?",
+          "You went London?"
+        ],
+        "a": 1,
+        "e": "Hayat tecrübesi sorusu: Have you ever been to...?"
+      },
+      {
+        "q": "“I have ___ my keys!” (kaybettim, hâlâ yok)",
+        "o": [
+          "lose",
+          "lost",
+          "losed",
+          "losing"
+        ],
+        "a": 1,
+        "e": "have + 3. hâl: lose→lost."
+      },
+      {
+        "q": "Hangisinde Past Simple gerekir?",
+        "o": [
+          "I ___ sushi before",
+          "I ___ to Paris in 2020",
+          "She ___ just arrived",
+          "We ___ never met"
+        ],
+        "a": 1,
+        "e": "Tarih verilince (in 2020) Past Simple: I went."
+      }
+    ]
+  }
+]

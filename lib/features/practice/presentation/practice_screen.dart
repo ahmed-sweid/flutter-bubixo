@@ -9,6 +9,8 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
+import '../data/practice_data_repository.dart';
+import 'grammar_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
   const PracticeScreen({super.key});
@@ -19,6 +21,7 @@ class PracticeScreen extends StatefulWidget {
 
 class _PracticeScreenState extends State<PracticeScreen> {
   late Future<Map<String, int>> _progressFuture = _loadProgress();
+  final PracticeDataRepository _repository = const PracticeDataRepository();
 
   Future<Map<String, int>> _loadProgress() async {
     final preferences = await SharedPreferences.getInstance();
@@ -28,18 +31,26 @@ class _PracticeScreenState extends State<PracticeScreen> {
     };
   }
 
-  Future<void> _open(BuildContext context, _ActivityMode mode) async {
+  Future<void> _open(_ActivityMode mode) async {
+    final data = await _repository.loadAll();
+    if (!mounted) return;
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => _PracticeActivityScreen(mode: mode),
+        builder: (_) => _PracticeActivityScreen(mode: mode, exercises: data.exercises, gameWords: data.words),
       ),
     );
-    if (mounted) setState(() => _progressFuture = _loadProgress());
+    if (mounted) {
+      setState(() {
+        _progressFuture = _loadProgress();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
+      key: const PageStorageKey<String>('practice-screen-scroll'),
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.xl, AppSpacing.lg, AppSpacing.xxxl),
       children: [
         Text('Pratik', style: AppTypography.displaySm),
@@ -56,7 +67,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text('Gerçek kaynak alıştırmalarıyla kendi hızında ilerle.', style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft)),
             ])),
             const SizedBox(width: AppSpacing.md),
-            const Icon(Iconsax.flash_1, color: AppColors.accentPurple, size: 34),
+            const Icon(Iconsax.flash_1, color: AppColors.accentPurple, size: 30),
           ]),
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -76,7 +87,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               ),
               child: Row(
                 children: [
-                  const Icon(Iconsax.chart_2, color: AppColors.accentPurple, size: 22),
+                  const Icon(Iconsax.chart_2, color: AppColors.bodyMid, size: 22),
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Column(
@@ -100,24 +111,26 @@ class _PracticeScreenState extends State<PracticeScreen> {
         Text('Alıştırma türleri', style: AppTypography.displayXs),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.text_block, tint: const Color(0xFFECE7FF), iconColor: AppColors.accentPurple,
+          icon: Iconsax.text_block,
           title: 'Cümle kurma', subtitle: 'Türkçe cümleden doğru İngilizce sırasını oluştur.',
-          meta: '${builderExercises.length} alıştırma · 3 seviye',
-          onTap: () => _open(context, const _ActivityMode.sentence()),
+          meta: '120 alıştırma · 3 seviye',
+          onTap: () => _open(const _ActivityMode.sentence()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.category_2, tint: const Color(0xFFFFEBD9), iconColor: AppColors.accentOrange,
+          icon: Iconsax.category_2,
           title: 'Kelime oyunları', subtitle: 'İngilizce kelimeyi doğru Türkçe anlamıyla eşleştir.',
-          meta: '${gameWords.length} kelime · 12 tema',
-          onTap: () => _open(context, const _ActivityMode.words()),
+          meta: '240 kelime · 12 tema',
+          onTap: () => _open(const _ActivityMode.words()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.book_1, tint: const Color(0xFFE3F2FF), iconColor: AppColors.accentBlueDeep,
+          icon: Iconsax.book_1,
           title: 'Dil bilgisi', subtitle: 'Geniş zaman, geçmiş ve gelecek konularını örneklerle incele.',
-          meta: '${builderExercises.where((e) => e.category != 'question').length} konu örneği',
-          onTap: () => _open(context, const _ActivityMode.grammar()),
+          meta: '90 konu örneği',
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const GrammarScreen()),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Container(
@@ -136,10 +149,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
 }
 
 class _PracticeCard extends StatelessWidget {
-  const _PracticeCard({required this.icon, required this.tint, required this.iconColor, required this.title, required this.subtitle, required this.meta, required this.onTap});
+  const _PracticeCard({required this.icon, required this.title, required this.subtitle, required this.meta, required this.onTap});
   final IconData icon;
-  final Color tint;
-  final Color iconColor;
   final String title;
   final String subtitle;
   final String meta;
@@ -156,7 +167,7 @@ class _PracticeCard extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.md),
         decoration: BoxDecoration(border: Border.all(color: AppColors.hairline), borderRadius: BorderRadius.circular(14)),
         child: Row(children: [
-          Container(width: 50, height: 50, decoration: BoxDecoration(color: tint, borderRadius: BorderRadius.circular(13)), child: Icon(icon, color: iconColor, size: 23)),
+          Container(width: 44, height: 44, decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(12)), child: Icon(icon, color: AppColors.bodyMid, size: 21)),
           const SizedBox(width: AppSpacing.md),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(title, style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
@@ -178,14 +189,15 @@ enum _ActivityKind { sentence, words, grammar }
 class _ActivityMode {
   const _ActivityMode.sentence() : kind = _ActivityKind.sentence, title = 'Cümle kurma';
   const _ActivityMode.words() : kind = _ActivityKind.words, title = 'Kelime oyunları';
-  const _ActivityMode.grammar() : kind = _ActivityKind.grammar, title = 'Dil bilgisi';
   final _ActivityKind kind;
   final String title;
 }
 
 class _PracticeActivityScreen extends StatefulWidget {
-  const _PracticeActivityScreen({required this.mode});
+  const _PracticeActivityScreen({required this.mode, required this.exercises, required this.gameWords});
   final _ActivityMode mode;
+  final List<BuilderExercise> exercises;
+  final List<GameWord> gameWords;
   @override
   State<_PracticeActivityScreen> createState() => _PracticeActivityScreenState();
 }
@@ -202,12 +214,12 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
 
   bool get _sentenceMode => widget.mode.kind == _ActivityKind.sentence;
   bool get _wordMode => widget.mode.kind == _ActivityKind.words;
-  int get _total => _wordMode ? gameWords.length : _exercises.length;
+  int get _total => _wordMode ? widget.gameWords.length : _exercises.length;
   List<BuilderExercise> get _exercises => widget.mode.kind == _ActivityKind.grammar
-      ? builderExercises.where((e) => e.category != 'question').toList()
-      : builderExercises;
+      ? widget.exercises.where((e) => e.category != 'question').toList()
+      : widget.exercises;
   BuilderExercise get _exercise => _exercises[_questionOrder[_index]];
-  GameWord get _word => gameWords[_questionOrder[_index]];
+  GameWord get _word => widget.gameWords[_questionOrder[_index]];
 
   @override
   void initState() {
@@ -219,6 +231,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
   void _prepareQuestion() {
     _selected = null;
     _checked = false;
+    _currentWordOptions = [];
     _answer.clear();
     if (_sentenceMode) {
       final exercise = _exercise;
@@ -243,7 +256,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
 
   List<String> get _wordOptions {
     final correct = _word.turkish;
-    final others = gameWords.where((w) => w.turkish != correct).map((w) => w.turkish).toSet().toList()..shuffle(_random);
+    final others = widget.gameWords.where((w) => w.turkish != correct).map((w) => w.turkish).toSet().toList()..shuffle(_random);
     final options = <String>[correct, ...others.take(3)]..shuffle(_random);
     return options;
   }
@@ -287,8 +300,6 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
               decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(16)),
               child: Column(children: [
                 if (_wordMode) ...[
-                  const Icon(Iconsax.book_1, size: 30, color: AppColors.accentPurple),
-                  const SizedBox(height: AppSpacing.md),
                   Text(_word.english, textAlign: TextAlign.center, style: AppTypography.displaySm),
                   const SizedBox(height: AppSpacing.xs),
                   Text('Hangi Türkçe anlam doğru?', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),

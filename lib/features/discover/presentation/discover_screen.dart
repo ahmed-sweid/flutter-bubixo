@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
@@ -19,24 +20,38 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final StoryRepository _repository = const StoryRepository();
   late Future<List<Story>> _storiesFuture = _repository.loadStories();
   int? _selectedLevel;
-  final TextEditingController _searchController = TextEditingController();
+  String? _lastStoryId;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLastStory();
+  }
+
+  Future<void> _loadLastStory() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    setState(() => _lastStoryId = preferences.getString('bubixo.last_story_id'));
+  }
+
+  Future<void> _openStory(Story story) async {
+    // Persist before pushing so the shortcut is reliable even if the reader
+    // is closed quickly or its own initialization has not completed yet.
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setString('bubixo.last_story_id', story.id);
+    await preferences.setString('bubixo.last_story_title', story.title);
+    if (!mounted) return;
+    setState(() => _lastStoryId = story.id);
+
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => StoryDetailScreen(story: story)),
+    );
+    await _loadLastStory();
+  }
 
   @override
   void dispose() {
-    _searchController.dispose();
     super.dispose();
-  }
-
-  List<Story> _filteredStories(List<Story> stories) {
-    final query = _searchController.text.trim().toLowerCase();
-    return stories.where((story) {
-      final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
-      final queryMatches = query.isEmpty ||
-          story.title.toLowerCase().contains(query) ||
-          story.titleTr.toLowerCase().contains(query) ||
-          story.intro.toLowerCase().contains(query);
-      return levelMatches && queryMatches;
-    }).toList(growable: false);
   }
 
   @override
@@ -44,7 +59,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return FutureBuilder<List<Story>>(
       future: _storiesFuture,
       builder: (context, snapshot) {
+        final allStories = snapshot.data ?? const <Story>[];
+        final visibleStories = _selectedLevel == null
+            ? allStories
+            : allStories
+                .where((story) => story.level == _selectedLevel)
+                .toList(growable: false);
         return ListView(
+          key: const PageStorageKey<String>('discover-screen-scroll'),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.fromLTRB(
             AppSpacing.lg,
             AppSpacing.xl,
@@ -52,38 +75,27 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             AppSpacing.xxxl,
           ),
           children: [
-            Text('Keşfet', style: AppTypography.displaySm),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              'İlgi alanına göre İngilizce içerikler bul ve kendi hızında keşfet.',
-              style: AppTypography.bodyMd,
-            ),
-            const SizedBox(height: AppSpacing.xxl),
-            Text('Okuma ve hikâyeler', style: AppTypography.displayXs),
+            Text('Hikâyeler', style: AppTypography.displaySm),
             const SizedBox(height: AppSpacing.xs),
             Text(
               'Kısa hikâyeler oku; İngilizce cümleleri ve Türkçe anlamlarını birlikte gör.',
               style: AppTypography.bodySm,
             ),
             const SizedBox(height: AppSpacing.lg),
-            TextField(
-              controller: _searchController,
-              onChanged: (_) => setState(() {}),
-              decoration: InputDecoration(
-                hintText: 'Hikâye ara',
-                prefixIcon: const Icon(Iconsax.search_normal_1, size: 20),
-                suffixIcon: _searchController.text.isEmpty ? null : IconButton(
-                  tooltip: 'Aramayı temizle',
-                  onPressed: () { _searchController.clear(); setState(() {}); },
-                  icon: const Icon(Iconsax.close_circle, size: 19),
-                ),
-                filled: true,
-                fillColor: const Color(0xFFF7F7F8),
-                contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
+            if (snapshot.hasData && _lastStoryId != null) ...[
+              for (final story in snapshot.data!)
+                if (story.id == _lastStoryId) ...[
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () => _openStory(story),
+                      icon: const Icon(Iconsax.play_circle),
+                      label: Text('Son okuduğun hikâyeye dön · ${story.title}'),
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                ],
+            ],
             if (snapshot.connectionState == ConnectionState.waiting)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
@@ -114,7 +126,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     ),
                   ),
                   Text(
-                    '${_filteredStories(snapshot.data!).length} sonuç',
+                    '${visibleStories.length} sonuç',
                     style: AppTypography.eyebrowSmall.copyWith(
                       color: AppColors.muted,
                     ),
@@ -122,26 +134,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ],
               ),
               const SizedBox(height: AppSpacing.md),
-              ..._filteredStories(snapshot.data!).map(
+              ...visibleStories.map(
                 (story) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
                   child: _StoryCard(
                     story: story,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (_) => StoryDetailScreen(story: story),
-                      ),
-                    ),
+                    onTap: () => _openStory(story),
                   ),
                 ),
               ),
-              if (_filteredStories(snapshot.data!).isEmpty)
+              if (visibleStories.isEmpty)
                 _EmptyStoriesState(
-                  isSearching: _searchController.text.trim().isNotEmpty,
-                  onClear: () {
-                    _searchController.clear();
-                    setState(() => _selectedLevel = null);
-                  },
+                  isSearching: false,
+                  onClear: () => setState(() => _selectedLevel = null),
                 ),
             ],
           ],
@@ -206,6 +211,7 @@ class _StoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: AppColors.canvas,
+      borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),
@@ -218,44 +224,23 @@ class _StoryCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 42,
-                    height: 42,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: AppColors.ink,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Icon(
-                      Iconsax.book_1,
-                      color: AppColors.onPrimary,
-                      size: 21,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          story.title,
-                          style: AppTypography.bodyMd.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.xxs),
-                        Text(story.titleTr, style: AppTypography.bodySm),
-                      ],
-                    ),
-                  ),
-                  const Icon(Iconsax.arrow_right_3, size: 18),
-                ],
+              Text(
+                story.title,
+                style: AppTypography.bodyMd.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.ink,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xxs),
+              Text(
+                story.titleTr,
+                style: AppTypography.bodySm.copyWith(
+                  color: AppColors.bodyMid,
+                ),
               ),
               const SizedBox(height: AppSpacing.md),
               Text(story.intro, style: AppTypography.bodySm),
-              const SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.lg),
               Row(
                 children: [
                   _MetaLabel(label: 'Seviye ${story.level}'),
@@ -311,7 +296,7 @@ class _EmptyStoriesState extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Icon(Iconsax.search_status_1, size: 30, color: AppColors.bodyMid),
+          const Icon(Iconsax.book_1, size: 30, color: AppColors.bodyMid),
           const SizedBox(height: AppSpacing.md),
           Text(
             isSearching ? 'Hikâye bulunamadı' : 'Bu seviyede hikâye yok',

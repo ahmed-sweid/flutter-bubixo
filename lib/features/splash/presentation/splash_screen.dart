@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_typography.dart';
@@ -67,8 +66,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const _BubixoMark(),
-                    const SizedBox(height: 22),
                     RichText(
                       text: TextSpan(
                         style: AppTypography.displayLg.copyWith(
@@ -123,52 +120,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _BubixoMark extends StatelessWidget {
-  const _BubixoMark();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 76,
-      height: 76,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: AppColors.ink,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: const SizedBox.expand(
-              child: Icon(
-                Iconsax.book_1,
-                color: AppColors.onPrimary,
-                size: 38,
-              ),
-            ),
-          ),
-          Positioned(
-            top: -4,
-            right: -4,
-            child: Container(
-              width: 17,
-              height: 17,
-              decoration: BoxDecoration(
-                color: AppColors.accentPurple,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.canvas,
-                  width: 3,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

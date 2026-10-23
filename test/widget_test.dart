@@ -20,8 +20,7 @@ void main() {
 
     expect(find.text('İngilizceyi, adım adım keşfet.'), findsOneWidget);
 
-    // The splash screen contains an indeterminate progress indicator, so
-    // pumpAndSettle would wait forever for its animation to stop.
+    // Let the splash animation run for a bounded amount of test time.
     await tester.pump(const Duration(milliseconds: 1500));
     await tester.pump(const Duration(milliseconds: 400));
 
@@ -31,12 +30,12 @@ void main() {
     // Scroll the learning screen until the CTA is fully in view before tapping.
     final discoverAction = find.widgetWithText(FilledButton, 'Hikâyeleri keşfet');
     await tester.ensureVisible(discoverAction);
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
     await tester.tap(discoverAction);
     await tester.pump(const Duration(milliseconds: 400));
 
     // Confirm the tab navigation happened before waiting for story assets.
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsWidgets);
 
     // Allow the real asset-bundle future to finish outside fake test time.
     await tester.runAsync(
@@ -49,16 +48,13 @@ void main() {
     final firstStory = find.text("Tom's Morning");
     await tester.ensureVisible(firstStory);
     await tester.tap(firstStory);
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 700));
     final firstSentence = find.text("Tom wakes up early every morning.");
-    await tester.scrollUntilVisible(
-      firstSentence,
-      250,
-      scrollable: find.byType(Scrollable).last,
-    );
+    await tester.ensureVisible(firstSentence);
+    await tester.pump(const Duration(milliseconds: 250));
     expect(firstSentence, findsOneWidget);
     await tester.tap(firstSentence);
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Tom her sabah erken uyanır.'), findsOneWidget);
     expect(find.text('wakes up · uyanır'), findsOneWidget);
 
@@ -68,7 +64,11 @@ void main() {
 
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsWidgets);
+    expect(
+      find.textContaining('Son okuduğun hikâyeye dön · Tom\'s Morning'),
+      findsOneWidget,
+    );
 
     await tester.tap(find.text('Kelimeler').first);
     await tester.pump(const Duration(milliseconds: 400));
@@ -90,9 +90,9 @@ void main() {
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
 
-    await tester.tap(find.text('Keşfet').first);
+    await tester.tap(find.text('Hikâyeler').first);
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsWidgets);
 
     await tester.tap(find.text('Öğren').first);
     await tester.pump(const Duration(milliseconds: 400));

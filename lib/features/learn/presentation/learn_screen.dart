@@ -245,7 +245,7 @@ class _LastStoryCard extends StatefulWidget {
 }
 
 class _LastStoryCardState extends State<_LastStoryCard> {
-  late Future<Story?> _storyFuture = _loadLastStory();
+  late final Future<Story?> _storyFuture = _loadLastStory();
 
   Future<Story?> _loadLastStory() async {
     final preferences = await SharedPreferences.getInstance();

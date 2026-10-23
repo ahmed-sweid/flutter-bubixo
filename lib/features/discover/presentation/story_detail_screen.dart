@@ -1,14 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/services/speech_service.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/story.dart';
-import '../../practice/presentation/practice_screen.dart';
 
 class StoryDetailScreen extends StatefulWidget {
   const StoryDetailScreen({required this.story, super.key});
@@ -32,6 +33,12 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_story_id', widget.story.id);
     await preferences.setString('bubixo.last_story_title', widget.story.title);
+  }
+
+  @override
+  void dispose() {
+    unawaited(SpeechService.instance.stop());
+    super.dispose();
   }
 
   @override
@@ -61,53 +68,34 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
           AppSpacing.xxxl,
         ),
         children: [
-          Text(story.titleTr, style: AppTypography.displaySm),
-          const SizedBox(height: AppSpacing.sm),
-          Text(story.intro, style: AppTypography.bodyMd),
-          const SizedBox(height: AppSpacing.xl),
           Container(
+            width: double.infinity,
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(
-              color: AppColors.ink,
+              color: const Color(0xFFF7F7F8),
               borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.hairline),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    const Icon(Iconsax.book_1, color: AppColors.accentPurple, size: 19),
-                    const SizedBox(width: AppSpacing.sm),
-                    Text(
-                      'OKUMA REHBERİ',
-                      style: AppTypography.eyebrowSmall.copyWith(color: AppColors.mutedSoft),
-                    ),
-                    const Spacer(),
-                    Text(
-                      'Seviye ${story.level}',
-                      style: AppTypography.eyebrowSmall.copyWith(color: AppColors.onPrimary),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Text(
-                  '${story.lines.length} cümleyle İngilizce oku',
-                  style: AppTypography.displayXs.copyWith(color: AppColors.onPrimary),
-                ),
+                Text(story.titleTr, style: AppTypography.displayXs),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
-                  'Önce İngilizce cümleyi oku, ardından Türkçe anlamına ve kelime notlarına göz at.',
-                  style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
+                  story.intro,
+                  style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
                 ),
               ],
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.xs,
             children: [
-              Expanded(
-                child: Text('Hikâye', style: AppTypography.displayXs),
-              ),
+              Text('Hikâye', style: AppTypography.displayXs),
               TextButton.icon(
                 onPressed: () {
                   setState(() {
@@ -160,11 +148,30 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      line.en,
-                      style: AppTypography.bodyMd.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            line.en,
+                            style: AppTypography.bodyMd.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          tooltip: 'İngilizce cümleyi dinle',
+                          visualDensity: VisualDensity.compact,
+                          onPressed: () => unawaited(
+                            SpeechService.instance.speakEnglish(line.en),
+                          ),
+                          icon: const Icon(
+                            Iconsax.volume_high,
+                            color: AppColors.bodyMid,
+                            size: 21,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Row(
@@ -205,24 +212,50 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
                                 onTap: () async {
                                   final preferences = await SharedPreferences.getInstance();
                                   final saved = preferences.getStringList('bubixo.saved_words') ?? <String>[];
-                                  if (!saved.contains(word.english)) {
+                                  final alreadySaved = saved.any(
+                                    (entry) => entry.trim().toLowerCase() == word.english.trim().toLowerCase(),
+                                  );
+                                  if (!alreadySaved) {
                                     saved.add(word.english);
                                     await preferences.setStringList('bubixo.saved_words', saved);
                                   }
+
                                   final rawEntries = preferences.getString('bubixo.custom_words');
-                                  final entries = rawEntries == null
-                                      ? <Map<String, dynamic>>[]
-                                      : (jsonDecode(rawEntries) as List<dynamic>)
-                                          .cast<Map<String, dynamic>>();
-                                  final exists = entries.any((entry) => entry['english'] == word.english);
+                                  final entries = <Map<String, dynamic>>[];
+                                  if (rawEntries != null && rawEntries.isNotEmpty) {
+                                    try {
+                                      final decoded = jsonDecode(rawEntries);
+                                      if (decoded is List<dynamic>) {
+                                        for (final entry in decoded) {
+                                          if (entry is Map) {
+                                            entries.add(
+                                              entry.map(
+                                                (key, value) => MapEntry(key.toString(), value),
+                                              ),
+                                            );
+                                          }
+                                        }
+                                      }
+                                    } on FormatException {
+                                      // Recover from malformed local data by rebuilding a valid list.
+                                    } on TypeError {
+                                      // Ignore entries with unexpected local data types.
+                                    }
+                                  }
+
+                                  final exists = entries.any(
+                                    (entry) => entry['english'] is String &&
+                                        (entry['english'] as String).trim().toLowerCase() ==
+                                            word.english.trim().toLowerCase(),
+                                  );
                                   if (!exists) {
                                     entries.add({
                                       'english': word.english,
                                       'turkish': word.turkish,
                                       'kind': 'Hikâyeden',
                                     });
-                                    await preferences.setString('bubixo.custom_words', jsonEncode(entries));
                                   }
+                                  await preferences.setString('bubixo.custom_words', jsonEncode(entries));
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context)
                                       ..hideCurrentSnackBar()
@@ -264,19 +297,6 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.lg),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => const PracticeScreen(),
-                ),
-              ),
-              icon: const Icon(Iconsax.activity, size: 18),
-              label: const Text('Pratik yap'),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
           SizedBox(
             width: double.infinity,
             child: OutlinedButton.icon(
