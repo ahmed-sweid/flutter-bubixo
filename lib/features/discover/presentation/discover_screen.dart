@@ -45,7 +45,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               'Kısa hikâyeler oku; İngilizce cümleleri ve Türkçe anlamlarını birlikte gör.',
               style: AppTypography.bodySm,
             ),
-            const SizedBox(height: AppSpacing.lg),            const SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),
             if (snapshot.connectionState == ConnectionState.waiting)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
