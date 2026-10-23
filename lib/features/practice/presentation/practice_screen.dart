@@ -302,8 +302,6 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
               decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(16)),
               child: Column(children: [
                 if (_wordMode) ...[
-                  const Icon(Iconsax.book_1, size: 30, color: AppColors.accentPurple),
-                  const SizedBox(height: AppSpacing.md),
                   Text(_word.english, textAlign: TextAlign.center, style: AppTypography.displaySm),
                   const SizedBox(height: AppSpacing.xs),
                   Text('Hangi Türkçe anlam doğru?', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
