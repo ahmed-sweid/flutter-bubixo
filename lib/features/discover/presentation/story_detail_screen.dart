@@ -103,11 +103,13 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.xs,
             children: [
-              Expanded(
-                child: Text('Hikâye', style: AppTypography.displayXs),
-              ),
+              Text('Hikâye', style: AppTypography.displayXs),
               TextButton.icon(
                 onPressed: () {
                   setState(() {
