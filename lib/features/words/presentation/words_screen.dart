@@ -155,6 +155,7 @@ class _WordsScreenState extends State<WordsScreen> {
 
     return ListView(
       key: const PageStorageKey<String>('words-screen-scroll'),
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.lg,
         AppSpacing.xl,
