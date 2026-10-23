@@ -103,7 +103,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
                 'Bubixo’nun mevcut ders sırasını takip et. Ders içerikleri kaynak dosyadan yüklenir.',
                 style: AppTypography.bodyMd,
               ),
-              const SizedBox(height: AppSpacing.xl),
               const SizedBox(height: AppSpacing.lg),
               ...lessons.asMap().entries.map((entry) {
                 final index = entry.key;
