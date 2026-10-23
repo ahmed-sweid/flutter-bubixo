@@ -44,7 +44,7 @@ class LearnScreen extends StatelessWidget {
           style: AppTypography.bodyMd,
         ),
         const SizedBox(height: AppSpacing.xxl),
-        _TodayRecommendationCard(onTap: onOpenDiscover),
+        _TodayRecommendationCard(onTap: onOpenPractice),
         const SizedBox(height: AppSpacing.md),
         const _LastStoryCard(),
         const SizedBox(height: AppSpacing.xl),
