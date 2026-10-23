@@ -10,7 +10,10 @@ import '../data/learning_progress_repository.dart';
 import 'lesson_detail_screen.dart';
 
 class LessonsScreen extends StatefulWidget {
-  const LessonsScreen({super.key});
+  const LessonsScreen({super.key, this.showBackButton = true});
+
+  /// Hide the back button when this screen is used as a bottom-navigation tab.
+  final bool showBackButton;
 
   @override
   State<LessonsScreen> createState() => _LessonsScreenState();
@@ -61,6 +64,14 @@ class _LessonsScreenState extends State<LessonsScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.canvas,
         surfaceTintColor: AppColors.transparent,
+        automaticallyImplyLeading: widget.showBackButton,
+        leading: widget.showBackButton
+            ? IconButton(
+                tooltip: 'Geri',
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Iconsax.arrow_left_2),
+              )
+            : null,
         title: Text(
           'Temel dersler',
           style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
