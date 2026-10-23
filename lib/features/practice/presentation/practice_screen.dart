@@ -9,6 +9,7 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
+import 'grammar_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
   const PracticeScreen({super.key});
@@ -121,7 +122,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
           icon: Iconsax.book_1, tint: const Color(0xFFE3F2FF), iconColor: AppColors.accentBlueDeep,
           title: 'Dil bilgisi', subtitle: 'Geniş zaman, geçmiş ve gelecek konularını örneklerle incele.',
           meta: '${builderExercises.where((e) => e.category != 'question').length} konu örneği',
-          onTap: () => _open(context, const _ActivityMode.grammar()),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const GrammarScreen()),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Container(
