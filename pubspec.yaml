@@ -26,6 +26,8 @@ flutter:
     - assets/data/words.json
     - assets/data/grammar.json
     - assets/data/lessons.json
+    - assets/data/sentence_builder.json
+    - assets/data/game_words.json
 
 flutter_launcher_icons:
   android: "ic_launcher"
