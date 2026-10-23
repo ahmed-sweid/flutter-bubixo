@@ -90,14 +90,6 @@ class _GrammarScreenState extends State<GrammarScreen> {
                         ),
                         child: Row(
                           children: [
-                            Container(
-                              width: 44,
-                              height: 44,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(color: const Color(0xFFE3F2FF), borderRadius: BorderRadius.circular(12)),
-                              child: const Icon(Iconsax.book_1, color: AppColors.accentBlueDeep, size: 22),
-                            ),
-                            const SizedBox(width: AppSpacing.md),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
