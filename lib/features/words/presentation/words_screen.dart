@@ -149,7 +149,9 @@ class _WordsScreenState extends State<WordsScreen> {
           )
           .timeout(const Duration(seconds: 12));
       if (tokenResponse.statusCode < 200 || tokenResponse.statusCode >= 300) {
-        throw const _TranslationException('Çeviri servisine şu an ulaşılamıyor.');
+        throw _TranslationException(
+          'Çeviri servisi token isteğini reddetti (HTTP ${tokenResponse.statusCode}).',
+        );
       }
 
       final tokenData = jsonDecode(tokenResponse.body);
@@ -172,7 +174,9 @@ class _WordsScreenState extends State<WordsScreen> {
         throw const _TranslationException('Çok sık istek gönderildi. Biraz sonra tekrar dene.');
       }
       if (response.statusCode < 200 || response.statusCode >= 300) {
-        throw const _TranslationException('Çeviri şu an yapılamıyor. Biraz sonra tekrar dene.');
+        throw _TranslationException(
+          'Çeviri isteği başarısız oldu (HTTP ${response.statusCode}). Biraz sonra tekrar dene.',
+        );
       }
 
       final data = jsonDecode(response.body);
