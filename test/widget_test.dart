@@ -48,13 +48,10 @@ void main() {
     final firstStory = find.text("Tom's Morning");
     await tester.ensureVisible(firstStory);
     await tester.tap(firstStory);
-    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pump(const Duration(milliseconds: 700));
     final firstSentence = find.text("Tom wakes up early every morning.");
-    await tester.scrollUntilVisible(
-      firstSentence,
-      250,
-      scrollable: find.byType(Scrollable).last,
-    );
+    await tester.ensureVisible(firstSentence);
+    await tester.pump(const Duration(milliseconds: 250));
     expect(firstSentence, findsOneWidget);
     await tester.tap(firstSentence);
     await tester.pump(const Duration(milliseconds: 400));
