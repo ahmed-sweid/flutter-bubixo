@@ -59,9 +59,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return FutureBuilder<List<Story>>(
       future: _storiesFuture,
       builder: (context, snapshot) {
-        final visibleStories = snapshot.data == null
-            ? const <Story>[]
-            : snapshot.data!;
+        final allStories = snapshot.data ?? const <Story>[];
+        final visibleStories = _selectedLevel == null
+            ? allStories
+            : allStories
+                .where((story) => story.level == _selectedLevel)
+                .toList(growable: false);
         return ListView(
           key: const PageStorageKey<String>('discover-screen-scroll'),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
