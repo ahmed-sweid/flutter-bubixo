@@ -220,6 +220,53 @@ class _WordsScreenState extends State<WordsScreen> {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setStringList('bubixo.saved_words', _savedWords.toList()..sort());
     await preferences.setStringList('bubixo.review_words', _reviewWords.toList()..sort());
+    await preferences.setString(
+      'bubixo.custom_words',
+      jsonEncode(
+        _customWords
+            .map((word) => {
+                  'english': word.english,
+                  'turkish': word.turkish,
+                  'kind': word.kind,
+                })
+            .toList(),
+      ),
+    );
+  }
+
+  bool get _currentTranslationSaved {
+    final result = _translationResult?.trim();
+    final input = _translationController.text.trim();
+    if (result == null || result.isEmpty || input.isEmpty) return false;
+    final english = _translationDirection == 'en-tr' ? input : result;
+    final turkish = _translationDirection == 'en-tr' ? result : input;
+    return _customWords.any(
+      (word) =>
+          _wordKey(word.english) == _wordKey(english) &&
+          _wordKey(word.turkish) == _wordKey(turkish),
+    );
+  }
+
+  Future<void> _saveTranslationToWords() async {
+    final result = _translationResult?.trim();
+    final input = _translationController.text.trim();
+    if (result == null || result.isEmpty || input.isEmpty || _currentTranslationSaved) {
+      return;
+    }
+
+    final english = _translationDirection == 'en-tr' ? input : result;
+    final turkish = _translationDirection == 'en-tr' ? result : input;
+    setState(() {
+      _customWords.removeWhere(
+        (word) => _wordKey(word.english) == _wordKey(english),
+      );
+      _customWords.insert(0, _WordEntry(english, turkish, 'Çeviri'));
+    });
+    await _persistWordState();
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Kelime listenin içine kaydedildi.')),
+    );
   }
 
   static const _words = <_WordEntry>[
@@ -294,6 +341,8 @@ class _WordsScreenState extends State<WordsScreen> {
           error: _translationError,
           isTranslating: _isTranslating,
           direction: _translationDirection,
+          translationSaved: _currentTranslationSaved,
+          onSaveTranslation: _saveTranslationToWords,
           onDirectionChanged: (direction) {
             setState(() {
               _translationDirection = direction;
@@ -412,6 +461,8 @@ class _WordTranslatorCard extends StatelessWidget {
     required this.error,
     required this.isTranslating,
     required this.direction,
+    required this.translationSaved,
+    required this.onSaveTranslation,
     required this.onDirectionChanged,
     required this.onTranslate,
   });
@@ -421,6 +472,8 @@ class _WordTranslatorCard extends StatelessWidget {
   final String? error;
   final bool isTranslating;
   final String direction;
+  final bool translationSaved;
+  final VoidCallback onSaveTranslation;
   final ValueChanged<String> onDirectionChanged;
   final VoidCallback onTranslate;
 
@@ -491,7 +544,7 @@ class _WordTranslatorCard extends StatelessWidget {
                       padding: EdgeInsets.all(11),
                       child: Icon(
                         Iconsax.arrow_swap_horizontal,
-                        color: AppColors.accentPurple,
+                        color: AppColors.ink,
                         size: 20,
                       ),
                     ),
@@ -582,12 +635,14 @@ class _WordTranslatorCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    error != null ? Iconsax.info_circle : Iconsax.translate,
-                    color: error != null ? AppColors.accentRed : AppColors.accentPurple,
-                    size: 19,
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
+                  if (error != null) ...[
+                    const Icon(
+                      Iconsax.info_circle,
+                      color: AppColors.accentRed,
+                      size: 19,
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                  ],
                   Expanded(
                     child: Text(
                       error ?? result!,
@@ -600,6 +655,30 @@ class _WordTranslatorCard extends StatelessWidget {
                 ],
               ),
             ),
+            if (result != null && error == null) ...[
+              const SizedBox(height: AppSpacing.sm),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: translationSaved ? null : onSaveTranslation,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.ink,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    side: BorderSide(color: AppColors.hairline),
+                  ),
+                  icon: Icon(
+                    translationSaved ? Iconsax.tick_circle : Iconsax.bookmark,
+                    size: 18,
+                  ),
+                  label: Text(
+                    translationSaved ? 'Kelime listene kaydedildi' : 'Kelime listeme ekle',
+                  ),
+                ),
+              ),
+            ],
           ],
         ],
       ),
