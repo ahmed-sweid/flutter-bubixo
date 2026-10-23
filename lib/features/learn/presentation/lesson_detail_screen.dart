@@ -36,6 +36,12 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
     unawaited(_progressRepository.rememberLesson(_lesson.id));
   }
 
+  @override
+  void dispose() {
+    unawaited(SpeechService.instance.stop());
+    super.dispose();
+  }
+
   Lesson get _lesson => widget.lessons[widget.lessonIndex];
   LessonQuiz get _quiz => _lesson.quizzes[_quizIndex];
   bool get _hasNextQuiz => _quizIndex < _lesson.quizzes.length - 1;
