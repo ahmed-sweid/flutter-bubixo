@@ -72,19 +72,15 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
             width: double.infinity,
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(
-              color: const Color(0xFFF7F7F8),
+              color: const Color(0xFFF5F5F5),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: AppColors.hairline),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(story.titleTr, style: AppTypography.displayXs),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  story.intro,
-                  style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
-                ),
+                const SizedBox(height: AppSpacing.sm),
+                Text(story.intro, style: AppTypography.bodyMd),
               ],
             ),
           ),
