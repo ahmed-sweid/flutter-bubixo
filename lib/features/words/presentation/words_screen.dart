@@ -257,9 +257,9 @@ class _WordsScreenState extends State<WordsScreen> {
     final english = _translationDirection == 'en-tr' ? input : result;
     final turkish = _translationDirection == 'en-tr' ? result : input;
     setState(() {
-      _customWords.removeWhere(
-        (word) => _wordKey(word.english) == _wordKey(english),
-      );
+      _customWords = _customWords
+          .where((word) => _wordKey(word.english) != _wordKey(english))
+          .toList(growable: true);
       _customWords.insert(0, _WordEntry(english, turkish, 'Çeviri'));
       _savedWords.add(_wordKey(english));
     });
