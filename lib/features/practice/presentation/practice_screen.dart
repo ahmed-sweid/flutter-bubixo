@@ -67,7 +67,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text('Gerçek kaynak alıştırmalarıyla kendi hızında ilerle.', style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft)),
             ])),
             const SizedBox(width: AppSpacing.md),
-            const Icon(Iconsax.flash_1, color: AppColors.accentPurple, size: 34),
+            const Icon(Iconsax.flash_1, color: AppColors.mutedSoft, size: 30),
           ]),
         ),
         const SizedBox(height: AppSpacing.lg),
@@ -87,7 +87,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               ),
               child: Row(
                 children: [
-                  const Icon(Iconsax.chart_2, color: AppColors.accentPurple, size: 22),
+                  const Icon(Iconsax.chart_2, color: AppColors.bodyMid, size: 22),
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Column(
@@ -111,21 +111,21 @@ class _PracticeScreenState extends State<PracticeScreen> {
         Text('Alıştırma türleri', style: AppTypography.displayXs),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.text_block, tint: const Color(0xFFECE7FF), iconColor: AppColors.accentPurple,
+          icon: Iconsax.text_block,
           title: 'Cümle kurma', subtitle: 'Türkçe cümleden doğru İngilizce sırasını oluştur.',
           meta: '120 alıştırma · 3 seviye',
           onTap: () => _open(const _ActivityMode.sentence()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.category_2, tint: const Color(0xFFFFEBD9), iconColor: AppColors.accentOrange,
+          icon: Iconsax.category_2,
           title: 'Kelime oyunları', subtitle: 'İngilizce kelimeyi doğru Türkçe anlamıyla eşleştir.',
           meta: '240 kelime · 12 tema',
           onTap: () => _open(const _ActivityMode.words()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.book_1, tint: const Color(0xFFE3F2FF), iconColor: AppColors.accentBlueDeep,
+          icon: Iconsax.book_1,
           title: 'Dil bilgisi', subtitle: 'Geniş zaman, geçmiş ve gelecek konularını örneklerle incele.',
           meta: '90 konu örneği',
           onTap: () => Navigator.of(context).push(
@@ -149,10 +149,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
 }
 
 class _PracticeCard extends StatelessWidget {
-  const _PracticeCard({required this.icon, required this.tint, required this.iconColor, required this.title, required this.subtitle, required this.meta, required this.onTap});
+  const _PracticeCard({required this.icon, required this.title, required this.subtitle, required this.meta, required this.onTap});
   final IconData icon;
-  final Color tint;
-  final Color iconColor;
   final String title;
   final String subtitle;
   final String meta;
@@ -169,7 +167,7 @@ class _PracticeCard extends StatelessWidget {
         padding: const EdgeInsets.all(AppSpacing.md),
         decoration: BoxDecoration(border: Border.all(color: AppColors.hairline), borderRadius: BorderRadius.circular(14)),
         child: Row(children: [
-          Container(width: 50, height: 50, decoration: BoxDecoration(color: tint, borderRadius: BorderRadius.circular(13)), child: Icon(icon, color: iconColor, size: 23)),
+          Container(width: 44, height: 44, decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(12)), child: Icon(icon, color: AppColors.bodyMid, size: 21)),
           const SizedBox(width: AppSpacing.md),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(title, style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
