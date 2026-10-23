@@ -76,11 +76,6 @@ class _LessonsScreenState extends State<LessonsScreen> {
           'Temel dersler',
           style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
         ),
-        leading: IconButton(
-          tooltip: 'Geri',
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Iconsax.arrow_left_2),
-        ),
       ),
       body: FutureBuilder<List<Lesson>>(
         future: _lessonsFuture,
