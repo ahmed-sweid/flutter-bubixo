@@ -5,6 +5,7 @@ import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/lesson.dart';
+import '../data/learning_progress_repository.dart';
 
 class LessonDetailScreen extends StatefulWidget {
   const LessonDetailScreen({
@@ -24,13 +25,23 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
   int _quizIndex = 0;
   int? _selectedAnswer;
   bool _showAnswer = false;
+  final LearningProgressRepository _progressRepository = const LearningProgressRepository();
+
+  @override
+  void initState() {
+    super.initState();
+    _progressRepository.rememberLesson(_lesson.id);
+  }
 
   Lesson get _lesson => widget.lessons[widget.lessonIndex];
   LessonQuiz get _quiz => _lesson.quizzes[_quizIndex];
   bool get _hasNextQuiz => _quizIndex < _lesson.quizzes.length - 1;
   bool get _hasNextLesson => widget.lessonIndex < widget.lessons.length - 1;
 
-  void _continue() {
+  Future<void> _continue() async {
+    if (!_hasNextQuiz) {
+      await _progressRepository.markLessonCompleted(_lesson.id);
+    }
     if (_hasNextQuiz) {
       setState(() {
         _quizIndex++;
@@ -52,6 +63,14 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
     } else {
       Navigator.of(context).pop();
     }
+  }
+
+  Future<void> _checkAnswer() async {
+    if (_showAnswer || _selectedAnswer == null) return;
+    final correct = _selectedAnswer == _quiz.answerIndex;
+    await _progressRepository.recordQuizAnswer(correct: correct);
+    if (!mounted) return;
+    setState(() => _showAnswer = true);
   }
 
   @override
@@ -231,7 +250,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
               child: FilledButton(
                 onPressed: _selectedAnswer == null
                     ? null
-                    : () => setState(() => _showAnswer = true),
+                    : _checkAnswer,
                 child: const Text('Cevabı kontrol et'),
               ),
             ),
