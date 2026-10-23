@@ -10,6 +10,7 @@ void main() {
       (tester) async {
     SharedPreferences.setMockInitialValues({
       'bubixo.saved_words': <String>[' GOOD '],
+      'bubixo.review_words': <String>[' Good '],
     });
 
     await tester.pumpWidget(
@@ -22,6 +23,13 @@ void main() {
     await tester.tap(find.text('Kaydedilenler'));
     await tester.pumpAndSettle();
 
+    expect(find.text('good'), findsOneWidget);
+    expect(find.text('1 kelime'), findsOneWidget);
+
+    await tester.tap(find.text('Tekrar'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Tekrar listesi'), findsOneWidget);
     expect(find.text('good'), findsOneWidget);
     expect(find.text('1 kelime'), findsOneWidget);
   });
