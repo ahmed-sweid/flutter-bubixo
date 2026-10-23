@@ -18,7 +18,6 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final StoryRepository _repository = const StoryRepository();
-  final TextEditingController _searchController = TextEditingController();
   late Future<List<Story>> _storiesFuture = _repository.loadStories();
   int? _selectedLevel;
   String? _lastStoryId;
@@ -50,44 +49,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     await _loadLastStory();
   }
 
-  List<Story> _filteredStories(List<Story> stories, String query) {
-    return stories.where((story) {
-      final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
-      if (!levelMatches) return false;
-      if (query.isEmpty) return true;
-
-      final metadataMatches = story.title.toLowerCase().contains(query) ||
-          story.titleTr.toLowerCase().contains(query) ||
-          story.intro.toLowerCase().contains(query);
-      if (metadataMatches) return true;
-
-      return story.lines.any((line) {
-        if (line.en.toLowerCase().contains(query) ||
-            line.tr.toLowerCase().contains(query)) {
-          return true;
-        }
-        return line.words.any((word) =>
-            word.english.toLowerCase().contains(query) ||
-            word.turkish.toLowerCase().contains(query));
-      });
-    }).toList(growable: false);
-  }
-
   @override
   void dispose() {
-    _searchController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final query = _searchController.text.trim().toLowerCase();
     return FutureBuilder<List<Story>>(
       future: _storiesFuture,
       builder: (context, snapshot) {
         final visibleStories = snapshot.data == null
             ? const <Story>[]
-            : _filteredStories(snapshot.data!, query);
+            : snapshot.data!;
         return ListView(
           key: const PageStorageKey<String>('discover-screen-scroll'),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -119,26 +93,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   const SizedBox(height: AppSpacing.md),
                 ],
             ],
-            TextField(
-              controller: _searchController,
-              onChanged: (_) => setState(() {}),
-              textInputAction: TextInputAction.search,
-              decoration: InputDecoration(
-                hintText: 'Hikâye, kelime veya cümle ara',
-                prefixIcon: const Icon(Iconsax.search_normal_1, size: 20),
-                suffixIcon: query.isEmpty
-                    ? null
-                    : IconButton(
-                        tooltip: 'Aramayı temizle',
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() {});
-                        },
-                        icon: const Icon(Iconsax.close_circle, size: 19),
-                      ),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
             if (snapshot.connectionState == ConnectionState.waiting)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
@@ -362,7 +316,7 @@ class _EmptyStoriesState extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Icon(Iconsax.search_status_1, size: 30, color: AppColors.bodyMid),
+          const Icon(Iconsax.book_1, size: 30, color: AppColors.bodyMid),
           const SizedBox(height: AppSpacing.md),
           Text(
             isSearching ? 'Hikâye bulunamadı' : 'Bu seviyede hikâye yok',
