@@ -361,7 +361,7 @@ class _WordsScreenState extends State<WordsScreen> {
           children: [
             _FilterPill(
               label: 'Tüm kelimeler',
-              count: allWords.length,
+              count: null,
               selected: _selectedFilter == 0,
               onTap: () => setState(() => _selectedFilter = 0),
             ),
@@ -690,13 +690,13 @@ class _WordTranslatorCard extends StatelessWidget {
 class _FilterPill extends StatelessWidget {
   const _FilterPill({
     required this.label,
-    required this.count,
+    this.count,
     required this.selected,
     required this.onTap,
   });
 
   final String label;
-  final int count;
+  final int? count;
   final bool selected;
   final VoidCallback onTap;
 
@@ -728,24 +728,26 @@ class _FilterPill extends StatelessWidget {
                 fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
               ),
             ),
-            const SizedBox(width: AppSpacing.sm),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: selected
-                    ? AppColors.onPrimary.withValues(alpha: 0.14)
-                    : AppColors.hairline.withValues(alpha: 0.55),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                '$count',
-                style: AppTypography.eyebrowSmall.copyWith(
-                  fontSize: 10,
-                  color: selected ? AppColors.onPrimary : AppColors.bodyMid,
-                  fontWeight: FontWeight.w700,
+            if (count != null) ...[
+              const SizedBox(width: AppSpacing.sm),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: selected
+                      ? AppColors.onPrimary.withValues(alpha: 0.14)
+                      : AppColors.hairline.withValues(alpha: 0.55),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  '$count',
+                  style: AppTypography.eyebrowSmall.copyWith(
+                    fontSize: 10,
+                    color: selected ? AppColors.onPrimary : AppColors.bodyMid,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
+            ],
           ],
         ),
       ),
