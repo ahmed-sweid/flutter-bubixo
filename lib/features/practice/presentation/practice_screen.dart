@@ -126,7 +126,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.book_saved, tint: const Color(0xFFE8F5E9), iconColor: AppColors.accentGreen,
+          icon: Iconsax.book_1, tint: const Color(0xFFE8F5E9), iconColor: AppColors.accentGreen,
           title: 'Hikâyeler', subtitle: 'İngilizceyi bağlam içinde oku; A1 ve A2 hikâyeleri arasında seçim yap.',
           meta: 'Okuma · kelime bağlamı · anlama',
           onTap: () => Navigator.of(context).push(
