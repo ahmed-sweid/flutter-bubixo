@@ -83,8 +83,8 @@ class _BubixoShellState extends State<BubixoShell> {
               label: 'Pratik',
             ),
             NavigationDestination(
-              icon: Icon(Iconsax.discover),
-              label: 'Keşfet',
+              icon: Icon(Iconsax.book_1),
+              label: 'Hikâyeler',
             ),
           ],
         ),
