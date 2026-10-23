@@ -367,7 +367,7 @@ class _WordTranslatorCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: AppColors.canvas,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.hairline),
       ),
