@@ -31,7 +31,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
     };
   }
 
-  Future<void> _open(BuildContext context, _ActivityMode mode) async {
+  Future<void> _open(_ActivityMode mode) async {
     final data = await _repository.loadAll();
     if (!mounted) return;
     await Navigator.of(context).push(
@@ -112,14 +112,14 @@ class _PracticeScreenState extends State<PracticeScreen> {
           icon: Iconsax.text_block, tint: const Color(0xFFECE7FF), iconColor: AppColors.accentPurple,
           title: 'Cümle kurma', subtitle: 'Türkçe cümleden doğru İngilizce sırasını oluştur.',
           meta: '120 alıştırma · 3 seviye',
-          onTap: () => _open(context, const _ActivityMode.sentence()),
+          onTap: () => _open(const _ActivityMode.sentence()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
           icon: Iconsax.category_2, tint: const Color(0xFFFFEBD9), iconColor: AppColors.accentOrange,
           title: 'Kelime oyunları', subtitle: 'İngilizce kelimeyi doğru Türkçe anlamıyla eşleştir.',
           meta: '240 kelime · 12 tema',
-          onTap: () => _open(context, const _ActivityMode.words()),
+          onTap: () => _open(const _ActivityMode.words()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
@@ -189,7 +189,6 @@ enum _ActivityKind { sentence, words, grammar }
 class _ActivityMode {
   const _ActivityMode.sentence() : kind = _ActivityKind.sentence, title = 'Cümle kurma';
   const _ActivityMode.words() : kind = _ActivityKind.words, title = 'Kelime oyunları';
-  const _ActivityMode.grammar() : kind = _ActivityKind.grammar, title = 'Dil bilgisi';
   final _ActivityKind kind;
   final String title;
 }
