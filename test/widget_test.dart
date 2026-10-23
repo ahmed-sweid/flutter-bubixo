@@ -31,7 +31,7 @@ void main() {
     // Scroll the learning screen until the CTA is fully in view before tapping.
     final discoverAction = find.widgetWithText(FilledButton, 'Hikâyeleri keşfet');
     await tester.ensureVisible(discoverAction);
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
     await tester.tap(discoverAction);
     await tester.pump(const Duration(milliseconds: 400));
 
@@ -49,7 +49,7 @@ void main() {
     final firstStory = find.text("Tom's Morning");
     await tester.ensureVisible(firstStory);
     await tester.tap(firstStory);
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
     final firstSentence = find.text("Tom wakes up early every morning.");
     await tester.scrollUntilVisible(
       firstSentence,
@@ -58,7 +58,7 @@ void main() {
     );
     expect(firstSentence, findsOneWidget);
     await tester.tap(firstSentence);
-    await tester.pumpAndSettle();
+    await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Tom her sabah erken uyanır.'), findsOneWidget);
     expect(find.text('wakes up · uyanır'), findsOneWidget);
 
@@ -90,7 +90,7 @@ void main() {
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
 
-    await tester.tap(find.text('Keşfet').first);
+    await tester.tap(find.text('Hikâyeler').first);
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
 
