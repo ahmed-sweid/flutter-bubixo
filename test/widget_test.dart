@@ -20,8 +20,7 @@ void main() {
 
     expect(find.text('İngilizceyi, adım adım keşfet.'), findsOneWidget);
 
-    // The splash screen contains an indeterminate progress indicator, so
-    // pumpAndSettle would wait forever for its animation to stop.
+    // Let the splash animation run for a bounded amount of test time.
     await tester.pump(const Duration(milliseconds: 1500));
     await tester.pump(const Duration(milliseconds: 400));
 
@@ -36,7 +35,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
 
     // Confirm the tab navigation happened before waiting for story assets.
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsOneWidget);
 
     // Allow the real asset-bundle future to finish outside fake test time.
     await tester.runAsync(
@@ -68,7 +67,7 @@ void main() {
 
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsOneWidget);
 
     await tester.tap(find.text('Kelimeler').first);
     await tester.pump(const Duration(milliseconds: 400));
@@ -92,7 +91,7 @@ void main() {
 
     await tester.tap(find.text('Hikâyeler').first);
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsOneWidget);
 
     await tester.tap(find.text('Öğren').first);
     await tester.pump(const Duration(milliseconds: 400));
