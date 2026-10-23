@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
@@ -20,6 +21,26 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController _searchController = TextEditingController();
   late Future<List<Story>> _storiesFuture = _repository.loadStories();
   int? _selectedLevel;
+  String? _lastStoryId;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLastStory();
+  }
+
+  Future<void> _loadLastStory() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    setState(() => _lastStoryId = preferences.getString('bubixo.last_story_id'));
+  }
+
+  Future<void> _openStory(Story story) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => StoryDetailScreen(story: story)),
+    );
+    await _loadLastStory();
+  }
 
   List<Story> _filteredStories(List<Story> stories, String query) {
     return stories.where((story) {
@@ -76,6 +97,20 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               style: AppTypography.bodySm,
             ),
             const SizedBox(height: AppSpacing.lg),
+            if (snapshot.hasData && _lastStoryId != null) ...[
+              for (final story in snapshot.data!)
+                if (story.id == _lastStoryId) ...[
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () => _openStory(story),
+                      icon: const Icon(Iconsax.play_circle),
+                      label: Text('Son okuduğun hikâyeye dön · ${story.title}'),
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                ],
+            ],
             TextField(
               controller: _searchController,
               onChanged: (_) => setState(() {}),
@@ -139,11 +174,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
                   child: _StoryCard(
                     story: story,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (_) => StoryDetailScreen(story: story),
-                      ),
-                    ),
+                    onTap: () => _openStory(story),
                   ),
                 ),
               ),
