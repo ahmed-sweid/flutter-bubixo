@@ -9,6 +9,7 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
+import '../data/practice_data_repository.dart';
 import 'grammar_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class PracticeScreen extends StatefulWidget {
 
 class _PracticeScreenState extends State<PracticeScreen> {
   late Future<Map<String, int>> _progressFuture = _loadProgress();
+  final PracticeDataRepository _repository = const PracticeDataRepository();
 
   Future<Map<String, int>> _loadProgress() async {
     final preferences = await SharedPreferences.getInstance();
@@ -30,9 +32,11 @@ class _PracticeScreenState extends State<PracticeScreen> {
   }
 
   Future<void> _open(BuildContext context, _ActivityMode mode) async {
+    final data = await _repository.loadAll();
+    if (!mounted) return;
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => _PracticeActivityScreen(mode: mode),
+        builder: (_) => _PracticeActivityScreen(mode: mode, exercises: data.exercises, gameWords: data.words),
       ),
     );
     if (mounted) {
@@ -107,21 +111,21 @@ class _PracticeScreenState extends State<PracticeScreen> {
         _PracticeCard(
           icon: Iconsax.text_block, tint: const Color(0xFFECE7FF), iconColor: AppColors.accentPurple,
           title: 'Cümle kurma', subtitle: 'Türkçe cümleden doğru İngilizce sırasını oluştur.',
-          meta: '${builderExercises.length} alıştırma · 3 seviye',
+          meta: '120 alıştırma · 3 seviye',
           onTap: () => _open(context, const _ActivityMode.sentence()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
           icon: Iconsax.category_2, tint: const Color(0xFFFFEBD9), iconColor: AppColors.accentOrange,
           title: 'Kelime oyunları', subtitle: 'İngilizce kelimeyi doğru Türkçe anlamıyla eşleştir.',
-          meta: '${gameWords.length} kelime · 12 tema',
+          meta: '240 kelime · 12 tema',
           onTap: () => _open(context, const _ActivityMode.words()),
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
           icon: Iconsax.book_1, tint: const Color(0xFFE3F2FF), iconColor: AppColors.accentBlueDeep,
           title: 'Dil bilgisi', subtitle: 'Geniş zaman, geçmiş ve gelecek konularını örneklerle incele.',
-          meta: '${builderExercises.where((e) => e.category != 'question').length} konu örneği',
+          meta: '90 konu örneği',
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(builder: (_) => const GrammarScreen()),
           ),
@@ -191,8 +195,10 @@ class _ActivityMode {
 }
 
 class _PracticeActivityScreen extends StatefulWidget {
-  const _PracticeActivityScreen({required this.mode});
+  const _PracticeActivityScreen({required this.mode, required this.exercises, required this.gameWords});
   final _ActivityMode mode;
+  final List<BuilderExercise> exercises;
+  final List<GameWord> gameWords;
   @override
   State<_PracticeActivityScreen> createState() => _PracticeActivityScreenState();
 }
@@ -209,12 +215,12 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
 
   bool get _sentenceMode => widget.mode.kind == _ActivityKind.sentence;
   bool get _wordMode => widget.mode.kind == _ActivityKind.words;
-  int get _total => _wordMode ? gameWords.length : _exercises.length;
+  int get _total => _wordMode ? widget.gameWords.length : _exercises.length;
   List<BuilderExercise> get _exercises => widget.mode.kind == _ActivityKind.grammar
-      ? builderExercises.where((e) => e.category != 'question').toList()
-      : builderExercises;
+      ? widget.exercises.where((e) => e.category != 'question').toList()
+      : widget.exercises;
   BuilderExercise get _exercise => _exercises[_questionOrder[_index]];
-  GameWord get _word => gameWords[_questionOrder[_index]];
+  GameWord get _word => widget.gameWords[_questionOrder[_index]];
 
   @override
   void initState() {
@@ -250,7 +256,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
 
   List<String> get _wordOptions {
     final correct = _word.turkish;
-    final others = gameWords.where((w) => w.turkish != correct).map((w) => w.turkish).toSet().toList()..shuffle(_random);
+    final others = widget.gameWords.where((w) => w.turkish != correct).map((w) => w.turkish).toSet().toList()..shuffle(_random);
     final options = <String>[correct, ...others.take(3)]..shuffle(_random);
     return options;
   }
