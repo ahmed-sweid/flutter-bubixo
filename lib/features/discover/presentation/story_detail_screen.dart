@@ -181,7 +181,11 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
                           onPressed: () => unawaited(
                             SpeechService.instance.speakEnglish(line.en),
                           ),
-                          icon: const Icon(Icons.volume_up, size: 20),
+                          icon: const Icon(
+                            Iconsax.volume_high,
+                            color: AppColors.bodyMid,
+                            size: 21,
+                          ),
                         ),
                       ],
                     ),
