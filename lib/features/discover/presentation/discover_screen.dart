@@ -53,6 +53,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             AppSpacing.xxxl,
           ),
           children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                tooltip: 'Geri',
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Iconsax.arrow_left_2),
+              ),
+            ),
             Text('Hikâyeler', style: AppTypography.displaySm),
             const SizedBox(height: AppSpacing.xs),
             Text(
