@@ -261,6 +261,7 @@ class _WordsScreenState extends State<WordsScreen> {
         (word) => _wordKey(word.english) == _wordKey(english),
       );
       _customWords.insert(0, _WordEntry(english, turkish, 'Çeviri'));
+      _savedWords.add(_wordKey(english));
     });
     await _persistWordState();
     if (!mounted) return;
