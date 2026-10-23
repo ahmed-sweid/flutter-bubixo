@@ -60,6 +60,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ? const <Story>[]
             : _filteredStories(snapshot.data!, query);
         return ListView(
+          key: const PageStorageKey<String>('discover-screen-scroll'),
           padding: const EdgeInsets.fromLTRB(
             AppSpacing.lg,
             AppSpacing.xl,
