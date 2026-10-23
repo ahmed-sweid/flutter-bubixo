@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/services.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import '../../../core/services/speech_service.dart';
 
 /// Vocabulary UI uses examples from the original Bubixo data2.js source.
 /// Saved and review lists are stored locally on the device.
@@ -516,19 +518,19 @@ class _WordCard extends StatelessWidget {
     );
   }
 
-  Widget _buildWordIcon() {
-    return Container(
-      width: 42,
-      height: 42,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF1ECFF),
-        borderRadius: BorderRadius.circular(10),
+  Widget _buildSpeakButton() {
+    return IconButton(
+      tooltip: 'İngilizce telaffuzu dinle',
+      visualDensity: VisualDensity.compact,
+      constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
+      padding: EdgeInsets.zero,
+      onPressed: () => unawaited(
+        SpeechService.instance.speakEnglish(word.english),
       ),
-      child: const Icon(
-        Iconsax.translate,
-        color: AppColors.accentPurple,
-        size: 20,
+      icon: const Icon(
+        Iconsax.volume_high,
+        color: AppColors.bodyMid,
+        size: 21,
       ),
     );
   }
@@ -579,7 +581,7 @@ class _WordCard extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildWordIcon(),
+                        _buildSpeakButton(),
                         const SizedBox(width: AppSpacing.md),
                         _buildWordText(),
                       ],
@@ -594,7 +596,7 @@ class _WordCard extends StatelessWidget {
               : Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildWordIcon(),
+                    _buildSpeakButton(),
                     const SizedBox(width: AppSpacing.md),
                     _buildWordText(),
                     _buildActions(),
