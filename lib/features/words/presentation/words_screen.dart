@@ -65,16 +65,26 @@ class _WordsScreenState extends State<WordsScreen> {
     }
   }
 
+  String _wordKey(String value) => value.trim().toLowerCase();
+
   Future<void> _loadWordState() async {
     final preferences = await SharedPreferences.getInstance();
     if (!mounted) return;
     setState(() {
       _savedWords
         ..clear()
-        ..addAll(preferences.getStringList('bubixo.saved_words') ?? const <String>[]);
+        ..addAll(
+          (preferences.getStringList('bubixo.saved_words') ?? const <String>[])
+              .map(_wordKey)
+              .where((word) => word.isNotEmpty),
+        );
       _reviewWords
         ..clear()
-        ..addAll(preferences.getStringList('bubixo.review_words') ?? const <String>[]);
+        ..addAll(
+          (preferences.getStringList('bubixo.review_words') ?? const <String>[])
+              .map(_wordKey)
+              .where((word) => word.isNotEmpty),
+        );
       _customWords = _decodeCustomWords(
         preferences.getString('bubixo.custom_words'),
       );
@@ -148,8 +158,8 @@ class _WordsScreenState extends State<WordsScreen> {
       final matchesQuery = word.english.toLowerCase().contains(query) ||
           word.turkish.toLowerCase().contains(query);
       final matchesFilter = _selectedFilter == 0 ||
-          (_selectedFilter == 1 && _savedWords.contains(word.english)) ||
-          (_selectedFilter == 2 && _reviewWords.contains(word.english));
+          (_selectedFilter == 1 && _savedWords.contains(_wordKey(word.english))) ||
+          (_selectedFilter == 2 && _reviewWords.contains(_wordKey(word.english)));
       return matchesQuery && matchesFilter;
     }).toList(growable: false);
 
@@ -282,20 +292,22 @@ class _WordsScreenState extends State<WordsScreen> {
               padding: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: _WordCard(
                 word: word,
-                saved: _savedWords.contains(word.english),
-                reviewing: _reviewWords.contains(word.english),
+                saved: _savedWords.contains(_wordKey(word.english)),
+                reviewing: _reviewWords.contains(_wordKey(word.english)),
                 onToggleSaved: () async {
+                  final key = _wordKey(word.english);
                   setState(() {
-                    if (!_savedWords.add(word.english)) {
-                      _savedWords.remove(word.english);
+                    if (!_savedWords.add(key)) {
+                      _savedWords.remove(key);
                     }
                   });
                   await _persistWordState();
                 },
                 onToggleReview: () async {
+                  final key = _wordKey(word.english);
                   setState(() {
-                    if (!_reviewWords.add(word.english)) {
-                      _reviewWords.remove(word.english);
+                    if (!_reviewWords.add(key)) {
+                      _reviewWords.remove(key);
                     }
                   });
                   await _persistWordState();
