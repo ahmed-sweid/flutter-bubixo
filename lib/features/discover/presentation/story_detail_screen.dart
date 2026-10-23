@@ -234,24 +234,50 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
                                 onTap: () async {
                                   final preferences = await SharedPreferences.getInstance();
                                   final saved = preferences.getStringList('bubixo.saved_words') ?? <String>[];
-                                  if (!saved.contains(word.english)) {
+                                  final alreadySaved = saved.any(
+                                    (entry) => entry.trim().toLowerCase() == word.english.trim().toLowerCase(),
+                                  );
+                                  if (!alreadySaved) {
                                     saved.add(word.english);
                                     await preferences.setStringList('bubixo.saved_words', saved);
                                   }
+
                                   final rawEntries = preferences.getString('bubixo.custom_words');
-                                  final entries = rawEntries == null
-                                      ? <Map<String, dynamic>>[]
-                                      : (jsonDecode(rawEntries) as List<dynamic>)
-                                          .cast<Map<String, dynamic>>();
-                                  final exists = entries.any((entry) => entry['english'] == word.english);
+                                  final entries = <Map<String, dynamic>>[];
+                                  if (rawEntries != null && rawEntries.isNotEmpty) {
+                                    try {
+                                      final decoded = jsonDecode(rawEntries);
+                                      if (decoded is List<dynamic>) {
+                                        for (final entry in decoded) {
+                                          if (entry is Map) {
+                                            entries.add(
+                                              entry.map(
+                                                (key, value) => MapEntry(key.toString(), value),
+                                              ),
+                                            );
+                                          }
+                                        }
+                                      }
+                                    } on FormatException {
+                                      // Recover from malformed local data by rebuilding a valid list.
+                                    } on TypeError {
+                                      // Ignore entries with unexpected local data types.
+                                    }
+                                  }
+
+                                  final exists = entries.any(
+                                    (entry) => entry['english'] is String &&
+                                        (entry['english'] as String).trim().toLowerCase() ==
+                                            word.english.trim().toLowerCase(),
+                                  );
                                   if (!exists) {
                                     entries.add({
                                       'english': word.english,
                                       'turkish': word.turkish,
                                       'kind': 'Hikâyeden',
                                     });
-                                    await preferences.setString('bubixo.custom_words', jsonEncode(entries));
                                   }
+                                  await preferences.setString('bubixo.custom_words', jsonEncode(entries));
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context)
                                       ..hideCurrentSnackBar()
