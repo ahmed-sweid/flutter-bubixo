@@ -19,23 +19,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final StoryRepository _repository = const StoryRepository();
   late Future<List<Story>> _storiesFuture = _repository.loadStories();
   int? _selectedLevel;
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
   List<Story> _filteredStories(List<Story> stories) {
-    final query = _searchController.text.trim().toLowerCase();
     return stories.where((story) {
       final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
-      final queryMatches = query.isEmpty ||
-          story.title.toLowerCase().contains(query) ||
-          story.titleTr.toLowerCase().contains(query) ||
-          story.intro.toLowerCase().contains(query);
-      return levelMatches && queryMatches;
+      return levelMatches;
     }).toList(growable: false);
   }
 
@@ -52,38 +39,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             AppSpacing.xxxl,
           ),
           children: [
-            Text('Keşfet', style: AppTypography.displaySm),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              'İlgi alanına göre İngilizce içerikler bul ve kendi hızında keşfet.',
-              style: AppTypography.bodyMd,
-            ),
-            const SizedBox(height: AppSpacing.xxl),
-            Text('Okuma ve hikâyeler', style: AppTypography.displayXs),
+            Text('Hikâyeler', style: AppTypography.displaySm),
             const SizedBox(height: AppSpacing.xs),
             Text(
               'Kısa hikâyeler oku; İngilizce cümleleri ve Türkçe anlamlarını birlikte gör.',
               style: AppTypography.bodySm,
             ),
-            const SizedBox(height: AppSpacing.lg),
-            TextField(
-              controller: _searchController,
-              onChanged: (_) => setState(() {}),
-              decoration: InputDecoration(
-                hintText: 'Hikâye ara',
-                prefixIcon: const Icon(Iconsax.search_normal_1, size: 20),
-                suffixIcon: _searchController.text.isEmpty ? null : IconButton(
-                  tooltip: 'Aramayı temizle',
-                  onPressed: () { _searchController.clear(); setState(() {}); },
-                  icon: const Icon(Iconsax.close_circle, size: 19),
-                ),
-                filled: true,
-                fillColor: const Color(0xFFF7F7F8),
-                contentPadding: const EdgeInsets.symmetric(vertical: 15),
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),            const SizedBox(height: AppSpacing.lg),
             if (snapshot.connectionState == ConnectionState.waiting)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
@@ -137,11 +99,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               ),
               if (_filteredStories(snapshot.data!).isEmpty)
                 _EmptyStoriesState(
-                  isSearching: _searchController.text.trim().isNotEmpty,
-                  onClear: () {
-                    _searchController.clear();
-                    setState(() => _selectedLevel = null);
-                  },
+                  isSearching: false,
+                  onClear: () => setState(() => _selectedLevel = null),
                 ),
             ],
           ],
