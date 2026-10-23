@@ -30,7 +30,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   List<Story> _filteredStories(List<Story> stories) {
     final query = _searchController.text.trim().toLowerCase();
     return stories.where((story) {
-      final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
+      final levelMatches = _selectedLevel == null ||
+          (_selectedLevel == 1 ? story.level == 1 : story.level >= 2);
       final queryMatches = query.isEmpty ||
           story.title.toLowerCase().contains(query) ||
           story.titleTr.toLowerCase().contains(query) ||
@@ -52,14 +53,22 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             AppSpacing.xxxl,
           ),
           children: [
-            Text('Keşfet', style: AppTypography.displaySm),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                tooltip: 'Geri',
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Iconsax.arrow_left_2),
+              ),
+            ),
+            Text('Hikâyeler', style: AppTypography.displaySm),
             const SizedBox(height: AppSpacing.xs),
             Text(
-              'İlgi alanına göre İngilizce içerikler bul ve kendi hızında keşfet.',
+              'Seviyene uygun hikâyeleri oku; kelimeleri ve cümleleri bağlam içinde öğren.',
               style: AppTypography.bodyMd,
             ),
             const SizedBox(height: AppSpacing.xxl),
-            Text('Okuma ve hikâyeler', style: AppTypography.displayXs),
+            Text('İngilizce hikâyeler', style: AppTypography.displayXs),
             const SizedBox(height: AppSpacing.xs),
             Text(
               'Kısa hikâyeler oku; İngilizce cümleleri ve Türkçe anlamlarını birlikte gör.',
@@ -166,9 +175,8 @@ class _LevelFilters extends StatelessWidget {
       spacing: AppSpacing.sm,
       children: [
         _filter(context, label: 'Tümü', value: null),
-        _filter(context, label: 'Seviye 1', value: 1),
-        _filter(context, label: 'Seviye 2', value: 2),
-        _filter(context, label: 'Seviye 3', value: 3),
+        _filter(context, label: 'A1', value: 1),
+        _filter(context, label: 'A2', value: 2),
       ],
     );
   }
@@ -258,7 +266,7 @@ class _StoryCard extends StatelessWidget {
               const SizedBox(height: AppSpacing.md),
               Row(
                 children: [
-                  _MetaLabel(label: 'Seviye ${story.level}'),
+                  _MetaLabel(label: story.level == 1 ? 'A1' : 'A2'),
                   const SizedBox(width: AppSpacing.sm),
                   _MetaLabel(label: '${story.lines.length} cümle'),
                 ],

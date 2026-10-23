@@ -46,12 +46,17 @@ void main() {
     await tester.tap(discoverAction);
     await tester.pump(const Duration(milliseconds: 400));
 
-    // Verify the selected destination rather than matching an offstage tab.
+    // The Learn shortcut now opens Practice, where stories are one activity type.
     expect(
       tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
       3,
     );
-    expect(find.text('Okuma ve hikâyeler'), findsOneWidget);
+    expect(find.text('Alıştırma türleri'), findsOneWidget);
+    final storiesPracticeCard = find.text('Hikâyeler').first;
+    await tester.ensureVisible(storiesPracticeCard);
+    await tester.tap(storiesPracticeCard);
+    await pumpRouteTransition(tester);
+    expect(find.text('İngilizce hikâyeler'), findsOneWidget);
 
     // Allow the real asset-bundle future to finish outside fake test time.
     await tester.runAsync(
@@ -90,12 +95,24 @@ void main() {
     await pumpRouteTransition(tester);
     // The story list keeps its scroll position when returning from the reader.
     expect(find.text("Tom's Morning"), findsOneWidget);
+    await tester.tap(find.byTooltip('Geri'));
+    await pumpRouteTransition(tester);
+
+    await tester.tap(navigationLabel('Dersler'));
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      1,
+    );
+    expect(find.text('Adım adım öğren'), findsNothing);
+    expect(find.text('Ders sırasını takip et'), findsNothing);
+    expect(find.text('Alfabe ve Telaffuzun Temelleri'), findsOneWidget);
 
     await tester.tap(navigationLabel('Kelimeler'));
     await tester.pump(const Duration(milliseconds: 400));
     expect(
       tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
-      1,
+      2,
     );
     await tester.runAsync(
       () => Future<void>.delayed(const Duration(milliseconds: 100)),
@@ -117,7 +134,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     expect(
       tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
-      2,
+      3,
     );
     expect(find.text('Alıştırma türleri'), findsOneWidget);
     expect(find.text('Cümle kurma'), findsOneWidget);
@@ -129,13 +146,12 @@ void main() {
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
 
-    await tester.tap(navigationLabel('Keşfet'));
-    await tester.pump(const Duration(milliseconds: 400));
-    expect(
-      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
-      3,
-    );
-    expect(find.text("Tom's Morning"), findsOneWidget);
+    // The four-tab navigation has no separate Discover destination.
+    expect(navigationLabel('Öğren'), findsOneWidget);
+    expect(navigationLabel('Dersler'), findsOneWidget);
+    expect(navigationLabel('Kelimeler'), findsOneWidget);
+    expect(navigationLabel('Pratik'), findsOneWidget);
+    expect(navigationLabel('Keşfet'), findsNothing);
 
     await tester.tap(navigationLabel('Öğren'));
     await tester.pump(const Duration(milliseconds: 400));
@@ -161,7 +177,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
     expect(
       tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
-      2,
+      3,
     );
     expect(find.text('Alıştırma türleri'), findsOneWidget);
   });

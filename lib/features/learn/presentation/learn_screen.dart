@@ -8,18 +8,17 @@ import '../../../core/theme/tokens/app_typography.dart';
 import '../../discover/data/story.dart';
 import '../../discover/data/story_repository.dart';
 import '../../discover/presentation/story_detail_screen.dart';
-import 'lessons_screen.dart';
 
 /// Learning landing screen with a shortcut back to the last opened story.
 class LearnScreen extends StatelessWidget {
   const LearnScreen({
-    required this.onOpenDiscover,
+    required this.onOpenLessons,
     required this.onOpenWords,
     required this.onOpenPractice,
     super.key,
   });
 
-  final VoidCallback onOpenDiscover;
+  final VoidCallback onOpenLessons;
   final VoidCallback onOpenWords;
   final VoidCallback onOpenPractice;
 
@@ -45,7 +44,7 @@ class LearnScreen extends StatelessWidget {
           style: AppTypography.bodyMd,
         ),
         const SizedBox(height: AppSpacing.xxl),
-        _TodayRecommendationCard(onTap: onOpenDiscover),
+        _TodayRecommendationCard(onTap: onOpenPractice),
         const SizedBox(height: AppSpacing.md),
         const _LastStoryCard(),
         const SizedBox(height: AppSpacing.xl),
@@ -56,11 +55,7 @@ class LearnScreen extends StatelessWidget {
           title: 'Ders sırasını takip et',
           subtitle: 'Alfabe, tanışma ve temel dil bilgisi konuları.',
           label: 'DERSLER',
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (_) => const LessonsScreen(),
-            ),
-          ),
+          onTap: onOpenLessons,
         ),
         const SizedBox(height: AppSpacing.xl),
         Text('Nasıl öğrenmek istersin?', style: AppTypography.displayXs),
@@ -70,7 +65,7 @@ class LearnScreen extends StatelessWidget {
           title: 'Hikâye okuyarak öğren',
           subtitle: 'Cümleleri İngilizce ve Türkçe birlikte incele.',
           label: 'OKUMA',
-          onTap: onOpenDiscover,
+          onTap: onOpenPractice,
         ),
         const SizedBox(height: AppSpacing.sm),
         _LearningPathCard(

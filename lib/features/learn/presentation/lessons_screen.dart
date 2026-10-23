@@ -8,7 +8,9 @@ import 'lesson_detail_screen.dart';
 
 /// Lesson catalogue using titles and durations from Bubixo's original data.js.
 class LessonsScreen extends StatelessWidget {
-  const LessonsScreen({super.key});
+  const LessonsScreen({super.key, this.embedded = false});
+
+  final bool embedded;
 
   static const _lessons = <_LessonItem>[
     _LessonItem('Alfabe ve Telaffuzun Temelleri', 8, 'Başlangıç'),
@@ -27,7 +29,7 @@ class LessonsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.canvas,
-      appBar: AppBar(
+      appBar: embedded ? null : AppBar(
         backgroundColor: AppColors.canvas,
         surfaceTintColor: AppColors.transparent,
         title: Text('Temel dersler', style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
@@ -40,7 +42,7 @@ class LessonsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xxxl),
         children: [
-          Text('Adım adım öğren', style: AppTypography.displaySm),
+          Text(embedded ? 'Dersler' : 'Adım adım öğren', style: AppTypography.displaySm),
           const SizedBox(height: AppSpacing.xs),
           Text(
             'Bubixo’nun mevcut ders sırasını takip et. Ders süreleri kaynak içerikteki tahmini sürelerdir.',
