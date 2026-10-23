@@ -455,76 +455,119 @@ class _WordCard extends StatelessWidget {
   final VoidCallback onToggleSaved;
   final VoidCallback onToggleReview;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.canvas,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.hairline),
-      ),
-      child: Row(
+  Widget _buildWordText() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 42,
-            height: 42,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF1ECFF),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(
-              Iconsax.translate,
-              color: AppColors.accentPurple,
-              size: 20,
+          Text(
+            word.english,
+            style: AppTypography.bodyMd.copyWith(
+              fontWeight: FontWeight.w700,
+              color: AppColors.ink,
             ),
           ),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  word.english,
-                  style: AppTypography.bodyMd.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.ink,
-                  ),
-                ),
-                const SizedBox(height: 3),
-                Text(word.turkish, style: AppTypography.bodySm),
-                const SizedBox(height: 5),
-                Text(
-                  word.kind.toUpperCase(),
-                  style: AppTypography.eyebrowSmall.copyWith(
-                    color: AppColors.muted,
-                    fontSize: 10,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            tooltip: reviewing ? 'Tekrar listesinden çıkar' : 'Tekrar listesine ekle',
-            onPressed: onToggleReview,
-            icon: Icon(
-              reviewing ? Iconsax.refresh_circle : Iconsax.refresh,
-              color: reviewing ? AppColors.accentBlueDeep : AppColors.bodyMid,
-              size: 20,
-            ),
-          ),
-          IconButton(
-            tooltip: saved ? 'Kaydedilenlerden çıkar' : 'Kelimeyi kaydet',
-            onPressed: onToggleSaved,
-            icon: Icon(
-              saved ? Iconsax.bookmark_2 : Iconsax.bookmark,
-              color: saved ? AppColors.accentPurple : AppColors.bodyMid,
-              size: 21,
+          const SizedBox(height: 3),
+          Text(word.turkish, style: AppTypography.bodySm),
+          const SizedBox(height: 5),
+          Text(
+            word.kind.toUpperCase(),
+            style: AppTypography.eyebrowSmall.copyWith(
+              color: AppColors.muted,
+              fontSize: 10,
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildWordIcon() {
+    return Container(
+      width: 42,
+      height: 42,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF1ECFF),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: const Icon(
+        Iconsax.translate,
+        color: AppColors.accentPurple,
+        size: 20,
+      ),
+    );
+  }
+
+  Widget _buildActions() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          tooltip: reviewing ? 'Tekrar listesinden çıkar' : 'Tekrar listesine ekle',
+          onPressed: onToggleReview,
+          icon: Icon(
+            reviewing ? Iconsax.refresh_circle : Iconsax.refresh,
+            color: reviewing ? AppColors.accentBlueDeep : AppColors.bodyMid,
+            size: 20,
+          ),
+        ),
+        IconButton(
+          tooltip: saved ? 'Kaydedilenlerden çıkar' : 'Kelimeyi kaydet',
+          onPressed: onToggleSaved,
+          icon: Icon(
+            saved ? Iconsax.bookmark_2 : Iconsax.bookmark,
+            color: saved ? AppColors.accentPurple : AppColors.bodyMid,
+            size: 21,
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < 360;
+
+        return Container(
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: BoxDecoration(
+            color: AppColors.canvas,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.hairline),
+          ),
+          child: compact
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildWordIcon(),
+                        const SizedBox(width: AppSpacing.md),
+                        _buildWordText(),
+                      ],
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: _buildActions(),
+                    ),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildWordIcon(),
+                    const SizedBox(width: AppSpacing.md),
+                    _buildWordText(),
+                    _buildActions(),
+                  ],
+                ),
+        );
+      },
     );
   }
 }
