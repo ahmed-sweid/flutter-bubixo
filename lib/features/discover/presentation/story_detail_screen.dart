@@ -10,7 +10,6 @@ import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/story.dart';
-import '../../practice/presentation/practice_screen.dart';
 
 class StoryDetailScreen extends StatefulWidget {
   const StoryDetailScreen({required this.story, super.key});
@@ -319,19 +318,6 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.lg),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => const PracticeScreen(),
-                ),
-              ),
-              icon: const Icon(Iconsax.activity, size: 18),
-              label: const Text('Pratik yap'),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.sm),
           SizedBox(
             width: double.infinity,
             child: OutlinedButton.icon(
