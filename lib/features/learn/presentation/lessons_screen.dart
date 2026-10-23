@@ -88,11 +88,15 @@ class _LessonsScreenState extends State<LessonsScreen> {
           if (lessons.isEmpty) {
             return const Center(child: Text('Henüz ders bulunmuyor.'));
           }
+          final lessonIds = lessons.map((lesson) => lesson.id).toSet();
+          final completedLessonIds = _completedLessonIds.intersection(lessonIds);
           final totalMinutes = lessons.fold<int>(0, (sum, lesson) => sum + lesson.minutes);
           final lastLessonIndex = lessons.indexWhere((lesson) => lesson.id == _lastLessonId);
-          final canResume = lastLessonIndex >= 0 && !_completedLessonIds.contains(_lastLessonId);
+          final canResume =
+              lastLessonIndex >= 0 && !completedLessonIds.contains(_lastLessonId);
 
           return ListView(
+            key: const PageStorageKey<String>('lessons-screen-scroll'),
             padding: const EdgeInsets.fromLTRB(
               AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xxxl,
             ),
@@ -149,13 +153,13 @@ class _LessonsScreenState extends State<LessonsScreen> {
                   children: [
                     Row(children: [
                       Expanded(child: Text('İlerlemen', style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700))),
-                      Text('${_completedLessonIds.length.clamp(0, lessons.length)} / ${lessons.length} ders', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
+                      Text('${completedLessonIds.length} / ${lessons.length} ders', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
                     ]),
                     const SizedBox(height: AppSpacing.sm),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: LinearProgressIndicator(
-                        value: lessons.isEmpty ? 0 : _completedLessonIds.intersection(lessons.map((lesson) => lesson.id).toSet()).length / lessons.length,
+                        value: lessons.isEmpty ? 0 : completedLessonIds.length / lessons.length,
                         minHeight: 6,
                         backgroundColor: AppColors.hairline,
                         valueColor: const AlwaysStoppedAnimation(AppColors.accentPurple),
