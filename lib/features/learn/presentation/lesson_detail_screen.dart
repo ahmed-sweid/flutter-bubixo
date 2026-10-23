@@ -8,6 +8,7 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/lesson.dart';
 import '../data/learning_progress_repository.dart';
+import '../../../core/services/speech_service.dart';
 
 class LessonDetailScreen extends StatefulWidget {
   const LessonDetailScreen({
@@ -129,9 +130,35 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        point.english,
-                        style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              point.english,
+                              style: AppTypography.bodyMd.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            tooltip: 'İngilizce örneği dinle',
+                            visualDensity: VisualDensity.compact,
+                            constraints: const BoxConstraints(
+                              minWidth: 40,
+                              minHeight: 40,
+                            ),
+                            padding: EdgeInsets.zero,
+                            onPressed: () => unawaited(
+                              SpeechService.instance.speakEnglish(point.english),
+                            ),
+                            icon: const Icon(
+                              Iconsax.volume_high,
+                              color: AppColors.bodyMid,
+                              size: 21,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: AppSpacing.xs),
                       Text(point.turkish, style: AppTypography.bodySm),
