@@ -19,6 +19,7 @@ class LessonsScreen extends StatefulWidget {
 class _LessonsScreenState extends State<LessonsScreen> {
   late Future<List<Lesson>> _lessonsFuture;
   Set<String> _completedLessonIds = <String>{};
+  String? _lastLessonId;
   final LearningProgressRepository _progressRepository = const LearningProgressRepository();
 
   @override
@@ -29,9 +30,15 @@ class _LessonsScreenState extends State<LessonsScreen> {
   }
 
   Future<void> _loadProgress() async {
-    final completed = await _progressRepository.loadCompletedLessons();
+    final values = await Future.wait<Object?>([
+      _progressRepository.loadCompletedLessons(),
+      _progressRepository.loadLastLessonId(),
+    ]);
     if (!mounted) return;
-    setState(() => _completedLessonIds = completed);
+    setState(() {
+      _completedLessonIds = values[0] as Set<String>;
+      _lastLessonId = values[1] as String?;
+    });
   }
 
   Future<void> _openLesson(List<Lesson> lessons, int index) async {
@@ -82,6 +89,8 @@ class _LessonsScreenState extends State<LessonsScreen> {
             return const Center(child: Text('Henüz ders bulunmuyor.'));
           }
           final totalMinutes = lessons.fold<int>(0, (sum, lesson) => sum + lesson.minutes);
+          final lastLessonIndex = lessons.indexWhere((lesson) => lesson.id == _lastLessonId);
+          final canResume = lastLessonIndex >= 0 && !_completedLessonIds.contains(_lastLessonId);
 
           return ListView(
             padding: const EdgeInsets.fromLTRB(
@@ -155,6 +164,17 @@ class _LessonsScreenState extends State<LessonsScreen> {
                   ],
                 ),
               ),
+              if (canResume) ...[
+                const SizedBox(height: AppSpacing.md),
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: () => _openLesson(lessons, lastLessonIndex),
+                    icon: const Icon(Iconsax.play_circle),
+                    label: Text('Kaldığın derse devam et · ${lessons[lastLessonIndex].title}'),
+                  ),
+                ),
+              ],
               const SizedBox(height: AppSpacing.lg),
               ...lessons.asMap().entries.map((entry) {
                 final index = entry.key;
