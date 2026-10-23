@@ -145,7 +145,12 @@ class _WordsScreenState extends State<WordsScreen> {
       final tokenResponse = await http
           .post(
             Uri.parse('https://api.bubixo.com/text-tools/token'),
-            headers: const {'Content-Type': 'application/json'},
+            headers: const {
+              'Content-Type': 'application/json',
+              // Match the trusted web client origin used by Bubixo's text-tools API.
+              'Origin': 'https://bubixo.com',
+              'Referer': 'https://bubixo.com/',
+            },
           )
           .timeout(const Duration(seconds: 12));
       if (tokenResponse.statusCode < 200 || tokenResponse.statusCode >= 300) {
@@ -164,6 +169,8 @@ class _WordsScreenState extends State<WordsScreen> {
             Uri.parse('https://api.bubixo.com/text-tools/translate'),
             headers: {
               'Content-Type': 'application/json',
+              'Origin': 'https://bubixo.com',
+              'Referer': 'https://bubixo.com/',
               'X-Text-Tools-Token': tokenData['token'] as String,
             },
             body: jsonEncode({'text': text, 'source': source, 'target': target}),
@@ -438,20 +445,85 @@ class _WordTranslatorCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSpacing.md),
-          Wrap(
-            spacing: AppSpacing.sm,
-            children: [
-              _DirectionChip(
-                label: 'İngilizce → Türkçe',
-                selected: englishToTurkish,
-                onTap: () => onDirectionChanged('en-tr'),
-              ),
-              _DirectionChip(
-                label: 'Türkçe → İngilizce',
-                selected: !englishToTurkish,
-                onTap: () => onDirectionChanged('tr-en'),
-              ),
-            ],
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF7F7F8),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.hairline),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ÇEVİRİLECEK DİL',
+                        style: AppTypography.eyebrowSmall.copyWith(
+                          color: AppColors.muted,
+                          fontSize: 9,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        englishToTurkish ? 'İngilizce' : 'Türkçe',
+                        style: AppTypography.bodyMd.copyWith(
+                          color: AppColors.ink,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Material(
+                  color: AppColors.canvas,
+                  shape: const CircleBorder(),
+                  child: InkWell(
+                    customBorder: const CircleBorder(),
+                    onTap: isTranslating
+                        ? null
+                        : () => onDirectionChanged(
+                              englishToTurkish ? 'tr-en' : 'en-tr',
+                            ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(11),
+                      child: Icon(
+                        Iconsax.arrow_swap_horizontal,
+                        color: AppColors.accentPurple,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'ÇEVRİLECEK SONUÇ',
+                        textAlign: TextAlign.end,
+                        style: AppTypography.eyebrowSmall.copyWith(
+                          color: AppColors.muted,
+                          fontSize: 9,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        englishToTurkish ? 'Türkçe' : 'İngilizce',
+                        textAlign: TextAlign.end,
+                        style: AppTypography.bodyMd.copyWith(
+                          color: AppColors.ink,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: AppSpacing.md),
           TextField(
@@ -530,41 +602,6 @@ class _WordTranslatorCard extends StatelessWidget {
             ),
           ],
         ],
-      ),
-    );
-  }
-}
-
-class _DirectionChip extends StatelessWidget {
-  const _DirectionChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        decoration: BoxDecoration(
-          color: selected ? AppColors.ink : AppColors.canvas,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: selected ? AppColors.ink : AppColors.hairline),
-        ),
-        child: Text(
-          label,
-          style: AppTypography.bodySm.copyWith(
-            color: selected ? AppColors.onPrimary : AppColors.bodyMid,
-            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-          ),
-        ),
       ),
     );
   }
