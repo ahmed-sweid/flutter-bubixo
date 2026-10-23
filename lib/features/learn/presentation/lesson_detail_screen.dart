@@ -104,6 +104,8 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
         ),
       ),
       body: ListView(
+        key: PageStorageKey<String>('lesson-detail-${lesson.id}'),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         padding: const EdgeInsets.fromLTRB(
           AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xxxl,
         ),
