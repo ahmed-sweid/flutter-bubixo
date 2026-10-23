@@ -36,6 +36,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   Future<void> _openStory(Story story) async {
+    // Persist before pushing so the shortcut is reliable even if the reader
+    // is closed quickly or its own initialization has not completed yet.
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setString('bubixo.last_story_id', story.id);
+    await preferences.setString('bubixo.last_story_title', story.title);
+    if (!mounted) return;
+    setState(() => _lastStoryId = story.id);
+
     await Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (_) => StoryDetailScreen(story: story)),
     );
