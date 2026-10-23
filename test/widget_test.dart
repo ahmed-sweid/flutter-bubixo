@@ -68,6 +68,10 @@ void main() {
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Hikâyeler'), findsOneWidget);
+    expect(
+      find.textContaining('Son okuduğun hikâyeye dön · Tom\'s Morning'),
+      findsOneWidget,
+    );
 
     await tester.tap(find.text('Kelimeler').first);
     await tester.pump(const Duration(milliseconds: 400));
