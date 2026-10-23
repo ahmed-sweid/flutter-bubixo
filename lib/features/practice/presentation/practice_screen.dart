@@ -233,6 +233,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
   void _prepareQuestion() {
     _selected = null;
     _checked = false;
+    _currentWordOptions = [];
     _answer.clear();
     if (_sentenceMode) {
       final exercise = _exercise;
