@@ -20,8 +20,10 @@ class Lesson {
   factory Lesson.fromJson(Map<String, dynamic> json) {
     final pointsJson = json['points'];
     final quizzesJson = json['quiz'];
-    if (pointsJson is! List || quizzesJson is! List) {
-      throw const FormatException('Ders içeriğinde points veya quiz listesi eksik.');
+    if (pointsJson is! List || quizzesJson is! List || quizzesJson.isEmpty) {
+      throw const FormatException(
+        'Ders içeriğinde points veya geçerli bir quiz listesi eksik.',
+      );
     }
 
     return Lesson(
@@ -67,14 +69,27 @@ class LessonQuiz {
 
   factory LessonQuiz.fromJson(Map<String, dynamic> json) {
     final optionsJson = json['o'];
-    if (optionsJson is! List) {
-      throw const FormatException('Ders sınavında seçenek listesi eksik.');
+    final question = json['q'];
+    final answerIndex = json['a'];
+    final explanation = json['e'];
+
+    if (optionsJson is! List ||
+        optionsJson.length < 2 ||
+        !optionsJson.every((option) => option is String) ||
+        question is! String ||
+        question.trim().isEmpty ||
+        answerIndex is! int ||
+        answerIndex < 0 ||
+        answerIndex >= optionsJson.length ||
+        explanation is! String) {
+      throw const FormatException('Ders sınavında geçersiz soru verisi bulundu.');
     }
+
     return LessonQuiz(
-      question: json['q'] as String,
+      question: question,
       options: optionsJson.cast<String>(),
-      answerIndex: json['a'] as int,
-      explanation: json['e'] as String,
+      answerIndex: answerIndex,
+      explanation: explanation,
     );
   }
 }
