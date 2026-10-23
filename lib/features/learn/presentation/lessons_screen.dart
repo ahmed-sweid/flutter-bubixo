@@ -16,8 +16,17 @@ class LessonsScreen extends StatefulWidget {
 }
 
 class _LessonsScreenState extends State<LessonsScreen> {
-  late final Future<List<Lesson>> _lessonsFuture =
-      const LessonRepository().loadLessons();
+  late Future<List<Lesson>> _lessonsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLessons();
+  }
+
+  void _loadLessons() {
+    _lessonsFuture = const LessonRepository().loadLessons();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +54,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
           if (snapshot.hasError) {
             return _LoadError(
               message: 'Dersler yüklenemedi. Dosyanın ve asset kaydının doğru olduğundan emin ol.',
-              onRetry: () => setState(() {}),
+              onRetry: () => setState(_loadLessons),
             );
           }
 
