@@ -108,38 +108,21 @@ class _LessonsScreenState extends State<LessonsScreen> {
                 final index = entry.key;
                 final lesson = entry.value;
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                  padding: const EdgeInsets.only(bottom: AppSpacing.md),
                   child: Material(
                     color: AppColors.canvas,
-                    borderRadius: BorderRadius.circular(13),
+                    borderRadius: BorderRadius.circular(14),
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(13),
+                      borderRadius: BorderRadius.circular(14),
                       onTap: () => _openLesson(lessons, index),
                       child: Container(
-                        padding: const EdgeInsets.all(AppSpacing.md),
+                        padding: const EdgeInsets.all(AppSpacing.lg),
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColors.hairline),
-                          borderRadius: BorderRadius.circular(13),
+                          borderRadius: BorderRadius.circular(14),
                         ),
                         child: Row(
                           children: [
-                            Container(
-                              width: 42,
-                              height: 42,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF1ECFF),
-                                borderRadius: BorderRadius.circular(11),
-                              ),
-                              child: Text(
-                                '${index + 1}',
-                                style: AppTypography.bodyMd.copyWith(
-                                  color: AppColors.accentPurple,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: AppSpacing.md),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
