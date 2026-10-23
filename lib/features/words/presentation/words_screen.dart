@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
@@ -21,10 +22,11 @@ class WordsScreen extends StatefulWidget {
 }
 
 class _WordsScreenState extends State<WordsScreen> {
-  final TextEditingController _searchController = TextEditingController();
   final TextEditingController _translationController = TextEditingController();
   String? _translationResult;
-  bool _translationNotFound = false;
+  String? _translationError;
+  bool _isTranslating = false;
+  String _translationDirection = 'en-tr';
   int _selectedFilter = 0;
   final Set<String> _savedWords = <String>{};
   final Set<String> _reviewWords = <String>{};
@@ -119,6 +121,90 @@ class _WordsScreenState extends State<WordsScreen> {
     }
   }
 
+  Future<void> _translateText() async {
+    final text = _translationController.text.trim();
+    if (text.isEmpty || _isTranslating) return;
+
+    final source = _translationDirection == 'en-tr' ? 'en' : 'tr';
+    final target = _translationDirection == 'en-tr' ? 'tr' : 'en';
+    if (text.length > 300) {
+      setState(() {
+        _translationResult = null;
+        _translationError = 'En fazla 300 karakter çevirebilirsin.';
+      });
+      return;
+    }
+
+    setState(() {
+      _isTranslating = true;
+      _translationResult = null;
+      _translationError = null;
+    });
+
+    try {
+      final tokenResponse = await http
+          .post(
+            Uri.parse('https://api.bubixo.com/text-tools/token'),
+            headers: const {'Content-Type': 'application/json'},
+          )
+          .timeout(const Duration(seconds: 12));
+      if (tokenResponse.statusCode < 200 || tokenResponse.statusCode >= 300) {
+        throw const _TranslationException('Çeviri servisine şu an ulaşılamıyor.');
+      }
+
+      final tokenData = jsonDecode(tokenResponse.body);
+      if (tokenData is! Map<String, dynamic> || tokenData['token'] is! String) {
+        throw const _TranslationException('Çeviri servisi geçerli yanıt vermedi.');
+      }
+
+      final response = await http
+          .post(
+            Uri.parse('https://api.bubixo.com/text-tools/translate'),
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Text-Tools-Token': tokenData['token'] as String,
+            },
+            body: jsonEncode({'text': text, 'source': source, 'target': target}),
+          )
+          .timeout(const Duration(seconds: 25));
+
+      if (response.statusCode == 429) {
+        throw const _TranslationException('Çok sık istek gönderildi. Biraz sonra tekrar dene.');
+      }
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        throw const _TranslationException('Çeviri şu an yapılamıyor. Biraz sonra tekrar dene.');
+      }
+
+      final data = jsonDecode(response.body);
+      if (data is! Map<String, dynamic> ||
+          data['success'] != true ||
+          data['translation'] is! String ||
+          (data['translation'] as String).trim().isEmpty) {
+        throw const _TranslationException('Çeviri servisinden geçerli bir sonuç alınamadı.');
+      }
+
+      if (!mounted) return;
+      setState(() => _translationResult = (data['translation'] as String).trim());
+    } on _TranslationException catch (error) {
+      if (!mounted) return;
+      setState(() => _translationError = error.message);
+    } on http.ClientException {
+      if (!mounted) return;
+      setState(() => _translationError = 'Bağlantı kurulamadı. İnternetini kontrol et.');
+    } on FormatException {
+      if (!mounted) return;
+      setState(() => _translationError = 'Çeviri servisinden beklenmeyen yanıt alındı.');
+    } on TimeoutException {
+      if (!mounted) return;
+      setState(() => _translationError = 'Çeviri zaman aşımına uğradı. Tekrar dene.');
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _translationError = 'Çeviri sırasında bir hata oluştu.');
+    } finally {
+      if (mounted) setState(() => _isTranslating = false);
+    }
+  }
+
   Future<void> _persistWordState() async {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setStringList('bubixo.saved_words', _savedWords.toList()..sort());
@@ -142,14 +228,12 @@ class _WordsScreenState extends State<WordsScreen> {
 
   @override
   void dispose() {
-    _searchController.dispose();
     _translationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final query = _searchController.text.trim().toLowerCase();
     // Story-derived entries can overlap the starter dictionary. Keep one
     // card per English expression and prefer the story's more specific gloss.
     final wordsByKey = <String, _WordEntry>{
@@ -159,12 +243,9 @@ class _WordsScreenState extends State<WordsScreen> {
     };
     final allWords = wordsByKey.values.toList(growable: false);
     final visibleWords = allWords.where((word) {
-      final matchesQuery = word.english.toLowerCase().contains(query) ||
-          word.turkish.toLowerCase().contains(query);
-      final matchesFilter = _selectedFilter == 0 ||
+      return _selectedFilter == 0 ||
           (_selectedFilter == 1 && _savedWords.contains(_wordKey(word.english))) ||
           (_selectedFilter == 2 && _reviewWords.contains(_wordKey(word.english)));
-      return matchesQuery && matchesFilter;
     }).toList(growable: false);
 
     return ListView(
@@ -199,56 +280,19 @@ class _WordsScreenState extends State<WordsScreen> {
         _WordTranslatorCard(
           controller: _translationController,
           result: _translationResult,
-          notFound: _translationNotFound,
-          onTranslate: () {
-            final query = _wordKey(_translationController.text);
-            if (query.isEmpty) {
-              setState(() {
-                _translationResult = null;
-                _translationNotFound = false;
-              });
-              return;
-            }
-            _WordEntry? match;
-            for (final word in allWords) {
-              if (_wordKey(word.english) == query) {
-                match = word;
-                break;
-              }
-            }
+          error: _translationError,
+          isTranslating: _isTranslating,
+          direction: _translationDirection,
+          onDirectionChanged: (direction) {
             setState(() {
-              _translationResult = match?.turkish;
-              _translationNotFound = match == null;
+              _translationDirection = direction;
+              _translationResult = null;
+              _translationError = null;
             });
           },
+          onTranslate: _translateText,
         ),
         const SizedBox(height: AppSpacing.xl),
-        TextField(
-          controller: _searchController,
-          onChanged: (_) => setState(() {}),
-          textInputAction: TextInputAction.search,
-          decoration: InputDecoration(
-            hintText: 'İngilizce veya Türkçe ara',
-            prefixIcon: const Icon(Iconsax.search_normal, size: 20),
-            suffixIcon: query.isEmpty
-                ? null
-                : IconButton(
-                    tooltip: 'Aramayı temizle',
-                    onPressed: () {
-                      _searchController.clear();
-                      setState(() {});
-                    },
-                    icon: const Icon(Iconsax.close_circle, size: 19),
-                  ),
-            filled: true,
-            fillColor: const Color(0xFFF7F7F8),
-            contentPadding: const EdgeInsets.symmetric(vertical: 15),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        ),
         const SizedBox(height: AppSpacing.lg),
         Wrap(
           spacing: AppSpacing.sm,
@@ -296,11 +340,7 @@ class _WordsScreenState extends State<WordsScreen> {
         const SizedBox(height: AppSpacing.md),
         if (visibleWords.isEmpty)
           _EmptyWordsState(
-            isSearch: query.isNotEmpty,
-            onShowAll: () {
-              _searchController.clear();
-              setState(() => _selectedFilter = 0);
-            },
+            onShowAll: () => setState(() => _selectedFilter = 0),
           )
         else
           ...visibleWords.map(
@@ -349,21 +389,33 @@ class _WordEntry {
   final String kind;
 }
 
+class _TranslationException implements Exception {
+  const _TranslationException(this.message);
+  final String message;
+}
+
 class _WordTranslatorCard extends StatelessWidget {
   const _WordTranslatorCard({
     required this.controller,
     required this.result,
-    required this.notFound,
+    required this.error,
+    required this.isTranslating,
+    required this.direction,
+    required this.onDirectionChanged,
     required this.onTranslate,
   });
 
   final TextEditingController controller;
   final String? result;
-  final bool notFound;
+  final String? error;
+  final bool isTranslating;
+  final String direction;
+  final ValueChanged<String> onDirectionChanged;
   final VoidCallback onTranslate;
 
   @override
   Widget build(BuildContext context) {
+    final englishToTurkish = direction == 'en-tr';
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
@@ -378,54 +430,71 @@ class _WordTranslatorCard extends StatelessWidget {
             children: [
               const Icon(Iconsax.translate, color: AppColors.accentPurple, size: 20),
               const SizedBox(width: AppSpacing.sm),
-              Text('Kelime çevirisi', style: AppTypography.displayXs),
+              Text('Çeviri', style: AppTypography.displayXs),
             ],
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            'İngilizce bir kelime yaz, Türkçe anlamını bul.',
-            style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
           ),
           const SizedBox(height: AppSpacing.md),
-          Row(
+          Wrap(
+            spacing: AppSpacing.sm,
             children: [
-              Expanded(
-                child: TextField(
-                  controller: controller,
-                  textInputAction: TextInputAction.search,
-                  onSubmitted: (_) => onTranslate(),
-                  decoration: InputDecoration(
-                    hintText: 'İngilizce kelime',
-                    isDense: true,
-                    filled: true,
-                    fillColor: const Color(0xFFF7F7F8),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.md,
-                      vertical: 13,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
+              _DirectionChip(
+                label: 'İngilizce → Türkçe',
+                selected: englishToTurkish,
+                onTap: () => onDirectionChanged('en-tr'),
               ),
-              const SizedBox(width: AppSpacing.sm),
-              FilledButton(
-                onPressed: onTranslate,
-                style: FilledButton.styleFrom(
-                  backgroundColor: AppColors.ink,
-                  foregroundColor: AppColors.onPrimary,
-                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 13),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const Text('Çevir'),
+              _DirectionChip(
+                label: 'Türkçe → İngilizce',
+                selected: !englishToTurkish,
+                onTap: () => onDirectionChanged('tr-en'),
               ),
             ],
           ),
-          if (result != null || notFound) ...[
+          const SizedBox(height: AppSpacing.md),
+          TextField(
+            controller: controller,
+            minLines: 2,
+            maxLines: 4,
+            maxLength: 300,
+            textInputAction: TextInputAction.newline,
+            decoration: InputDecoration(
+              hintText: englishToTurkish
+                  ? 'İngilizce kelime veya cümle yaz…'
+                  : 'Türkçe kelime veya cümle yaz…',
+              filled: true,
+              fillColor: const Color(0xFFF7F7F8),
+              alignLabelWithHint: true,
+              contentPadding: const EdgeInsets.all(AppSpacing.md),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton.icon(
+              onPressed: isTranslating ? null : onTranslate,
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.ink,
+                foregroundColor: AppColors.onPrimary,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              icon: isTranslating
+                  ? const SizedBox(
+                      width: 17,
+                      height: 17,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColors.onPrimary,
+                      ),
+                    )
+                  : const Icon(Iconsax.translate, size: 18),
+              label: Text(isTranslating ? 'Çevriliyor…' : 'Metni çevir'),
+            ),
+          ),
+          if (error != null || result != null) ...[
             const SizedBox(height: AppSpacing.md),
             Container(
               width: double.infinity,
@@ -435,18 +504,17 @@ class _WordTranslatorCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(
-                    notFound ? Iconsax.info_circle : Iconsax.translate,
-                    color: notFound ? AppColors.bodyMid : AppColors.accentPurple,
+                    error != null ? Iconsax.info_circle : Iconsax.translate,
+                    color: error != null ? AppColors.accentRed : AppColors.accentPurple,
                     size: 19,
                   ),
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
                     child: Text(
-                      notFound
-                          ? 'Bu kelime sözlükte bulunamadı.'
-                          : result!,
+                      error ?? result!,
                       style: AppTypography.bodyMd.copyWith(
                         color: AppColors.ink,
                         fontWeight: FontWeight.w600,
@@ -458,6 +526,41 @@ class _WordTranslatorCard extends StatelessWidget {
             ),
           ],
         ],
+      ),
+    );
+  }
+}
+
+class _DirectionChip extends StatelessWidget {
+  const _DirectionChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.ink : AppColors.canvas,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: selected ? AppColors.ink : AppColors.hairline),
+        ),
+        child: Text(
+          label,
+          style: AppTypography.bodySm.copyWith(
+            color: selected ? AppColors.onPrimary : AppColors.bodyMid,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+          ),
+        ),
       ),
     );
   }
@@ -662,12 +765,8 @@ class _WordCard extends StatelessWidget {
 }
 
 class _EmptyWordsState extends StatelessWidget {
-  const _EmptyWordsState({
-    required this.isSearch,
-    required this.onShowAll,
-  });
+  const _EmptyWordsState({required this.onShowAll});
 
-  final bool isSearch;
   final VoidCallback onShowAll;
 
   @override
@@ -680,18 +779,16 @@ class _EmptyWordsState extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Icon(Iconsax.search_status_1, size: 28, color: AppColors.bodyMid),
+          const Icon(Iconsax.bookmark, size: 28, color: AppColors.bodyMid),
           const SizedBox(height: AppSpacing.md),
           Text(
-            isSearch ? 'Eşleşen kelime bulunamadı' : 'Henüz kelime yok',
+            'Bu listede henüz kelime yok',
             style: AppTypography.displayXs,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            isSearch
-                ? 'Farklı bir kelime veya Türkçe anlam deneyebilirsin.'
-                : 'Tüm kelimeler listesine dönerek sözlüğe göz atabilirsin.',
+            'Kelimelerin yanındaki simgeleri kullanarak kaydedebilir veya tekrar listene ekleyebilirsin.',
             style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
             textAlign: TextAlign.center,
           ),
