@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/services/speech_service.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
@@ -162,11 +164,26 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      line.en,
-                      style: AppTypography.bodyMd.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            line.en,
+                            style: AppTypography.bodyMd.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          tooltip: 'İngilizce cümleyi dinle',
+                          visualDensity: VisualDensity.compact,
+                          onPressed: () => unawaited(
+                            SpeechService.instance.speakEnglish(line.en),
+                          ),
+                          icon: const Icon(Iconsax.volume_high, size: 20),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: AppSpacing.sm),
                     Row(
