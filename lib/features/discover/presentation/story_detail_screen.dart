@@ -37,6 +37,12 @@ class _StoryDetailScreenState extends State<StoryDetailScreen> {
   }
 
   @override
+  void dispose() {
+    unawaited(SpeechService.instance.stop());
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final story = widget.story;
     return Scaffold(
