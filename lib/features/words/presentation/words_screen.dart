@@ -392,10 +392,11 @@ class _WordsScreenState extends State<WordsScreen> {
                 style: AppTypography.displayXs,
               ),
             ),
-            Text(
-              '${visibleWords.length} kelime',
-              style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
-            ),
+            if (_selectedFilter != 0)
+              Text(
+                '${visibleWords.length} kelime',
+                style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+              ),
           ],
         ),
         const SizedBox(height: AppSpacing.md),
@@ -491,14 +492,6 @@ class _WordTranslatorCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              const Icon(Iconsax.translate, color: AppColors.accentPurple, size: 20),
-              const SizedBox(width: AppSpacing.sm),
-              Text('Çeviri', style: AppTypography.displayXs),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
             decoration: BoxDecoration(
