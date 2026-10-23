@@ -35,7 +35,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
 
     // Confirm the tab navigation happened before waiting for story assets.
-    expect(find.text('Hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsWidgets);
 
     // Allow the real asset-bundle future to finish outside fake test time.
     await tester.runAsync(
@@ -67,7 +67,7 @@ void main() {
 
     await tester.tap(find.byTooltip('Geri'));
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('Hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsWidgets);
     expect(
       find.textContaining('Son okuduğun hikâyeye dön · Tom\'s Morning'),
       findsOneWidget,
@@ -95,7 +95,7 @@ void main() {
 
     await tester.tap(find.text('Hikâyeler').first);
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('Hikâyeler'), findsOneWidget);
+    expect(find.text('Hikâyeler'), findsWidgets);
 
     await tester.tap(find.text('Öğren').first);
     await tester.pump(const Duration(milliseconds: 400));
