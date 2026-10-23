@@ -6,6 +6,7 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/lesson.dart';
 import '../data/lesson_repository.dart';
+import '../data/learning_progress_repository.dart';
 import 'lesson_detail_screen.dart';
 
 class LessonsScreen extends StatefulWidget {
@@ -17,11 +18,29 @@ class LessonsScreen extends StatefulWidget {
 
 class _LessonsScreenState extends State<LessonsScreen> {
   late Future<List<Lesson>> _lessonsFuture;
+  Set<String> _completedLessonIds = <String>{};
+  final LearningProgressRepository _progressRepository = const LearningProgressRepository();
 
   @override
   void initState() {
     super.initState();
     _loadLessons();
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    final completed = await _progressRepository.loadCompletedLessons();
+    if (!mounted) return;
+    setState(() => _completedLessonIds = completed);
+  }
+
+  Future<void> _openLesson(List<Lesson> lessons, int index) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => LessonDetailScreen(lessons: lessons, lessonIndex: index),
+      ),
+    );
+    await _loadProgress();
   }
 
   void _loadLessons() {
@@ -108,7 +127,35 @@ class _LessonsScreenState extends State<LessonsScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.md),
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.md),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF7F7F8),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.hairline),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Expanded(child: Text('İlerlemen', style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700))),
+                      Text('${_completedLessonIds.length.clamp(0, lessons.length)} / ${lessons.length} ders', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
+                    ]),
+                    const SizedBox(height: AppSpacing.sm),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: LinearProgressIndicator(
+                        value: lessons.isEmpty ? 0 : _completedLessonIds.intersection(lessons.map((lesson) => lesson.id).toSet()).length / lessons.length,
+                        minHeight: 6,
+                        backgroundColor: AppColors.hairline,
+                        valueColor: const AlwaysStoppedAnimation(AppColors.accentPurple),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppSpacing.lg),
               ...lessons.asMap().entries.map((entry) {
                 final index = entry.key;
                 final lesson = entry.value;
@@ -119,14 +166,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                     borderRadius: BorderRadius.circular(13),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(13),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => LessonDetailScreen(
-                            lessons: lessons,
-                            lessonIndex: index,
-                          ),
-                        ),
-                      ),
+                      onTap: () => _openLesson(lessons, index),
                       child: Container(
                         padding: const EdgeInsets.all(AppSpacing.md),
                         decoration: BoxDecoration(
@@ -182,7 +222,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
                               ),
                             ),
                             const SizedBox(width: AppSpacing.sm),
-                            const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
+                            if (_completedLessonIds.contains(lesson.id))
+                              const Icon(Iconsax.tick_circle, size: 20, color: AppColors.accentGreen)
+                            else
+                              const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
                           ],
                         ),
                       ),
