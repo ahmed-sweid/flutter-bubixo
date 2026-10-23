@@ -102,7 +102,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
         backgroundColor: AppColors.canvas,
         surfaceTintColor: AppColors.transparent,
         title: Text(
-          'Ders ${widget.lessonIndex + 1}',
+          lesson.title,
           style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
         ),
         leading: IconButton(
@@ -118,17 +118,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
           AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xxxl,
         ),
         children: [
-          Text(lesson.title, style: AppTypography.displaySm),
           const SizedBox(height: AppSpacing.sm),
-          Wrap(
-            spacing: AppSpacing.md,
-            runSpacing: AppSpacing.xs,
-            children: [
-              _Metadata(icon: Iconsax.clock, text: '${lesson.minutes} dakika'),
-              _Metadata(icon: Iconsax.book_1, text: '${lesson.points.length} örnek'),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.xl),
           Text('Konu özeti', style: AppTypography.displayXs),
           const SizedBox(height: AppSpacing.sm),
           Text(lesson.intro, style: AppTypography.bodyMd),
