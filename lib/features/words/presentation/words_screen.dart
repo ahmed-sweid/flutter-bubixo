@@ -154,6 +154,7 @@ class _WordsScreenState extends State<WordsScreen> {
     }).toList(growable: false);
 
     return ListView(
+      key: const PageStorageKey<String>('words-screen-scroll'),
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.lg,
         AppSpacing.xl,
