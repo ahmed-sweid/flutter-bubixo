@@ -80,6 +80,14 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
     final correct = _selectedAnswer == _quiz.answerIndex;
     await _progressRepository.recordQuizAnswer(correct: correct);
     if (!mounted) return;
+
+    // Checking the final quiz answer completes this lesson, even if the learner
+    // chooses to return to the lesson list before pressing the next-step button.
+    if (!_hasNextQuiz) {
+      await _progressRepository.markLessonCompleted(_lesson.id);
+      if (!mounted) return;
+    }
+
     setState(() => _showAnswer = true);
   }
 
