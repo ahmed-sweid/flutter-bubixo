@@ -52,7 +52,9 @@ void main() {
       3,
     );
     expect(find.text('Alıştırma türleri'), findsOneWidget);
-    await tester.tap(find.text('Hikâyeler').first);
+    final storiesPracticeCard = find.text('Hikâyeler').first;
+    await tester.ensureVisible(storiesPracticeCard);
+    await tester.tap(storiesPracticeCard);
     await pumpRouteTransition(tester);
     expect(find.text('İngilizce hikâyeler'), findsOneWidget);
 
@@ -93,6 +95,8 @@ void main() {
     await pumpRouteTransition(tester);
     // The story list keeps its scroll position when returning from the reader.
     expect(find.text("Tom's Morning"), findsOneWidget);
+    await tester.tap(find.byTooltip('Geri'));
+    await pumpRouteTransition(tester);
 
     await tester.tap(navigationLabel('Dersler'));
     await tester.pump(const Duration(milliseconds: 400));
