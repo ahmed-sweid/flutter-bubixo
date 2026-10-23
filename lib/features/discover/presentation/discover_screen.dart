@@ -61,6 +61,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             : _filteredStories(snapshot.data!, query);
         return ListView(
           key: const PageStorageKey<String>('discover-screen-scroll'),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.fromLTRB(
             AppSpacing.lg,
             AppSpacing.xl,
