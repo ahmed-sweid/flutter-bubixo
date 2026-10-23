@@ -492,86 +492,42 @@ class _WordTranslatorCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF7F7F8),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: AppColors.hairline),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'ÇEVİRİLECEK DİL',
-                        style: AppTypography.eyebrowSmall.copyWith(
-                          color: AppColors.muted,
-                          fontSize: 9,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                      const SizedBox(height: 3),
-                      Text(
-                        englishToTurkish ? 'İngilizce' : 'Türkçe',
-                        style: AppTypography.bodyMd.copyWith(
-                          color: AppColors.ink,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Material(
-                  color: AppColors.canvas,
-                  shape: const CircleBorder(),
-                  child: InkWell(
-                    customBorder: const CircleBorder(),
-                    onTap: isTranslating
-                        ? null
-                        : () => onDirectionChanged(
-                              englishToTurkish ? 'tr-en' : 'en-tr',
-                            ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(11),
-                      child: Icon(
-                        Iconsax.arrow_swap_horizontal,
-                        color: AppColors.ink,
-                        size: 20,
-                      ),
+          Row(
+            children: [
+              _LanguageLabel(
+                label: englishToTurkish ? 'İngilizce' : 'Türkçe',
+                code: englishToTurkish ? 'EN' : 'TR',
+              ),
+              const Spacer(),
+              Material(
+                color: const Color(0xFFF7F7F8),
+                shape: const CircleBorder(),
+                child: InkWell(
+                  customBorder: const CircleBorder(),
+                  onTap: isTranslating
+                      ? null
+                      : () => onDirectionChanged(
+                            englishToTurkish ? 'tr-en' : 'en-tr',
+                          ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Icon(
+                      Iconsax.arrow_swap_horizontal,
+                      color: AppColors.bodyMid,
+                      size: 17,
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'ÇEVRİLECEK SONUÇ',
-                        textAlign: TextAlign.end,
-                        style: AppTypography.eyebrowSmall.copyWith(
-                          color: AppColors.muted,
-                          fontSize: 9,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                      const SizedBox(height: 3),
-                      Text(
-                        englishToTurkish ? 'Türkçe' : 'İngilizce',
-                        textAlign: TextAlign.end,
-                        style: AppTypography.bodyMd.copyWith(
-                          color: AppColors.ink,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const Spacer(),
+              _LanguageLabel(
+                label: englishToTurkish ? 'Türkçe' : 'İngilizce',
+                code: englishToTurkish ? 'TR' : 'EN',
+                alignEnd: true,
+              ),
+            ],
           ),
+          const SizedBox(height: AppSpacing.sm),
           const SizedBox(height: AppSpacing.md),
           TextField(
             controller: controller,
@@ -676,6 +632,63 @@ class _WordTranslatorCard extends StatelessWidget {
           ],
         ],
       ),
+    );
+  }
+}
+
+class _LanguageLabel extends StatelessWidget {
+  const _LanguageLabel({
+    required this.label,
+    required this.code,
+    this.alignEnd = false,
+  });
+
+  final String label;
+  final String code;
+  final bool alignEnd;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (alignEnd) ...[
+          Text(
+            label,
+            style: AppTypography.bodySm.copyWith(
+              color: AppColors.ink,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(width: AppSpacing.xs),
+        ],
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF1F1F3),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Text(
+            code,
+            style: AppTypography.eyebrowSmall.copyWith(
+              color: AppColors.bodyMid,
+              fontSize: 9,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.3,
+            ),
+          ),
+        ),
+        if (!alignEnd) ...[
+          const SizedBox(width: AppSpacing.xs),
+          Text(
+            label,
+            style: AppTypography.bodySm.copyWith(
+              color: AppColors.ink,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ],
     );
   }
 }
