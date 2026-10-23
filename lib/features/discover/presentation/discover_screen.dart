@@ -142,11 +142,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               ),
               if (visibleStories.isEmpty)
                 _EmptyStoriesState(
-                  isSearching: query.isNotEmpty,
-                  onClear: () {
-                    _searchController.clear();
-                    setState(() => _selectedLevel = null);
-                  },
+                  isSearching: false,
+                  onClear: () => setState(() => _selectedLevel = null),
                 ),
             ],
           ],
