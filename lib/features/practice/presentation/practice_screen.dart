@@ -67,7 +67,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               Text('Gerçek kaynak alıştırmalarıyla kendi hızında ilerle.', style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft)),
             ])),
             const SizedBox(width: AppSpacing.md),
-            const Icon(Iconsax.flash_1, color: AppColors.mutedSoft, size: 30),
+            const Icon(Iconsax.flash_1, color: AppColors.accentPurple, size: 30),
           ]),
         ),
         const SizedBox(height: AppSpacing.lg),
