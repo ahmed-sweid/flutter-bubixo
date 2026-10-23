@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
+import '../../discover/presentation/discover_screen.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
 
@@ -122,6 +123,15 @@ class _PracticeScreenState extends State<PracticeScreen> {
           title: 'Dil bilgisi', subtitle: 'Geniş zaman, geçmiş ve gelecek konularını örneklerle incele.',
           meta: '${builderExercises.where((e) => e.category != 'question').length} konu örneği',
           onTap: () => _open(context, const _ActivityMode.grammar()),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _PracticeCard(
+          icon: Iconsax.book_saved, tint: const Color(0xFFE8F5E9), iconColor: AppColors.accentGreen,
+          title: 'Hikâyeler', subtitle: 'İngilizceyi bağlam içinde oku; A1 ve A2 hikâyeleri arasında seçim yap.',
+          meta: 'Okuma · kelime bağlamı · anlama',
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => const DiscoverScreen()),
+          ),
         ),
         const SizedBox(height: AppSpacing.lg),
         Container(
