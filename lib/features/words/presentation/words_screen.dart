@@ -22,6 +22,9 @@ class WordsScreen extends StatefulWidget {
 
 class _WordsScreenState extends State<WordsScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _translationController = TextEditingController();
+  String? _translationResult;
+  bool _translationNotFound = false;
   int _selectedFilter = 0;
   final Set<String> _savedWords = <String>{};
   final Set<String> _reviewWords = <String>{};
@@ -140,6 +143,7 @@ class _WordsScreenState extends State<WordsScreen> {
   @override
   void dispose() {
     _searchController.dispose();
+    _translationController.dispose();
     super.dispose();
   }
 
@@ -189,25 +193,34 @@ class _WordsScreenState extends State<WordsScreen> {
                 ],
               ),
             ),
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.ink,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Iconsax.bookmark_2,
-                color: AppColors.onPrimary,
-                size: 21,
-              ),
-            ),
           ],
         ),
         const SizedBox(height: AppSpacing.xl),
-        _WordOverviewCard(
-          savedCount: _savedWords.length,
-          reviewCount: _reviewWords.length,
+        _WordTranslatorCard(
+          controller: _translationController,
+          result: _translationResult,
+          notFound: _translationNotFound,
+          onTranslate: () {
+            final query = _wordKey(_translationController.text);
+            if (query.isEmpty) {
+              setState(() {
+                _translationResult = null;
+                _translationNotFound = false;
+              });
+              return;
+            }
+            _WordEntry? match;
+            for (final word in allWords) {
+              if (_wordKey(word.english) == query) {
+                match = word;
+                break;
+              }
+            }
+            setState(() {
+              _translationResult = match?.turkish;
+              _translationNotFound = match == null;
+            });
+          },
         ),
         const SizedBox(height: AppSpacing.xl),
         TextField(
@@ -216,7 +229,7 @@ class _WordsScreenState extends State<WordsScreen> {
           textInputAction: TextInputAction.search,
           decoration: InputDecoration(
             hintText: 'İngilizce veya Türkçe ara',
-            prefixIcon: const Icon(Iconsax.search_normal_1, size: 20),
+            prefixIcon: const Icon(Iconsax.search_normal, size: 20),
             suffixIcon: query.isEmpty
                 ? null
                 : IconButton(
@@ -243,16 +256,19 @@ class _WordsScreenState extends State<WordsScreen> {
           children: [
             _FilterPill(
               label: 'Tüm kelimeler',
+              count: allWords.length,
               selected: _selectedFilter == 0,
               onTap: () => setState(() => _selectedFilter = 0),
             ),
             _FilterPill(
               label: 'Kaydedilenler',
+              count: _savedWords.length,
               selected: _selectedFilter == 1,
               onTap: () => setState(() => _selectedFilter = 1),
             ),
             _FilterPill(
               label: 'Tekrar',
+              count: _reviewWords.length,
               selected: _selectedFilter == 2,
               onTap: () => setState(() => _selectedFilter = 2),
             ),
@@ -333,115 +349,114 @@ class _WordEntry {
   final String kind;
 }
 
-class _WordOverviewCard extends StatelessWidget {
-  const _WordOverviewCard({
-    required this.savedCount,
-    required this.reviewCount,
+class _WordTranslatorCard extends StatelessWidget {
+  const _WordTranslatorCard({
+    required this.controller,
+    required this.result,
+    required this.notFound,
+    required this.onTranslate,
   });
 
-  final int savedCount;
-  final int reviewCount;
+  final TextEditingController controller;
+  final String? result;
+  final bool notFound;
+  final VoidCallback onTranslate;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: AppColors.ink,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.hairline),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(Iconsax.flash_1, color: AppColors.accentPurple, size: 19),
+              const Icon(Iconsax.translate, color: AppColors.accentPurple, size: 20),
               const SizedBox(width: AppSpacing.sm),
-              Text(
-                'KELİME ALANIN',
-                style: AppTypography.eyebrowSmall.copyWith(
-                  color: AppColors.mutedSoft,
-                ),
-              ),
+              Text('Kelime çevirisi', style: AppTypography.displayXs),
             ],
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Text(
-            'Kelime listelerin',
-            style: AppTypography.displayXs.copyWith(color: AppColors.onPrimary),
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            'Kaydettiklerini ve tekrar etmek istediklerini ayrı ayrı yönet.',
-            style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
+            'İngilizce bir kelime yaz, Türkçe anlamını bul.',
+            style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.md),
           Row(
             children: [
               Expanded(
-                child: _WordCountPill(
-                  icon: Iconsax.bookmark_2,
-                  label: 'Kaydedilen',
-                  count: savedCount,
+                child: TextField(
+                  controller: controller,
+                  textInputAction: TextInputAction.search,
+                  onSubmitted: (_) => onTranslate(),
+                  decoration: InputDecoration(
+                    hintText: 'İngilizce kelime',
+                    isDense: true,
+                    filled: true,
+                    fillColor: const Color(0xFFF7F7F8),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.md,
+                      vertical: 13,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: _WordCountPill(
-                  icon: Iconsax.refresh,
-                  label: 'Tekrar',
-                  count: reviewCount,
+              FilledButton(
+                onPressed: onTranslate,
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.ink,
+                  foregroundColor: AppColors.onPrimary,
+                  padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 13),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                child: const Text('Çevir'),
               ),
             ],
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _WordCountPill extends StatelessWidget {
-  const _WordCountPill({
-    required this.icon,
-    required this.label,
-    required this.count,
-  });
-
-  final IconData icon;
-  final String label;
-  final int count;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.sm,
-        vertical: AppSpacing.md,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.onPrimary.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.onPrimary.withValues(alpha: 0.12)),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: AppColors.onPrimary, size: 17),
-          const SizedBox(width: AppSpacing.xs),
-          Expanded(
-            child: Text(
-              label,
-              style: AppTypography.bodySm.copyWith(color: AppColors.mutedSoft),
-              overflow: TextOverflow.ellipsis,
+          if (result != null || notFound) ...[
+            const SizedBox(height: AppSpacing.md),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF7F7F8),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    notFound ? Iconsax.info_circle : Iconsax.translate,
+                    color: notFound ? AppColors.bodyMid : AppColors.accentPurple,
+                    size: 19,
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      notFound
+                          ? 'Bu kelime sözlükte bulunamadı.'
+                          : result!,
+                      style: AppTypography.bodyMd.copyWith(
+                        color: AppColors.ink,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Text(
-            '$count',
-            style: AppTypography.bodyMd.copyWith(
-              color: AppColors.onPrimary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          ],
         ],
       ),
     );
@@ -451,11 +466,13 @@ class _WordCountPill extends StatelessWidget {
 class _FilterPill extends StatelessWidget {
   const _FilterPill({
     required this.label,
+    required this.count,
     required this.selected,
     required this.onTap,
   });
 
   final String label;
+  final int count;
   final bool selected;
   final VoidCallback onTap;
 
@@ -474,16 +491,38 @@ class _FilterPill extends StatelessWidget {
             color: selected ? AppColors.ink : AppColors.hairline,
           ),
         ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: AppTypography.bodySm.copyWith(
-            fontSize: 12,
-            color: selected ? AppColors.onPrimary : AppColors.bodyMid,
-            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTypography.bodySm.copyWith(
+                fontSize: 12,
+                color: selected ? AppColors.onPrimary : AppColors.bodyMid,
+                fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+              ),
+            ),
+            const SizedBox(width: AppSpacing.sm),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: selected
+                    ? AppColors.onPrimary.withValues(alpha: 0.14)
+                    : AppColors.hairline.withValues(alpha: 0.55),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text(
+                '$count',
+                style: AppTypography.eyebrowSmall.copyWith(
+                  fontSize: 10,
+                  color: selected ? AppColors.onPrimary : AppColors.bodyMid,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
