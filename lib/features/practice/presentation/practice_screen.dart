@@ -34,7 +34,11 @@ class _PracticeScreenState extends State<PracticeScreen> {
         builder: (_) => _PracticeActivityScreen(mode: mode),
       ),
     );
-    if (mounted) setState(() => _progressFuture = _loadProgress());
+    if (mounted) {
+      setState(() {
+        _progressFuture = _loadProgress();
+      });
+    }
   }
 
   @override
