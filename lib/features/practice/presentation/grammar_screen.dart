@@ -108,8 +108,7 @@ class _GrammarScreenState extends State<GrammarScreen> {
                                 ],
                               ),
                             ),
-                            const SizedBox(width: AppSpacing.sm),
-                            const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
+
                           ],
                         ),
                       ),
