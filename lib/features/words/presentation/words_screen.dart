@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
@@ -23,11 +24,43 @@ class _WordsScreenState extends State<WordsScreen> {
   final Set<String> _savedWords = <String>{};
   final Set<String> _reviewWords = <String>{};
   List<_WordEntry> _customWords = <_WordEntry>[];
+  List<_WordEntry> _dictionaryWords = <_WordEntry>[];
 
   @override
   void initState() {
     super.initState();
     _loadWordState();
+    _loadDictionary();
+  }
+
+  Future<void> _loadDictionary() async {
+    try {
+      final source = await rootBundle.loadString('assets/data/words.json');
+      final decoded = jsonDecode(source);
+      if (decoded is! List<dynamic>) {
+        throw const FormatException('Expected a list of dictionary entries.');
+      }
+      final words = decoded.map((item) {
+        if (item is! Map<String, dynamic> ||
+            item['english'] is! String ||
+            item['turkish'] is! String) {
+          throw const FormatException('Invalid dictionary entry.');
+        }
+        return _WordEntry(
+          item['english'] as String,
+          item['turkish'] as String,
+          'Kelime / ifade',
+        );
+      }).toList(growable: false);
+      if (!mounted) return;
+      setState(() => _dictionaryWords = words);
+    } on FlutterError {
+      // Keep the small built-in list available if the asset cannot be loaded.
+    } on FormatException {
+      // Keep the small built-in list available if the asset is malformed.
+    } on TypeError {
+      // Keep the small built-in list available if a record has an invalid type.
+    }
   }
 
   Future<void> _loadWordState() async {
@@ -104,7 +137,8 @@ class _WordsScreenState extends State<WordsScreen> {
     // Story-derived entries can overlap the starter dictionary. Keep one
     // card per English expression and prefer the story's more specific gloss.
     final wordsByKey = <String, _WordEntry>{
-      for (final word in _words) word.english.toLowerCase(): word,
+      for (final word in (_dictionaryWords.isEmpty ? _words : _dictionaryWords))
+        word.english.toLowerCase(): word,
       for (final word in _customWords) word.english.toLowerCase(): word,
     };
     final allWords = wordsByKey.values.toList(growable: false);
