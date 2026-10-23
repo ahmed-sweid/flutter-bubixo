@@ -17,20 +17,48 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final StoryRepository _repository = const StoryRepository();
+  final TextEditingController _searchController = TextEditingController();
   late Future<List<Story>> _storiesFuture = _repository.loadStories();
   int? _selectedLevel;
-  List<Story> _filteredStories(List<Story> stories) {
+
+  List<Story> _filteredStories(List<Story> stories, String query) {
     return stories.where((story) {
       final levelMatches = _selectedLevel == null || story.level == _selectedLevel;
-      return levelMatches;
+      if (!levelMatches) return false;
+      if (query.isEmpty) return true;
+
+      final metadataMatches = story.title.toLowerCase().contains(query) ||
+          story.titleTr.toLowerCase().contains(query) ||
+          story.intro.toLowerCase().contains(query);
+      if (metadataMatches) return true;
+
+      return story.lines.any((line) {
+        if (line.en.toLowerCase().contains(query) ||
+            line.tr.toLowerCase().contains(query)) {
+          return true;
+        }
+        return line.words.any((word) =>
+            word.english.toLowerCase().contains(query) ||
+            word.turkish.toLowerCase().contains(query));
+      });
     }).toList(growable: false);
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final query = _searchController.text.trim().toLowerCase();
     return FutureBuilder<List<Story>>(
       future: _storiesFuture,
       builder: (context, snapshot) {
+        final visibleStories = snapshot.data == null
+            ? const <Story>[]
+            : _filteredStories(snapshot.data!, query);
         return ListView(
           padding: const EdgeInsets.fromLTRB(
             AppSpacing.lg,
@@ -44,6 +72,26 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             Text(
               'Kısa hikâyeler oku; İngilizce cümleleri ve Türkçe anlamlarını birlikte gör.',
               style: AppTypography.bodySm,
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            TextField(
+              controller: _searchController,
+              onChanged: (_) => setState(() {}),
+              textInputAction: TextInputAction.search,
+              decoration: InputDecoration(
+                hintText: 'Hikâye, kelime veya cümle ara',
+                prefixIcon: const Icon(Iconsax.search_normal_1, size: 20),
+                suffixIcon: query.isEmpty
+                    ? null
+                    : IconButton(
+                        tooltip: 'Aramayı temizle',
+                        onPressed: () {
+                          _searchController.clear();
+                          setState(() {});
+                        },
+                        icon: const Icon(Iconsax.close_circle, size: 19),
+                      ),
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
             if (snapshot.connectionState == ConnectionState.waiting)
@@ -76,7 +124,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     ),
                   ),
                   Text(
-                    '${_filteredStories(snapshot.data!).length} sonuç',
+                    '${visibleStories.length} sonuç',
                     style: AppTypography.eyebrowSmall.copyWith(
                       color: AppColors.muted,
                     ),
@@ -84,7 +132,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ],
               ),
               const SizedBox(height: AppSpacing.md),
-              ..._filteredStories(snapshot.data!).map(
+              ...visibleStories.map(
                 (story) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.md),
                   child: _StoryCard(
@@ -97,10 +145,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ),
                 ),
               ),
-              if (_filteredStories(snapshot.data!).isEmpty)
+              if (visibleStories.isEmpty)
                 _EmptyStoriesState(
-                  isSearching: false,
-                  onClear: () => setState(() => _selectedLevel = null),
+                  isSearching: query.isNotEmpty,
+                  onClear: () {
+                    _searchController.clear();
+                    setState(() => _selectedLevel = null);
+                  },
                 ),
             ],
           ],
