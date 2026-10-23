@@ -100,7 +100,7 @@ class _GrammarScreenState extends State<GrammarScreen> {
                                 ],
                               ),
                             ),
-
+                            const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
                           ],
                         ),
                       ),
