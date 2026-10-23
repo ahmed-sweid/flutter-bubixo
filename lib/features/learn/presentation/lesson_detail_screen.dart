@@ -119,9 +119,22 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
         ),
         children: [
           const SizedBox(height: AppSpacing.sm),
-          Text('Konu özeti', style: AppTypography.displayXs),
-          const SizedBox(height: AppSpacing.sm),
-          Text(lesson.intro, style: AppTypography.bodyMd),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF5F5F5),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Konu özeti', style: AppTypography.displayXs),
+                const SizedBox(height: AppSpacing.sm),
+                Text(lesson.intro, style: AppTypography.bodyMd),
+              ],
+            ),
+          ),
           const SizedBox(height: AppSpacing.xl),
           Text('Örnekleri incele', style: AppTypography.displayXs),
           const SizedBox(height: AppSpacing.md),
