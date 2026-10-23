@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -30,7 +32,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _progressRepository.rememberLesson(_lesson.id);
+    unawaited(_progressRepository.rememberLesson(_lesson.id));
   }
 
   Lesson get _lesson => widget.lessons[widget.lessonIndex];
@@ -41,6 +43,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
   Future<void> _continue() async {
     if (!_hasNextQuiz) {
       await _progressRepository.markLessonCompleted(_lesson.id);
+      if (!mounted) return;
     }
     if (_hasNextQuiz) {
       setState(() {
