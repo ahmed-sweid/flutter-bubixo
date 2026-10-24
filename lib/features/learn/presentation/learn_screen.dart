@@ -91,14 +91,21 @@ class _LearnScreenState extends State<LearnScreen> {
   Widget build(BuildContext context) => FutureBuilder<_DashboardData>(
     future: _future,
     builder: (context, snapshot) {
-      final d = snapshot.data;
+      final data = snapshot.data;
       final loading = snapshot.connectionState != ConnectionState.done;
+      final completed = data?.completedCount ?? 0;
+      final total = data?.lessons.length ?? 0;
+      final progress = total == 0 ? 0.0 : (completed / total).clamp(0.0, 1.0);
+
       return ListView(
         key: const PageStorageKey<String>('learn-screen-scroll'),
-        padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xxxl),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          AppSpacing.md,
+          AppSpacing.lg,
+          AppSpacing.xxxl,
+        ),
         children: [
-          const _SectionTitle('İlerleme'),
-          const SizedBox(height: AppSpacing.sm),
           Container(
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(
@@ -107,73 +114,80 @@ class _LearnScreenState extends State<LearnScreen> {
               borderRadius: BorderRadius.circular(14),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(children: [
-                  Icon(Iconsax.chart_2, size: 19, color: AppColors.bodyMid),
-                  SizedBox(width: AppSpacing.sm),
-                  Text('Öğrenme özeti'),
-                ]),
-                const SizedBox(height: AppSpacing.md),
-                if (loading || d == null)
+                Text(
+                  'İlerlemen',
+                  style: AppTypography.bodyMd.copyWith(
+                    color: AppColors.ink,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                if (loading || data == null)
                   const LinearProgressIndicator(minHeight: 3)
                 else ...[
-                  _StatRow('Tamamlanan ders', '${d.completedCount} / ${d.lessons.length}'),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Tamamlanan dersler',
+                          style: AppTypography.bodySm.copyWith(
+                            color: AppColors.bodyMid,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        '$completed / $total',
+                        style: AppTypography.bodyMd.copyWith(
+                          color: AppColors.ink,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: AppSpacing.sm),
-                  _StatRow('Kaydedilen kelime', '${d.savedWords}'),
-                  const SizedBox(height: AppSpacing.sm),
-                  _StatRow('Son okunan hikâye', d.lastStoryId == null ? 'Henüz yok' : (d.lastStoryTitle ?? 'Kaydedildi')),
-                  const SizedBox(height: AppSpacing.sm),
-                  _StatRow('Pratik oturumu', '${d.practiceSessions}'),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(99),
+                    child: LinearProgressIndicator(
+                      value: progress,
+                      minHeight: 6,
+                      backgroundColor: AppColors.hairline,
+                      color: AppColors.ink,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                  Container(height: 1, color: AppColors.hairline),
+                  const SizedBox(height: AppSpacing.md),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _ProgressMetric(
+                          label: 'Kaydedilen kelime',
+                          value: '${data.savedWords}',
+                        ),
+                      ),
+                      Container(
+                        width: 1,
+                        height: 34,
+                        color: AppColors.hairline,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: AppSpacing.md),
+                          child: _ProgressMetric(
+                            label: 'Pratik oturumu',
+                            value: '${data.practiceSessions}',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ],
             ),
           ),
-          const SizedBox(height: AppSpacing.xl),
-          const _SectionTitle('Kaldığın yerden devam et'),
-          const SizedBox(height: AppSpacing.sm),
-          Material(
-            color: AppColors.canvas,
-            borderRadius: BorderRadius.circular(14),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(14),
-              onTap: d == null ? null : () => _continue(d),
-              child: Container(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.hairline),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Row(children: [
-                  Container(
-                    width: 42, height: 42,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(color: AppColors.hairline.withValues(alpha: 0.45), borderRadius: BorderRadius.circular(10)),
-                    child: const Icon(Iconsax.play_circle, color: AppColors.ink, size: 20),
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(loading ? 'Yükleniyor…' : (d?.continueTitle ?? 'İlk etkinliğini seç'), style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
-                      const SizedBox(height: AppSpacing.xxs),
-                      Text('Son etkinliğine dön', style: AppTypography.bodySm),
-                    ],
-                  )),
-                  const Icon(Iconsax.arrow_right_3, color: AppColors.bodyMid, size: 18),
-                ]),
-              ),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          const _SectionTitle('Hızlı erişim'),
-          const SizedBox(height: AppSpacing.sm),
-          _QuickCard(icon: Iconsax.book_1, title: 'Dersler', subtitle: 'Konuları sırayla öğren', onTap: widget.onOpenLessons),
-          const SizedBox(height: AppSpacing.sm),
-          _QuickCard(icon: Iconsax.book_1, title: 'Hikâyeler', subtitle: 'İngilizceyi cümle içinde keşfet', onTap: widget.onOpenDiscover),
-          const SizedBox(height: AppSpacing.sm),
-          _QuickCard(icon: Iconsax.bookmark_2, title: 'Kelimeler', subtitle: 'Kaydet ve tekrar et', onTap: widget.onOpenWords),
-          const SizedBox(height: AppSpacing.sm),
-          _QuickCard(icon: Iconsax.activity, title: 'Pratik', subtitle: 'Alıştırmalarla pekiştir', onTap: widget.onOpenPractice),
         ],
       );
     },
@@ -206,6 +220,32 @@ class _DashboardData {
     }
     return 'İlk etkinliğini seç';
   }
+}
+
+class _ProgressMetric extends StatelessWidget {
+  const _ProgressMetric({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        value,
+        style: AppTypography.bodyMd.copyWith(
+          color: AppColors.ink,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      const SizedBox(height: AppSpacing.xxs),
+      Text(
+        label,
+        style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+      ),
+    ],
+  );
 }
 
 class _SectionTitle extends StatelessWidget {
