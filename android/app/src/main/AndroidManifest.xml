@@ -1,4 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The translation feature calls Bubixo's text-tools API, so release
+         builds need the permission the debug and profile manifests add. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="bubixo"
         android:name="${applicationName}"
@@ -40,6 +43,11 @@
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
+        </intent>
+        <!-- Android 11+ hides text-to-speech engines from the app unless the
+             service itself is declared visible; story and lesson audio needs it. -->
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE"/>
         </intent>
     </queries>
 </manifest>
