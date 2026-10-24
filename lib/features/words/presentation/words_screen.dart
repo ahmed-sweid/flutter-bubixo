@@ -270,153 +270,169 @@ class _WordsScreenState extends State<WordsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _wordsCubit,
-      child: BlocBuilder<WordsCubit, WordsState>(
-        builder: (context, wordsState) {
-          // Story-derived entries can overlap the starter dictionary. Keep one
-          // card per English expression and prefer the story's more specific gloss.
-          final wordsByKey = <String, _WordEntry>{
-            for (final word
-                in (_dictionaryWords.isEmpty ? _words : _dictionaryWords))
-              word.english.toLowerCase(): word,
-            for (final word in _customWords) word.english.toLowerCase(): word,
-          };
-          final allWords = wordsByKey.values.toList(growable: false);
-          final visibleWords = allWords
-              .where((word) {
-                return _selectedFilter == 0 ||
-                    (_selectedFilter == 1 &&
-                        wordsState.savedWords.any(
-                          (entry) =>
-                              _wordKey(entry.english) == _wordKey(word.english),
-                        )) ||
-                    (_selectedFilter == 2 &&
-                        wordsState.reviewWords.any(
-                          (entry) =>
-                              _wordKey(entry.english) == _wordKey(word.english),
-                        ));
-              })
-              .toList(growable: false);
-
-          return ListView(
-            key: const PageStorageKey<String>('words-screen-scroll'),
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.lg,
-              AppSpacing.xl,
-              AppSpacing.lg,
-              AppSpacing.xxxl,
-            ),
-            children: [
-              const SizedBox(height: AppSpacing.sm),
-              _WordTranslatorCard(
-                controller: _translationController,
-                result: _translationResult,
-                error: _translationError,
-                isTranslating: _isTranslating,
-                direction: _translationDirection,
-                translationSaved: _currentTranslationSaved,
-                onSaveTranslation: _saveTranslationToWords,
-                onDirectionChanged: (direction) {
-                  setState(() {
-                    _translationDirection = direction;
-                    _translationResult = null;
-                    _translationError = null;
-                  });
-                },
-                onTranslate: _translateText,
+      child: BlocListener<WordsCubit, WordsState>(
+        listenWhen: (previous, current) =>
+            current.status == WordsStatus.failure &&
+            previous.errorMessage != current.errorMessage,
+        listener: (context, state) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text('Kelime listesi kaydedilemedi. Tekrar dene.'),
               ),
-              const SizedBox(height: AppSpacing.xl),
-              const SizedBox(height: AppSpacing.lg),
-              Wrap(
-                spacing: AppSpacing.sm,
-                runSpacing: AppSpacing.sm,
-                children: [
-                  _FilterPill(
-                    label: 'Tüm kelimeler',
-                    count: null,
-                    selected: _selectedFilter == 0,
-                    onTap: () => setState(() => _selectedFilter = 0),
-                  ),
-                  _FilterPill(
-                    label: 'Kaydedilenler',
-                    count: wordsState.savedWords.length,
-                    selected: _selectedFilter == 1,
-                    onTap: () => setState(() => _selectedFilter = 1),
-                  ),
-                  _FilterPill(
-                    label: 'Tekrar',
-                    count: wordsState.reviewWords.length,
-                    selected: _selectedFilter == 2,
-                    onTap: () => setState(() => _selectedFilter = 2),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.xl),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectedFilter == 1
-                          ? 'Kaydettiğin kelimeler'
-                          : _selectedFilter == 2
-                          ? 'Tekrar listesi'
-                          : 'Sözlükten seçmeler',
-                      style: AppTypography.displayXs,
-                    ),
-                  ),
-                  if (_selectedFilter != 0)
-                    Text(
-                      '${visibleWords.length} kelime',
-                      style: AppTypography.bodySm.copyWith(
-                        color: AppColors.bodyMid,
-                      ),
-                    ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.md),
-              if (visibleWords.isEmpty)
-                _EmptyWordsState(
-                  onShowAll: () => setState(() => _selectedFilter = 0),
-                )
-              else
-                ...visibleWords.map(
-                  (word) => Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                    child: _WordCard(
-                      word: word,
-                      saved: wordsState.savedWords.any(
-                        (entry) =>
-                            _wordKey(entry.english) == _wordKey(word.english),
-                      ),
-                      reviewing: wordsState.reviewWords.any(
-                        (entry) =>
-                            _wordKey(entry.english) == _wordKey(word.english),
-                      ),
-                      onToggleSaved: () async {
-                        await _wordsCubit.toggleSaved(
-                          english: word.english,
-                          turkish: word.turkish,
-                          kind: word.kind,
-                        );
-                      },
-                      onToggleReview: () async {
-                        await _wordsCubit.toggleReview(
-                          english: word.english,
-                          turkish: word.turkish,
-                          kind: word.kind,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              const SizedBox(height: AppSpacing.md),
-              Text(
-                'Kaydettiğin kelimeler ve tekrar listen bu cihazda saklanır.',
-                style: AppTypography.bodySm.copyWith(color: AppColors.muted),
-              ),
-            ],
-          );
+            );
         },
+        child: BlocBuilder<WordsCubit, WordsState>(
+          builder: (context, wordsState) {
+            // Story-derived entries can overlap the starter dictionary. Keep one
+            // card per English expression and prefer the story's more specific gloss.
+            final wordsByKey = <String, _WordEntry>{
+              for (final word
+                  in (_dictionaryWords.isEmpty ? _words : _dictionaryWords))
+                word.english.toLowerCase(): word,
+              for (final word in _customWords) word.english.toLowerCase(): word,
+            };
+            final allWords = wordsByKey.values.toList(growable: false);
+            final visibleWords = allWords
+                .where((word) {
+                  return _selectedFilter == 0 ||
+                      (_selectedFilter == 1 &&
+                          wordsState.savedWords.any(
+                            (entry) =>
+                                _wordKey(entry.english) ==
+                                _wordKey(word.english),
+                          )) ||
+                      (_selectedFilter == 2 &&
+                          wordsState.reviewWords.any(
+                            (entry) =>
+                                _wordKey(entry.english) ==
+                                _wordKey(word.english),
+                          ));
+                })
+                .toList(growable: false);
+
+            return ListView(
+              key: const PageStorageKey<String>('words-screen-scroll'),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.xl,
+                AppSpacing.lg,
+                AppSpacing.xxxl,
+              ),
+              children: [
+                const SizedBox(height: AppSpacing.sm),
+                _WordTranslatorCard(
+                  controller: _translationController,
+                  result: _translationResult,
+                  error: _translationError,
+                  isTranslating: _isTranslating,
+                  direction: _translationDirection,
+                  translationSaved: _currentTranslationSaved,
+                  onSaveTranslation: _saveTranslationToWords,
+                  onDirectionChanged: (direction) {
+                    setState(() {
+                      _translationDirection = direction;
+                      _translationResult = null;
+                      _translationError = null;
+                    });
+                  },
+                  onTranslate: _translateText,
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                const SizedBox(height: AppSpacing.lg),
+                Wrap(
+                  spacing: AppSpacing.sm,
+                  runSpacing: AppSpacing.sm,
+                  children: [
+                    _FilterPill(
+                      label: 'Tüm kelimeler',
+                      count: null,
+                      selected: _selectedFilter == 0,
+                      onTap: () => setState(() => _selectedFilter = 0),
+                    ),
+                    _FilterPill(
+                      label: 'Kaydedilenler',
+                      count: wordsState.savedWords.length,
+                      selected: _selectedFilter == 1,
+                      onTap: () => setState(() => _selectedFilter = 1),
+                    ),
+                    _FilterPill(
+                      label: 'Tekrar',
+                      count: wordsState.reviewWords.length,
+                      selected: _selectedFilter == 2,
+                      onTap: () => setState(() => _selectedFilter = 2),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedFilter == 1
+                            ? 'Kaydettiğin kelimeler'
+                            : _selectedFilter == 2
+                            ? 'Tekrar listesi'
+                            : 'Sözlükten seçmeler',
+                        style: AppTypography.displayXs,
+                      ),
+                    ),
+                    if (_selectedFilter != 0)
+                      Text(
+                        '${visibleWords.length} kelime',
+                        style: AppTypography.bodySm.copyWith(
+                          color: AppColors.bodyMid,
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.md),
+                if (visibleWords.isEmpty)
+                  _EmptyWordsState(
+                    onShowAll: () => setState(() => _selectedFilter = 0),
+                  )
+                else
+                  ...visibleWords.map(
+                    (word) => Padding(
+                      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                      child: _WordCard(
+                        word: word,
+                        saved: wordsState.savedWords.any(
+                          (entry) =>
+                              _wordKey(entry.english) == _wordKey(word.english),
+                        ),
+                        reviewing: wordsState.reviewWords.any(
+                          (entry) =>
+                              _wordKey(entry.english) == _wordKey(word.english),
+                        ),
+                        onToggleSaved: () async {
+                          await _wordsCubit.toggleSaved(
+                            english: word.english,
+                            turkish: word.turkish,
+                            kind: word.kind,
+                          );
+                        },
+                        onToggleReview: () async {
+                          await _wordsCubit.toggleReview(
+                            english: word.english,
+                            turkish: word.turkish,
+                            kind: word.kind,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  'Kaydettiğin kelimeler ve tekrar listen bu cihazda saklanır.',
+                  style: AppTypography.bodySm.copyWith(color: AppColors.muted),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
