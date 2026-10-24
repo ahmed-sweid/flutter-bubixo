@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bubixo/main.dart';
 
+import 'test_database_support.dart';
+
 Future<void> pumpUntilFound(
   WidgetTester tester,
   Finder finder, {
@@ -14,6 +16,7 @@ Future<void> pumpUntilFound(
 
 void main() {
   testWidgets('four-tab navigation and practice activities work', (tester) async {
+    await configureTestDatabaseDirectory();
     SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(const BubixoApp());
 
