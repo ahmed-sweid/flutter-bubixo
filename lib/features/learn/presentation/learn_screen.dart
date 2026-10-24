@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
-import '../../discover/data/story.dart';
 import '../../discover/data/story_repository.dart';
 
 class LearnScreen extends StatefulWidget {
