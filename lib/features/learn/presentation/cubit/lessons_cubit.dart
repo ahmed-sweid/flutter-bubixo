@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/learning_progress_repository.dart';
-import '../../data/lesson.dart';
 import '../../data/lesson_repository.dart';
 import 'lessons_state.dart';
 
