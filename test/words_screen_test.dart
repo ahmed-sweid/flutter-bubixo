@@ -3,11 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bubixo/features/words/presentation/words_screen.dart';
 
+import 'test_database_support.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('matches saved words regardless of stored letter case and spaces',
       (tester) async {
+    await configureTestDatabaseDirectory();
     SharedPreferences.setMockInitialValues({
       'bubixo.saved_words': <String>[' GOOD '],
       'bubixo.review_words': <String>[' Good '],
