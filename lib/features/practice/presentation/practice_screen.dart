@@ -13,7 +13,9 @@ import '../data/practice_data_repository.dart';
 import 'grammar_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
-  const PracticeScreen({super.key});
+  const PracticeScreen({this.compact = false, super.key});
+
+  final bool compact;
 
   @override
   State<PracticeScreen> createState() => _PracticeScreenState();
@@ -51,6 +53,45 @@ class _PracticeScreenState extends State<PracticeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.compact) {
+      return GridView.count(
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisSpacing: AppSpacing.md,
+        mainAxisSpacing: AppSpacing.md,
+        childAspectRatio: 1.35,
+        children: [
+          _PracticeCard(
+            compact: true,
+            icon: Iconsax.text_block,
+            title: 'Cümle kurma',
+            subtitle: 'Türkçe cümleden doğru İngilizce sırasını oluştur.',
+            meta: '120 alıştırma · 3 seviye',
+            onTap: () => _open(const _ActivityMode.sentence()),
+          ),
+          _PracticeCard(
+            compact: true,
+            icon: Iconsax.category_2,
+            title: 'Kelime oyunları',
+            subtitle: 'İngilizce kelimeyi doğru Türkçe anlamıyla eşleştir.',
+            meta: '240 kelime · 12 tema',
+            onTap: () => _open(const _ActivityMode.words()),
+          ),
+          _PracticeCard(
+            compact: true,
+            icon: Iconsax.book_1,
+            title: 'Dil bilgisi',
+            subtitle: 'Geniş zaman, geçmiş ve gelecek konularını örneklerle incele.',
+            meta: '90 konu örneği',
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const GrammarScreen()),
+            ),
+          ),
+        ],
+      );
+    }
+
     return ListView(
       key: const PageStorageKey<String>('practice-screen-scroll'),
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -150,7 +191,8 @@ class _PracticeScreenState extends State<PracticeScreen> {
 }
 
 class _PracticeCard extends StatelessWidget {
-  const _PracticeCard({required this.icon, required this.title, required this.subtitle, required this.meta, required this.onTap});
+  const _PracticeCard({this.compact = false, required this.icon, required this.title, required this.subtitle, required this.meta, required this.onTap});
+  final bool compact;
   final IconData icon;
   final String title;
   final String subtitle;
@@ -167,19 +209,41 @@ class _PracticeCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.md),
         decoration: BoxDecoration(border: Border.all(color: AppColors.hairline), borderRadius: BorderRadius.circular(14)),
-        child: Row(children: [
-          Container(width: 44, height: 44, decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(12)), child: Icon(icon, color: AppColors.bodyMid, size: 21)),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(title, style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
-            const SizedBox(height: 4),
-            Text(subtitle, style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
-            const SizedBox(height: 7),
-            Text(meta.toUpperCase(), style: AppTypography.eyebrowSmall.copyWith(color: AppColors.muted, fontSize: 10)),
-          ])),
-          const SizedBox(width: AppSpacing.xs),
-          const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
-        ]),
+        child: compact
+            ? Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Icon(icon, color: AppColors.ink, size: 23),
+                  ),
+                  const Align(
+                    alignment: Alignment.topRight,
+                    child: Icon(Iconsax.arrow_right_3, size: 16, color: AppColors.bodyMid),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ],
+              )
+            : Row(children: [
+                Container(width: 44, height: 44, decoration: BoxDecoration(color: const Color(0xFFF7F7F8), borderRadius: BorderRadius.circular(12)), child: Icon(icon, color: AppColors.bodyMid, size: 21)),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(title, style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 4),
+                  Text(subtitle, style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
+                  const SizedBox(height: 7),
+                  Text(meta.toUpperCase(), style: AppTypography.eyebrowSmall.copyWith(color: AppColors.muted, fontSize: 10)),
+                ])),
+                const SizedBox(width: AppSpacing.xs),
+                const Icon(Iconsax.arrow_right_3, size: 18, color: AppColors.bodyMid),
+              ]),
       ),
     ),
   );
