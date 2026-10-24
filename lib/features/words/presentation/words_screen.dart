@@ -317,25 +317,7 @@ class _WordsScreenState extends State<WordsScreen> {
         AppSpacing.xxxl,
       ),
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Kelimeler', style: AppTypography.displaySm),
-                  const SizedBox(height: AppSpacing.xs),
-                  Text(
-                    'Kelimeleri keşfet, kaydet ve kendi hızında tekrar et.',
-                    style: AppTypography.bodyMd,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: AppSpacing.xl),
+        const SizedBox(height: AppSpacing.sm),
         _WordTranslatorCard(
           controller: _translationController,
           result: _translationResult,
