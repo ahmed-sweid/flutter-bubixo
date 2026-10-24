@@ -27,17 +27,19 @@ class _LessonsScreenState extends State<LessonsScreen> {
     List<Lesson> lessons,
     int index,
   ) async {
-    await context.read<LessonsCubit>().rememberLesson(lessons[index].id);
+    final lessonsCubit = context.read<LessonsCubit>();
+    await lessonsCubit.rememberLesson(lessons[index].id);
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_activity_type', 'lesson');
     await preferences.setString('bubixo.last_activity_id', lessons[index].id);
-    if (!mounted) return;
+    if (!context.mounted) return;
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => LessonDetailScreen(lessons: lessons, lessonIndex: index),
       ),
     );
-    await context.read<LessonsCubit>().refreshProgress();
+    if (!mounted) return;
+    await lessonsCubit.refreshProgress();
   }
 
   @override
