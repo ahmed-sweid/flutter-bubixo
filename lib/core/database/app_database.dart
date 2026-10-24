@@ -9,7 +9,7 @@ import 'database_connection.dart' as connection;
 /// repositories are migrated, frequently-used tables can be converted to
 /// generated Drift table APIs without changing the persisted schema names.
 class AppDatabase extends GeneratedDatabase {
-  AppDatabase._(QueryExecutor executor) : super(executor);
+  AppDatabase._(super.executor);
 
   /// Opens the persistent database in the platform's application-support area.
   ///
