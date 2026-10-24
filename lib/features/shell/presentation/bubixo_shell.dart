@@ -32,7 +32,12 @@ class _BubixoShellState extends State<BubixoShell> {
   @override
   Widget build(BuildContext context) {
     final screens = <Widget>[
-      LearnScreen(key: ValueKey('learn-$_learnRefreshKey')),
+      LearnScreen(
+        key: ValueKey('learn-$_learnRefreshKey'),
+        onOpenWords: () => _selectTab(1),
+        onOpenStories: () => _selectTab(2),
+        onOpenPractice: () => _selectTab(3),
+      ),
       WordsScreen(key: ValueKey('words-$_wordsRefreshKey')),
       const DiscoverScreen(),
       const PracticeScreen(),
