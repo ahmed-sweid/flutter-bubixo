@@ -33,6 +33,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
   }
 
   Future<void> _open(_ActivityMode mode) async {
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setString('bubixo.last_activity_type', 'practice');
+    await preferences.setString('bubixo.last_activity_id', mode.toString());
     final data = await _repository.loadAll();
     if (!mounted) return;
     await Navigator.of(context).push(
@@ -54,10 +57,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.xl, AppSpacing.lg, AppSpacing.xxxl),
       children: [
-        Text('Pratik', style: AppTypography.displaySm),
-        const SizedBox(height: AppSpacing.xs),
-        Text('Kısa alıştırmalarla öğrendiklerini kullan.', style: AppTypography.bodyMd),
-        const SizedBox(height: AppSpacing.xl),
+        const SizedBox(height: AppSpacing.sm),
         Container(
           padding: const EdgeInsets.all(AppSpacing.lg),
           decoration: BoxDecoration(color: AppColors.ink, borderRadius: BorderRadius.circular(16)),
