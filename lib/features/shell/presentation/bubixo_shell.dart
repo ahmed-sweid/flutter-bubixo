@@ -4,6 +4,7 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../learn/presentation/learn_screen.dart';
 import '../../learn/presentation/lessons_screen.dart';
+import '../../discover/presentation/discover_screen.dart';
 import '../../practice/presentation/practice_screen.dart';
 import '../../words/presentation/words_screen.dart';
 
@@ -21,6 +22,25 @@ class _BubixoShellState extends State<BubixoShell> {
   int _wordsRefreshKey = 0;
   int _learnRefreshKey = 0;
 
+  void _openPractice() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => Scaffold(
+          backgroundColor: AppColors.canvas,
+          appBar: AppBar(
+            backgroundColor: AppColors.canvas,
+            surfaceTintColor: Colors.transparent,
+            title: const Text('Pratik'),
+          ),
+          body: const SafeArea(
+            top: false,
+            child: PracticeScreen(),
+          ),
+        ),
+      ),
+    );
+  }
+
   void _selectTab(int index) {
     setState(() {
       if (index == 2 && _selectedIndex != 2) _wordsRefreshKey++;
@@ -36,12 +56,12 @@ class _BubixoShellState extends State<BubixoShell> {
         key: ValueKey('learn-$_learnRefreshKey'),
         onOpenDiscover: () => _selectTab(3),
         onOpenWords: () => _selectTab(2),
-        onOpenPractice: () => _selectTab(3),
+        onOpenPractice: _openPractice,
         onOpenLessons: () => _selectTab(1),
       ),
       const LessonsScreen(showBackButton: false),
       WordsScreen(key: ValueKey('words-$_wordsRefreshKey')),
-      const PracticeScreen(),
+      const DiscoverScreen(),
     ];
 
     return Scaffold(
@@ -84,8 +104,8 @@ class _BubixoShellState extends State<BubixoShell> {
               label: 'Kelimeler',
             ),
             NavigationDestination(
-              icon: Icon(Iconsax.activity),
-              label: 'Pratik',
+              icon: Icon(Iconsax.book_open),
+              label: 'Hikâyeler',
             ),
           ],
         ),
