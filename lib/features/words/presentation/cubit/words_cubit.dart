@@ -7,15 +7,13 @@ import 'words_state.dart';
 
 /// Owns the saved and review collections shown by the vocabulary screen.
 class WordsCubit extends Cubit<WordsState> {
-  WordsCubit({WordsRepository? repository})
-      : _repository = repository,
-        super(const WordsState());
+  WordsCubit({this.repository}) : super(const WordsState());
 
-  final WordsRepository? _repository;
+  final WordsRepository? repository;
   WordsRepository? _activeRepository;
 
   Future<WordsRepository> _repositoryForUse() async {
-    return _activeRepository ??= _repository ??
+    return _activeRepository ??= repository ??
         WordsRepository(await DatabaseBootstrap.initialize());
   }
 
