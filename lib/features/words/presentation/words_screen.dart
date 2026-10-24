@@ -12,6 +12,7 @@ import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../../../core/services/speech_service.dart';
+import '../data/vocabulary_entry.dart';
 import 'cubit/words_cubit.dart';
 import 'cubit/words_state.dart';
 
@@ -90,6 +91,15 @@ class _WordsScreenState extends State<WordsScreen> {
     await _wordsCubit.load(
       legacySavedWords: legacySavedWords,
       legacyReviewWords: legacyReviewWords,
+      legacyCustomWords: _customWords
+          .map((word) => VocabularyEntry(
+                id: 'legacy',
+                english: word.english,
+                turkish: word.turkish,
+                kind: word.kind,
+                source: 'user',
+              ))
+          .toList(growable: false),
     );
   }
 
