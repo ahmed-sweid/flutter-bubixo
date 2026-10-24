@@ -10,6 +10,7 @@ import '../../../core/theme/tokens/app_typography.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
 import '../data/practice_data_repository.dart';
+import '../../discover/presentation/discover_screen.dart';
 import 'grammar_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -31,6 +32,25 @@ class _PracticeScreenState extends State<PracticeScreen> {
       'sessions': preferences.getInt('bubixo.practice.sessions') ?? 0,
       'correct': preferences.getInt('bubixo.practice.correct_answers') ?? 0,
     };
+  }
+
+  Future<void> _openStories() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => Scaffold(
+          backgroundColor: AppColors.canvas,
+          appBar: AppBar(
+            backgroundColor: AppColors.canvas,
+            surfaceTintColor: Colors.transparent,
+            title: const Text('Hikâyeler'),
+          ),
+          body: const SafeArea(
+            top: false,
+            child: DiscoverScreen(),
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> _open(_ActivityMode mode) async {
@@ -83,6 +103,15 @@ class _PracticeScreenState extends State<PracticeScreen> {
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (_) => const GrammarScreen()),
             ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          _PracticeCard(
+            compact: true,
+            icon: Iconsax.book_open,
+            title: 'Hikâye okuma',
+            subtitle: 'Seviyene uygun İngilizce hikâyeler oku.',
+            meta: '3 seviye',
+            onTap: _openStories,
           ),
         ],
       );
@@ -168,6 +197,14 @@ class _PracticeScreenState extends State<PracticeScreen> {
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute<void>(builder: (_) => const GrammarScreen()),
           ),
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _PracticeCard(
+          icon: Iconsax.book_open,
+          title: 'Hikâye okuma',
+          subtitle: 'Seviyene uygun İngilizce hikâyeler oku.',
+          meta: '3 seviye',
+          onTap: _openStories,
         ),
         const SizedBox(height: AppSpacing.md),
         const SizedBox(height: AppSpacing.lg),
