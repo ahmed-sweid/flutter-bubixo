@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
@@ -40,6 +41,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
   }
 
   Future<void> _openLesson(List<Lesson> lessons, int index) async {
+    await _progressRepository.rememberLesson(lessons[index].id);
+    final preferences = await SharedPreferences.getInstance();
+    await preferences.setString('bubixo.last_activity_type', 'lesson');
+    await preferences.setString('bubixo.last_activity_id', lessons[index].id);
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => LessonDetailScreen(lessons: lessons, lessonIndex: index),
@@ -97,13 +102,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
               AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xxxl,
             ),
             children: [
-              Text('Adım adım öğren', style: AppTypography.displaySm),
-              const SizedBox(height: AppSpacing.xs),
-              Text(
-                'Bubixo’nun mevcut ders sırasını takip et. Ders içerikleri kaynak dosyadan yüklenir.',
-                style: AppTypography.bodyMd,
-              ),
-              const SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.sm),
               ...lessons.asMap().entries.map((entry) {
                 final index = entry.key;
                 final lesson = entry.value;
