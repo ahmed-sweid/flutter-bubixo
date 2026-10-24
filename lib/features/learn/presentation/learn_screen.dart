@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
@@ -6,7 +7,6 @@ import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../../discover/data/story.dart';
 import '../../discover/data/story_repository.dart';
-import '../../practice/presentation/practice_screen.dart';
 
 class LearnScreen extends StatefulWidget {
   const LearnScreen({super.key});
@@ -21,8 +21,9 @@ class _LearnScreenState extends State<LearnScreen> {
   Future<_ProgressData> _loadProgress() async {
     final preferences = await SharedPreferences.getInstance();
     final stories = await const StoryRepository().loadStories();
+
     return _ProgressData(
-      stories: stories,
+      totalStories: stories.length,
       readStoryIds:
           (preferences.getStringList('bubixo.read_story_ids') ?? const <String>[])
               .toSet(),
@@ -31,172 +32,259 @@ class _LearnScreenState extends State<LearnScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) => FutureBuilder<_ProgressData>(
-        future: _future,
-        builder: (context, snapshot) {
-          final data = snapshot.data;
-          final loading = snapshot.connectionState != ConnectionState.done;
-          final storiesTotal = data?.stories.length ?? 0;
-          final storiesRead = data?.readStoryCount ?? 0;
-          final storiesProgress = storiesTotal == 0
-              ? 0.0
-              : (storiesRead / storiesTotal).clamp(0.0, 1.0);
+  void _retryLoading() {
+    setState(() {
+      _future = _loadProgress();
+    });
+  }
 
-          return ListView(
-            key: const PageStorageKey<String>('learn-screen-scroll'),
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.lg,
-              AppSpacing.md,
-              AppSpacing.lg,
-              AppSpacing.xxxl,
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<_ProgressData>(
+      future: _future,
+      builder: (context, snapshot) {
+        final data = snapshot.data;
+
+        return ListView(
+          key: const PageStorageKey<String>('learn-screen-scroll'),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            AppSpacing.xl,
+            AppSpacing.lg,
+            AppSpacing.xxxl,
+          ),
+          children: [
+            Text(
+              'BUBIXO',
+              style: AppTypography.eyebrowSmall.copyWith(
+                color: AppColors.bodyMid,
+                letterSpacing: 1.4,
+              ),
             ),
-            children: [
-              Text(
-                'Bugün ne yapmak istersin?',
-                style: AppTypography.displaySm.copyWith(
-                  color: AppColors.ink,
-                  fontWeight: FontWeight.w700,
-                ),
+            const SizedBox(height: AppSpacing.sm),
+            Text(
+              'İngilizce yolculuğun',
+              style: AppTypography.displaySm.copyWith(
+                color: AppColors.ink,
+                fontWeight: FontWeight.w700,
               ),
-              const SizedBox(height: AppSpacing.xs),
-              Text(
-                'Kısa bir etkinlik seç ve İngilizce pratiği yap.',
-                style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              'Gelişimini takip et ve kendi hızında ilerle.',
+              style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+            ),
+            const SizedBox(height: AppSpacing.xl),
+            Container(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              decoration: BoxDecoration(
+                color: AppColors.ink,
+                borderRadius: BorderRadius.circular(16),
               ),
-              const SizedBox(height: AppSpacing.xl),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Küçük adımlar, kalıcı ilerleme.',
+                          style: AppTypography.displayXs.copyWith(
+                            color: AppColors.onPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.xs),
+                        Text(
+                          'Her kelime, okuma ve alıştırma İngilizceni biraz daha geliştirir.',
+                          style: AppTypography.bodySm.copyWith(
+                            color: AppColors.mutedSoft,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  const Icon(
+                    Iconsax.chart_2,
+                    color: AppColors.onPrimary,
+                    size: 28,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xl),
+            Text(
+              'Genel bakış',
+              style: AppTypography.displayXs.copyWith(
+                color: AppColors.ink,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              'Şimdiye kadarki ilerlemen',
+              style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+            ),
+            const SizedBox(height: AppSpacing.md),
+            if (snapshot.connectionState == ConnectionState.waiting &&
+                data == null)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: AppSpacing.xl),
+                child: Center(child: CircularProgressIndicator()),
+              )
+            else if (snapshot.hasError || data == null)
               Container(
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 decoration: BoxDecoration(
-                  color: AppColors.canvas,
                   border: Border.all(color: AppColors.hairline),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'İlerlemen',
+                      'İlerlemen şu anda yüklenemedi.',
                       style: AppTypography.bodyMd.copyWith(
-                        color: AppColors.ink,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: AppSpacing.lg),
-                    if (loading || data == null)
-                      const LinearProgressIndicator(minHeight: 3)
-                    else ...[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'Okunan hikâyeler',
-                              style: AppTypography.bodySm.copyWith(
-                                color: AppColors.bodyMid,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '$storiesRead / $storiesTotal',
-                            style: AppTypography.bodyMd.copyWith(
-                              color: AppColors.ink,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                    const SizedBox(height: AppSpacing.sm),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: OutlinedButton(
+                        onPressed: _retryLoading,
+                        child: const Text('Yeniden dene'),
                       ),
-                      const SizedBox(height: AppSpacing.sm),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(99),
-                        child: LinearProgressIndicator(
-                          value: storiesProgress,
-                          minHeight: 6,
-                          backgroundColor: AppColors.hairline,
-                          color: AppColors.ink,
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.lg),
-                      Container(height: 1, color: AppColors.hairline),
-                      const SizedBox(height: AppSpacing.md),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _ProgressMetric(
-                              label: 'Kaydedilen kelime',
-                              value: '${data.savedWords}',
-                            ),
-                          ),
-                          Container(
-                            width: 1,
-                            height: 34,
-                            color: AppColors.hairline,
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: AppSpacing.md),
-                              child: _ProgressMetric(
-                                label: 'Pratik oturumu',
-                                value: '${data.practiceSessions}',
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ],
                 ),
+              )
+            else
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: _StatCard(
+                      icon: Iconsax.bookmark_2,
+                      label: 'Kelime',
+                      value: '${data.savedWords}',
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: _StatCard(
+                      icon: Iconsax.book_1,
+                      label: 'Hikâye',
+                      value: '${data.readStoryCount} / ${data.totalStories}',
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: _StatCard(
+                      icon: Iconsax.flash_1,
+                      label: 'Oturum',
+                      value: '${data.practiceSessions}',
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: AppSpacing.xl),
-              Text(
-                'Pratik yap',
-                style: AppTypography.displayXs.copyWith(
-                  color: AppColors.ink,
-                  fontWeight: FontWeight.w700,
-                ),
+            const SizedBox(height: AppSpacing.xl),
+            Container(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              decoration: BoxDecoration(
+                color: AppColors.canvas,
+                border: Border.all(color: AppColors.hairline),
+                borderRadius: BorderRadius.circular(14),
               ),
-              const SizedBox(height: AppSpacing.xs),
-              Text(
-                'Kelime oyunları, cümle kurma, dil bilgisi ve hikâyeler.',
-                style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Iconsax.info_circle,
+                    size: 20,
+                    color: AppColors.bodyMid,
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Kendi ritmini bul',
+                          style: AppTypography.bodyMd.copyWith(
+                            color: AppColors.ink,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.xs),
+                        Text(
+                          'Kelimelerini gözden geçir, bir hikâye oku veya kısa alıştırmalarla devam et. Sana uygun olan yolu seç.',
+                          style: AppTypography.bodySm.copyWith(
+                            color: AppColors.bodyMid,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: AppSpacing.md),
-              const PracticeScreen(compact: true),
-            ],
-          );
-        },
-      );
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class _ProgressData {
   const _ProgressData({
-    required this.stories,
+    required this.totalStories,
     required this.readStoryIds,
     required this.savedWords,
     required this.practiceSessions,
   });
 
-  final List<Story> stories;
+  final int totalStories;
   final Set<String> readStoryIds;
   final int savedWords;
   final int practiceSessions;
 
-  int get readStoryCount =>
-      readStoryIds.intersection(stories.map((story) => story.id).toSet()).length;
+  int get readStoryCount => readStoryIds.length.clamp(0, totalStories);
 }
 
-class _ProgressMetric extends StatelessWidget {
-  const _ProgressMetric({required this.label, required this.value});
+class _StatCard extends StatelessWidget {
+  const _StatCard({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
+  final IconData icon;
   final String label;
   final String value;
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(minHeight: 112),
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: AppColors.canvas,
+        border: Border.all(color: AppColors.hairline),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Icon(icon, size: 20, color: AppColors.bodyMid),
+          const SizedBox(height: AppSpacing.md),
           Text(
             value,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: AppTypography.displayXs.copyWith(
               color: AppColors.ink,
               fontWeight: FontWeight.w700,
@@ -208,5 +296,7 @@ class _ProgressMetric extends StatelessWidget {
             style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
           ),
         ],
-      );
+      ),
+    );
+  }
 }
