@@ -39,8 +39,8 @@ void main() {
 
     await tester.tap(find.text('Kelimeler').last);
     await tester.pump(const Duration(milliseconds: 400));
-    expect(find.text('Kelime listelerin'), findsOneWidget);
-    expect(find.text('İngilizce veya Türkçe ara'), findsOneWidget);
+    expect(find.text('Sözlükten seçmeler'), findsOneWidget);
+    expect(find.text('İngilizce kelime veya cümle yaz…'), findsOneWidget);
     expect(find.text('Kaydedilenler'), findsOneWidget);
 
     await tester.tap(find.text('Pratik').last);
