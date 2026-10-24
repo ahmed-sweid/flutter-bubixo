@@ -80,6 +80,10 @@ class _LearnScreenState extends State<LearnScreen> {
       widget.onOpenPractice();
       return;
     }
+    if (d.practiceSessions > 0) {
+      widget.onOpenPractice();
+      return;
+    }
     widget.onOpenDiscover();
   }
 
@@ -144,7 +148,7 @@ class _LearnScreenState extends State<LearnScreen> {
                     width: 42, height: 42,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(color: AppColors.hairline.withValues(alpha: 0.45), borderRadius: BorderRadius.circular(10)),
-                    child: const Icon(Iconsax.play, color: AppColors.ink, size: 20),
+                    child: const Icon(Iconsax.play_circle, color: AppColors.ink, size: 20),
                   ),
                   const SizedBox(width: AppSpacing.md),
                   Expanded(child: Column(
@@ -165,7 +169,7 @@ class _LearnScreenState extends State<LearnScreen> {
           const SizedBox(height: AppSpacing.sm),
           _QuickCard(icon: Iconsax.book_1, title: 'Dersler', subtitle: 'Konuları sırayla öğren', onTap: widget.onOpenLessons),
           const SizedBox(height: AppSpacing.sm),
-          _QuickCard(icon: Iconsax.book_open, title: 'Hikâyeler', subtitle: 'İngilizceyi cümle içinde keşfet', onTap: widget.onOpenDiscover),
+          _QuickCard(icon: Iconsax.book_1, title: 'Hikâyeler', subtitle: 'İngilizceyi cümle içinde keşfet', onTap: widget.onOpenDiscover),
           const SizedBox(height: AppSpacing.sm),
           _QuickCard(icon: Iconsax.bookmark_2, title: 'Kelimeler', subtitle: 'Kaydet ve tekrar et', onTap: widget.onOpenWords),
           const SizedBox(height: AppSpacing.sm),
