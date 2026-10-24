@@ -1,9 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:drift_flutter/drift_flutter.dart';
-import 'package:path_provider/path_provider.dart';
-
 import 'database_schema.dart';
+import 'database_connection.dart' as connection;
 
 /// App-wide local SQLite database, managed through Drift.
 ///
@@ -20,20 +17,12 @@ class AppDatabase extends GeneratedDatabase {
   /// connection can be enabled. Until then, callers should not open this
   /// native connection from a web build.
   factory AppDatabase.open() {
-    return AppDatabase._(
-      driftDatabase(
-        name: 'bubixo',
-        native: const DriftNativeOptions(
-          databaseDirectory: getApplicationSupportDirectory,
-          shareAcrossIsolates: true,
-        ),
-      ),
-    );
+    return AppDatabase._(connection.openPersistentConnection());
   }
 
   /// Isolated, in-memory database for unit and migration tests.
   factory AppDatabase.inMemory() {
-    return AppDatabase._(NativeDatabase.memory());
+    return AppDatabase._(connection.openInMemoryConnection());
   }
 
   @override
