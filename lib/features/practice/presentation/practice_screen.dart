@@ -107,7 +107,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
           const SizedBox(height: AppSpacing.md),
           _PracticeCard(
             compact: true,
-            icon: Iconsax.book_open,
+            icon: Iconsax.book_1,
             title: 'Hikâye okuma',
             subtitle: 'Seviyene uygun İngilizce hikâyeler oku.',
             meta: '3 seviye',
@@ -200,7 +200,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
         ),
         const SizedBox(height: AppSpacing.md),
         _PracticeCard(
-          icon: Iconsax.book_open,
+          icon: Iconsax.book_1,
           title: 'Hikâye okuma',
           subtitle: 'Seviyene uygun İngilizce hikâyeler oku.',
           meta: '3 seviye',
