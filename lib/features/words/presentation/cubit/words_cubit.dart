@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/database/database_bootstrap.dart';
 import '../../data/words_repository.dart';
+import '../../data/vocabulary_entry.dart';
 import 'words_state.dart';
 
 /// Owns the saved and review collections shown by the vocabulary screen.
@@ -21,6 +22,7 @@ class WordsCubit extends Cubit<WordsState> {
   Future<void> load({
     List<String> legacySavedWords = const <String>[],
     List<String> legacyReviewWords = const <String>[],
+    List<VocabularyEntry> legacyCustomWords = const <VocabularyEntry>[],
   }) async {
     emit(state.copyWith(
       status: WordsStatus.loading,
@@ -29,10 +31,13 @@ class WordsCubit extends Cubit<WordsState> {
 
     try {
       final repository = await _repositoryForUse();
-      if (legacySavedWords.isNotEmpty || legacyReviewWords.isNotEmpty) {
+      if (legacySavedWords.isNotEmpty ||
+          legacyReviewWords.isNotEmpty ||
+          legacyCustomWords.isNotEmpty) {
         await repository.importLegacyCollection(
           savedEnglish: legacySavedWords,
           reviewEnglish: legacyReviewWords,
+          customWords: legacyCustomWords,
         );
       }
       final results = await Future.wait([
