@@ -90,6 +90,24 @@ class WordsRepository {
       for (final rawEnglish in reviewEnglish) {
         await _importLegacyEnglish(rawEnglish, 'review_words', 'added_at');
       }
+      for (final word in customWords) {
+        final id = await _ensureVocabularyEntry(
+          english: word.english,
+          turkish: word.turkish,
+          kind: word.kind,
+          source: 'user',
+        );
+        final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+        await _database.customStatement(
+          'INSERT INTO saved_words (word_id, saved_at) VALUES (?, ?) '
+          'ON CONFLICT(word_id) DO NOTHING',
+          [id, now],
+        );
+      }
+      await _database.customStatement(
+        "INSERT INTO app_state (key, value, updated_at) VALUES ('legacy_words_collection_migrated_v1', '1', ?)",
+        [DateTime.now().toUtc().millisecondsSinceEpoch],
+      );
     });
   }
 
