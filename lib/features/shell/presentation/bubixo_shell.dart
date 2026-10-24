@@ -31,13 +31,7 @@ class _BubixoShellState extends State<BubixoShell> {
   @override
   Widget build(BuildContext context) {
     final screens = <Widget>[
-      LearnScreen(
-        key: ValueKey('learn-$_learnRefreshKey'),
-        onOpenDiscover: () => _selectTab(2),
-        onOpenWords: () => _selectTab(1),
-        onOpenPractice: () => _selectTab(2),
-        onOpenLessons: () => _selectTab(2),
-      ),
+      LearnScreen(key: ValueKey('learn-$_learnRefreshKey')),
       WordsScreen(key: ValueKey('words-$_wordsRefreshKey')),
       const PracticeScreen(),
     ];
@@ -72,10 +66,6 @@ class _BubixoShellState extends State<BubixoShell> {
             NavigationDestination(
               icon: Icon(Iconsax.teacher),
               label: 'Öğren',
-            ),
-            NavigationDestination(
-              icon: Icon(Iconsax.bookmark_2),
-              label: 'Kelimeler',
             ),
             NavigationDestination(
               icon: Icon(Iconsax.bookmark_2),
