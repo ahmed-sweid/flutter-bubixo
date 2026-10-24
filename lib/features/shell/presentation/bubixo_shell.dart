@@ -104,7 +104,7 @@ class _BubixoShellState extends State<BubixoShell> {
               label: 'Kelimeler',
             ),
             NavigationDestination(
-              icon: Icon(Iconsax.book_open),
+              icon: Icon(Iconsax.book_1),
               label: 'Hikâyeler',
             ),
           ],
