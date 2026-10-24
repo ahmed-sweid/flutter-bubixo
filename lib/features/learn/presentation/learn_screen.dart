@@ -9,18 +9,7 @@ import '../../discover/data/story_repository.dart';
 import '../../practice/presentation/practice_screen.dart';
 
 class LearnScreen extends StatefulWidget {
-  const LearnScreen({
-    required this.onOpenDiscover,
-    required this.onOpenWords,
-    required this.onOpenPractice,
-    required this.onOpenLessons,
-    super.key,
-  });
-
-  final VoidCallback onOpenDiscover;
-  final VoidCallback onOpenWords;
-  final VoidCallback onOpenPractice;
-  final VoidCallback onOpenLessons;
+  const LearnScreen({super.key});
 
   @override
   State<LearnScreen> createState() => _LearnScreenState();
