@@ -73,12 +73,25 @@ class _LearnScreenState extends State<LearnScreen> {
           AppSpacing.xxxl,
         ),
         children: [
+          Text(
+            'Bugün ne öğrenmek istersin?',
+            style: AppTypography.displaySm.copyWith(
+              color: AppColors.ink,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            'Kaldığın yerden devam et veya kısa bir pratik yap.',
+            style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+          ),
+          const SizedBox(height: AppSpacing.xl),
           Container(
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(
               color: AppColors.canvas,
               border: Border.all(color: AppColors.hairline),
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,11 +201,16 @@ class _LearnScreenState extends State<LearnScreen> {
           ),
           const SizedBox(height: AppSpacing.xl),
           Text(
-            'Alıştırma türleri',
-            style: AppTypography.bodyMd.copyWith(
+            'Pratik yap',
+            style: AppTypography.displayXs.copyWith(
               color: AppColors.ink,
               fontWeight: FontWeight.w700,
             ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            'Kısa bir etkinlik seç ve öğrendiklerini pekiştir.',
+            style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
           ),
           const SizedBox(height: AppSpacing.md),
           const PracticeScreen(compact: true),
@@ -239,7 +257,7 @@ class _ProgressMetric extends StatelessWidget {
     children: [
       Text(
         value,
-        style: AppTypography.bodyMd.copyWith(
+        style: AppTypography.displayXs.copyWith(
           color: AppColors.ink,
           fontWeight: FontWeight.w700,
         ),
