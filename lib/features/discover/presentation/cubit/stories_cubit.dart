@@ -1,13 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/story.dart';
-import '../data/story_repository.dart';
+import '../../data/story.dart';
+import '../../data/story_repository.dart';
 import 'stories_state.dart';
 
 class StoriesCubit extends Cubit<StoriesState> {
-  StoriesCubit({StoryRepository repository = const StoryRepository()})
-      : _repository = repository,
-        super(const StoriesState());
+  StoriesCubit({
+    this._repository = const StoryRepository(),
+  }) : super(const StoriesState());
 
   final StoryRepository _repository;
 
