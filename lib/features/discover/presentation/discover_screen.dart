@@ -40,6 +40,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_story_id', story.id);
     await preferences.setString('bubixo.last_story_title', story.title);
+    final readStoryIds = (preferences.getStringList('bubixo.read_story_ids') ?? <String>[]).toSet()
+      ..add(story.id);
+    await preferences.setStringList('bubixo.read_story_ids', readStoryIds.toList()..sort());
     await preferences.setString('bubixo.last_activity_type', 'story');
     await preferences.setString('bubixo.last_activity_id', story.id);
     if (!mounted) return;
