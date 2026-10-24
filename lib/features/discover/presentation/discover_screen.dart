@@ -20,23 +20,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   final StoryRepository _repository = const StoryRepository();
   late Future<List<Story>> _storiesFuture = _repository.loadStories();
   int? _selectedLevel;
-  String? _lastStoryId;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadLastStory();
-  }
-
-  Future<void> _loadLastStory() async {
-    final preferences = await SharedPreferences.getInstance();
-    if (!mounted) return;
-    setState(() => _lastStoryId = preferences.getString('bubixo.last_story_id'));
-  }
-
   Future<void> _openStory(Story story) async {
-    // Persist before pushing so the shortcut is reliable even if the reader
-    // is closed quickly or its own initialization has not completed yet.
+    // Save reading progress and recent activity for later use.
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_story_id', story.id);
     await preferences.setString('bubixo.last_story_title', story.title);
@@ -46,17 +31,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     await preferences.setString('bubixo.last_activity_type', 'story');
     await preferences.setString('bubixo.last_activity_id', story.id);
     if (!mounted) return;
-    setState(() => _lastStoryId = story.id);
 
     await Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (_) => StoryDetailScreen(story: story)),
     );
-    await _loadLastStory();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -81,20 +59,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
           children: [
             const SizedBox(height: AppSpacing.sm),
-            if (snapshot.hasData && _lastStoryId != null) ...[
-              for (final story in snapshot.data!)
-                if (story.id == _lastStoryId) ...[
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: () => _openStory(story),
-                      icon: const Icon(Iconsax.play_circle),
-                      label: Text('Son okuduğun hikâyeye dön · ${story.title}'),
-                    ),
-                  ),
-                  const SizedBox(height: AppSpacing.md),
-                ],
-            ],
             if (snapshot.connectionState == ConnectionState.waiting)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
