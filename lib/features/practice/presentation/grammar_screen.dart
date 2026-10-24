@@ -63,10 +63,7 @@ class _GrammarScreenState extends State<GrammarScreen> {
           return ListView(
             padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, AppSpacing.xxxl),
             children: [
-              Text('Bir konu seç', style: AppTypography.displaySm),
-              const SizedBox(height: AppSpacing.xs),
-              Text('Kısa anlatımı oku, örnekleri incele ve mini testle pekiştir.', style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid)),
-              const SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.sm),
               ...topics.asMap().entries.map((entry) {
                 final index = entry.key;
                 final topic = entry.value;
