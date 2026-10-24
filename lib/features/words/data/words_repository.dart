@@ -82,7 +82,13 @@ class WordsRepository {
   Future<void> importLegacyCollection({
     required List<String> savedEnglish,
     required List<String> reviewEnglish,
+    List<VocabularyEntry> customWords = const <VocabularyEntry>[],
   }) async {
+    final migration = await _database.customSelect(
+      "SELECT value FROM app_state WHERE key = 'legacy_words_collection_migrated_v1'",
+    ).getSingleOrNull();
+    if (migration != null) return;
+
     await _database.transaction(() async {
       for (final rawEnglish in savedEnglish) {
         await _importLegacyEnglish(rawEnglish, 'saved_words', 'saved_at');
