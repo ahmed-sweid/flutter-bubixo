@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +12,8 @@ import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../../../core/services/speech_service.dart';
+import 'cubit/words_cubit.dart';
+import 'cubit/words_state.dart';
 
 /// Vocabulary UI uses examples from the original Bubixo data2.js source.
 /// Saved and review lists are stored locally on the device.
@@ -28,14 +31,14 @@ class _WordsScreenState extends State<WordsScreen> {
   bool _isTranslating = false;
   String _translationDirection = 'en-tr';
   int _selectedFilter = 0;
-  final Set<String> _savedWords = <String>{};
-  final Set<String> _reviewWords = <String>{};
+  late final WordsCubit _wordsCubit;
   List<_WordEntry> _customWords = <_WordEntry>[];
   List<_WordEntry> _dictionaryWords = <_WordEntry>[];
 
   @override
   void initState() {
     super.initState();
+    _wordsCubit = WordsCubit();
     _loadWordState();
     _loadDictionary();
   }
@@ -75,25 +78,19 @@ class _WordsScreenState extends State<WordsScreen> {
   Future<void> _loadWordState() async {
     final preferences = await SharedPreferences.getInstance();
     if (!mounted) return;
+    final legacySavedWords =
+        preferences.getStringList('bubixo.saved_words') ?? const <String>[];
+    final legacyReviewWords =
+        preferences.getStringList('bubixo.review_words') ?? const <String>[];
     setState(() {
-      _savedWords
-        ..clear()
-        ..addAll(
-          (preferences.getStringList('bubixo.saved_words') ?? const <String>[])
-              .map(_wordKey)
-              .where((word) => word.isNotEmpty),
-        );
-      _reviewWords
-        ..clear()
-        ..addAll(
-          (preferences.getStringList('bubixo.review_words') ?? const <String>[])
-              .map(_wordKey)
-              .where((word) => word.isNotEmpty),
-        );
       _customWords = _decodeCustomWords(
         preferences.getString('bubixo.custom_words'),
       );
     });
+    await _wordsCubit.load(
+      legacySavedWords: legacySavedWords,
+      legacyReviewWords: legacyReviewWords,
+    );
   }
 
   List<_WordEntry> _decodeCustomWords(String? raw) {
@@ -218,8 +215,6 @@ class _WordsScreenState extends State<WordsScreen> {
 
   Future<void> _persistWordState() async {
     final preferences = await SharedPreferences.getInstance();
-    await preferences.setStringList('bubixo.saved_words', _savedWords.toList()..sort());
-    await preferences.setStringList('bubixo.review_words', _reviewWords.toList()..sort());
     await preferences.setString(
       'bubixo.custom_words',
       jsonEncode(
@@ -261,9 +256,14 @@ class _WordsScreenState extends State<WordsScreen> {
           .where((word) => _wordKey(word.english) != _wordKey(english))
           .toList(growable: true);
       _customWords.insert(0, _WordEntry(english, turkish, 'Çeviri'));
-      _savedWords.add(_wordKey(english));
+
     });
     await _persistWordState();
+    await _wordsCubit.saveCustomWord(
+      english: english,
+      turkish: turkish,
+      kind: 'Çeviri',
+    );
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Kelime listenin içine kaydedildi.')),
@@ -288,11 +288,16 @@ class _WordsScreenState extends State<WordsScreen> {
   @override
   void dispose() {
     _translationController.dispose();
+    _wordsCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: _wordsCubit,
+      child: BlocBuilder<WordsCubit, WordsState>(
+        builder: (context, wordsState) {
     // Story-derived entries can overlap the starter dictionary. Keep one
     // card per English expression and prefer the story's more specific gloss.
     final wordsByKey = <String, _WordEntry>{
@@ -303,8 +308,8 @@ class _WordsScreenState extends State<WordsScreen> {
     final allWords = wordsByKey.values.toList(growable: false);
     final visibleWords = allWords.where((word) {
       return _selectedFilter == 0 ||
-          (_selectedFilter == 1 && _savedWords.contains(_wordKey(word.english))) ||
-          (_selectedFilter == 2 && _reviewWords.contains(_wordKey(word.english)));
+          (_selectedFilter == 1 && wordsState.savedWords.any((entry) => _wordKey(entry.english) == _wordKey(word.english))) ||
+          (_selectedFilter == 2 && wordsState.reviewWords.any((entry) => _wordKey(entry.english) == _wordKey(word.english)));
     }).toList(growable: false);
 
     return ListView(
@@ -349,13 +354,13 @@ class _WordsScreenState extends State<WordsScreen> {
             ),
             _FilterPill(
               label: 'Kaydedilenler',
-              count: _savedWords.length,
+              count: wordsState.savedWords.length,
               selected: _selectedFilter == 1,
               onTap: () => setState(() => _selectedFilter = 1),
             ),
             _FilterPill(
               label: 'Tekrar',
-              count: _reviewWords.length,
+              count: wordsState.reviewWords.length,
               selected: _selectedFilter == 2,
               onTap: () => setState(() => _selectedFilter = 2),
             ),
@@ -392,25 +397,21 @@ class _WordsScreenState extends State<WordsScreen> {
               padding: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: _WordCard(
                 word: word,
-                saved: _savedWords.contains(_wordKey(word.english)),
-                reviewing: _reviewWords.contains(_wordKey(word.english)),
+                saved: wordsState.savedWords.any((entry) => _wordKey(entry.english) == _wordKey(word.english)),
+                reviewing: wordsState.reviewWords.any((entry) => _wordKey(entry.english) == _wordKey(word.english)),
                 onToggleSaved: () async {
-                  final key = _wordKey(word.english);
-                  setState(() {
-                    if (!_savedWords.add(key)) {
-                      _savedWords.remove(key);
-                    }
-                  });
-                  await _persistWordState();
+                  await _wordsCubit.toggleSaved(
+                    english: word.english,
+                    turkish: word.turkish,
+                    kind: word.kind,
+                  );
                 },
                 onToggleReview: () async {
-                  final key = _wordKey(word.english);
-                  setState(() {
-                    if (!_reviewWords.add(key)) {
-                      _reviewWords.remove(key);
-                    }
-                  });
-                  await _persistWordState();
+                  await _wordsCubit.toggleReview(
+                    english: word.english,
+                    turkish: word.turkish,
+                    kind: word.kind,
+                  );
                 },
               ),
             ),
@@ -421,6 +422,9 @@ class _WordsScreenState extends State<WordsScreen> {
           style: AppTypography.bodySm.copyWith(color: AppColors.muted),
         ),
       ],
+    );
+        },
+      ),
     );
   }
 }
