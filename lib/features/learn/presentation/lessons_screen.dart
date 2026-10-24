@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,8 +7,8 @@ import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/lesson.dart';
-import '../data/lesson_repository.dart';
-import '../data/learning_progress_repository.dart';
+import 'cubit/lessons_cubit.dart';
+import 'cubit/lessons_state.dart';
 import 'lesson_detail_screen.dart';
 
 class LessonsScreen extends StatefulWidget {
@@ -21,27 +22,12 @@ class LessonsScreen extends StatefulWidget {
 }
 
 class _LessonsScreenState extends State<LessonsScreen> {
-  late Future<List<Lesson>> _lessonsFuture;
-  Set<String> _completedLessonIds = <String>{};
-  final LearningProgressRepository _progressRepository = const LearningProgressRepository();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadLessons();
-    _loadProgress();
-  }
-
-  Future<void> _loadProgress() async {
-    final completedLessonIds = await _progressRepository.loadCompletedLessons();
-    if (!mounted) return;
-    setState(() {
-      _completedLessonIds = completedLessonIds;
-    });
-  }
-
-  Future<void> _openLesson(List<Lesson> lessons, int index) async {
-    await _progressRepository.rememberLesson(lessons[index].id);
+  Future<void> _openLesson(
+    BuildContext context,
+    List<Lesson> lessons,
+    int index,
+  ) async {
+    await context.read<LessonsCubit>().rememberLesson(lessons[index].id);
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_activity_type', 'lesson');
     await preferences.setString('bubixo.last_activity_id', lessons[index].id);
@@ -51,11 +37,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
         builder: (_) => LessonDetailScreen(lessons: lessons, lessonIndex: index),
       ),
     );
-    await _loadProgress();
-  }
-
-  void _loadLessons() {
-    _lessonsFuture = const LessonRepository().loadLessons();
+    await context.read<LessonsCubit>().refreshProgress();
   }
 
   @override
@@ -78,25 +60,27 @@ class _LessonsScreenState extends State<LessonsScreen> {
           style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
         ),
       ),
-      body: FutureBuilder<List<Lesson>>(
-        future: _lessonsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return _LoadError(
-              message: 'Dersler yüklenemedi. Dosyanın ve asset kaydının doğru olduğundan emin ol.',
-              onRetry: () => setState(_loadLessons),
-            );
-          }
+      body: BlocProvider(
+        create: (_) => LessonsCubit()..load(),
+        child: BlocBuilder<LessonsCubit, LessonsState>(
+          builder: (context, state) {
+            if (state.status == LessonsStatus.loading ||
+                state.status == LessonsStatus.initial) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state.status == LessonsStatus.failure) {
+              return _LoadError(
+                message: 'Dersler yüklenemedi. Dosyanın ve asset kaydının doğru olduğundan emin ol.',
+                onRetry: () => context.read<LessonsCubit>().load(),
+              );
+            }
 
-          final lessons = snapshot.data ?? const <Lesson>[];
-          if (lessons.isEmpty) {
+            final lessons = state.lessons;
+            if (lessons.isEmpty) {
             return const Center(child: Text('Henüz ders bulunmuyor.'));
           }
           final lessonIds = lessons.map((lesson) => lesson.id).toSet();
-          final completedLessonIds = _completedLessonIds.intersection(lessonIds);
+          final completedLessonIds = state.completedLessonIds.intersection(lessonIds);
           return ListView(
             key: const PageStorageKey<String>('lessons-screen-scroll'),
             padding: const EdgeInsets.fromLTRB(
@@ -114,7 +98,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                     borderRadius: BorderRadius.circular(14),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(14),
-                      onTap: () => _openLesson(lessons, index),
+                      onTap: () => _openLesson(context, lessons, index),
                       child: Container(
                         padding: const EdgeInsets.all(AppSpacing.lg),
                         decoration: BoxDecoration(
@@ -185,9 +169,10 @@ class _LessonsScreenState extends State<LessonsScreen> {
                 'Dersler, örnekler, öğrenme ipuçları ve mini sınavlar Bubixo’nun içerik dosyasından yüklenir.',
                 style: AppTypography.bodySm.copyWith(color: AppColors.muted),
               ),
-            ],
+              ],
           );
-        },
+          },
+        ),
       ),
     );
   }
