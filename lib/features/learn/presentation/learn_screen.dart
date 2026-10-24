@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
-import '../../discover/data/story_repository.dart';
+import 'cubit/learn_cubit.dart';
+import 'cubit/learn_state.dart';
 
 /// The Learn tab is the starting point for a short, actionable learning session.
 /// Other tabs remain the home for their full stories, vocabulary, and practice
@@ -27,30 +28,7 @@ class LearnScreen extends StatefulWidget {
 }
 
 class _LearnScreenState extends State<LearnScreen> {
-  late Future<_ProgressData> _future = _loadProgress();
-
-  Future<_ProgressData> _loadProgress() async {
-    final preferences = await SharedPreferences.getInstance();
-    final stories = await const StoryRepository().loadStories();
-
-    return _ProgressData(
-      totalStories: stories.length,
-      startedStoryIds: (preferences.getStringList('bubixo.read_story_ids') ??
-              const <String>[])
-          .toSet(),
-      savedWords:
-          preferences.getStringList('bubixo.saved_words')?.length ?? 0,
-      practiceSessions: preferences.getInt('bubixo.practice.sessions') ?? 0,
-      correctAnswers:
-          preferences.getInt('bubixo.practice.correct_answers') ?? 0,
-    );
-  }
-
-  void _retryLoading() {
-    setState(() => _future = _loadProgress());
-  }
-
-  _LearningRecommendation _recommendationFor(_ProgressData data) {
+  _LearningRecommendation _recommendationFor(LearnProgress data) {
     if (data.startedStoryCount == 0) {
       return _LearningRecommendation(
         title: 'Bir hikâyeyle başla',
@@ -96,14 +74,15 @@ class _LearnScreenState extends State<LearnScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<_ProgressData>(
-      future: _future,
-      builder: (context, snapshot) {
-        final data = snapshot.data;
-        final recommendation =
-            _recommendationFor(data ?? _ProgressData.empty());
+    return BlocProvider(
+      create: (_) => LearnCubit()..load(),
+      child: BlocBuilder<LearnCubit, LearnState>(
+        builder: (context, state) {
+          final data = state.progress;
+          final recommendation =
+              _recommendationFor(data ?? LearnProgress.empty());
 
-        return ListView(
+          return ListView(
           key: const PageStorageKey<String>('learn-screen-scroll'),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.fromLTRB(
@@ -257,13 +236,12 @@ class _LearnScreenState extends State<LearnScreen> {
               ),
             ),
             const SizedBox(height: AppSpacing.md),
-            if (snapshot.connectionState == ConnectionState.waiting &&
-                data == null)
+            if (state.status == LearnStatus.loading && data == null)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
                 child: Center(child: CircularProgressIndicator()),
               )
-            else if (snapshot.hasError || data == null)
+            else if (state.status == LearnStatus.failure || data == null)
               Container(
                 padding: const EdgeInsets.all(AppSpacing.lg),
                 decoration: BoxDecoration(
@@ -283,7 +261,7 @@ class _LearnScreenState extends State<LearnScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: OutlinedButton(
-                        onPressed: _retryLoading,
+                        onPressed: () => context.read<LearnCubit>().load(),
                         child: const Text('Yeniden dene'),
                       ),
                     ),
@@ -351,36 +329,10 @@ class _LearnScreenState extends State<LearnScreen> {
             ],
           ],
         );
-      },
+        },
+      ),
     );
   }
-}
-
-class _ProgressData {
-  const _ProgressData({
-    required this.totalStories,
-    required this.startedStoryIds,
-    required this.savedWords,
-    required this.practiceSessions,
-    required this.correctAnswers,
-  });
-
-  factory _ProgressData.empty() => const _ProgressData(
-        totalStories: 0,
-        startedStoryIds: <String>{},
-        savedWords: 0,
-        practiceSessions: 0,
-        correctAnswers: 0,
-      );
-
-  final int totalStories;
-  final Set<String> startedStoryIds;
-  final int savedWords;
-  final int practiceSessions;
-  final int correctAnswers;
-
-  int get startedStoryCount =>
-      startedStoryIds.length.clamp(0, totalStories).toInt();
 }
 
 class _LearningRecommendation {
