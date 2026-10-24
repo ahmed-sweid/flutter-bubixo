@@ -309,19 +309,3 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
   }
 }
 
-class _Metadata extends StatelessWidget {
-  const _Metadata({required this.icon, required this.text});
-
-  final IconData icon;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: AppColors.bodyMid),
-          const SizedBox(width: AppSpacing.xs),
-          Text(text, style: AppTypography.bodySm),
-        ],
-      );
-}
