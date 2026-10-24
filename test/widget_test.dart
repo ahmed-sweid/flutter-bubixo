@@ -24,8 +24,19 @@ void main() {
     await tester.pump(const Duration(milliseconds: 400));
 
     expect(find.text('İngilizce yolculuğun'), findsOneWidget);
-    expect(find.text('Genel bakış'), findsOneWidget);
+    expect(find.text('Sana önerilen sonraki adım'), findsOneWidget);
+    expect(find.text('Bir hikâyeyle başla'), findsOneWidget);
     expect(find.text('Pratik yap'), findsNothing);
+
+    // The recommended Learn action opens the relevant destination tab.
+    await tester.tap(find.text('Hikâyeleri keşfet'));
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 300)),
+    );
+    await tester.pump();
+    await pumpUntilFound(tester, find.text("Tom's Morning"));
+    expect(find.text("Tom's Morning"), findsOneWidget);
 
     // Stories has its own bottom-navigation destination.
     await tester.tap(find.text('Hikâyeler').last);
@@ -66,7 +77,7 @@ void main() {
     await tester.tap(find.text('Öğren').last);
     await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('İngilizce yolculuğun'), findsOneWidget);
-    expect(find.text('Genel bakış'), findsOneWidget);
+    expect(find.text('Sana önerilen sonraki adım'), findsOneWidget);
     expect(find.text('Küçük adımlar, kalıcı ilerleme.'), findsOneWidget);
     expect(find.text('Pratik yap'), findsNothing);
     expect(find.text('Cümle kurma'), findsNothing);
