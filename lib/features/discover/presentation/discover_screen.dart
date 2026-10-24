@@ -40,6 +40,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_story_id', story.id);
     await preferences.setString('bubixo.last_story_title', story.title);
+    await preferences.setString('bubixo.last_activity_type', 'story');
+    await preferences.setString('bubixo.last_activity_id', story.id);
     if (!mounted) return;
     setState(() => _lastStoryId = story.id);
 
@@ -75,13 +77,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             AppSpacing.xxxl,
           ),
           children: [
-            Text('Hikâyeler', style: AppTypography.displaySm),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              'Kısa hikâyeler oku; İngilizce cümleleri ve Türkçe anlamlarını birlikte gör.',
-              style: AppTypography.bodySm,
-            ),
-            const SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.sm),
             if (snapshot.hasData && _lastStoryId != null) ...[
               for (final story in snapshot.data!)
                 if (story.id == _lastStoryId) ...[
