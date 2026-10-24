@@ -53,6 +53,11 @@ void main() {
 
     await tester.tap(find.text('Cümle kurma').first);
     await tester.pump(const Duration(milliseconds: 400));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 300)),
+    );
+    await tester.pump();
+    await pumpUntilFound(tester, find.text('Cümlen'));
     expect(find.text('Cümlen'), findsOneWidget);
     expect(find.text('Cümleyi kontrol et'), findsOneWidget);
     await tester.tap(find.byTooltip('Geri'));
