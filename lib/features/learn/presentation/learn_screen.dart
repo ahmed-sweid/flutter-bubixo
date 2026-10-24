@@ -9,6 +9,7 @@ import '../data/lesson.dart';
 import '../data/lesson_repository.dart';
 import '../../discover/data/story.dart';
 import '../../discover/data/story_repository.dart';
+import '../../practice/presentation/practice_screen.dart';
 
 class LearnScreen extends StatefulWidget {
   const LearnScreen({
@@ -185,47 +186,16 @@ class _LearnScreenState extends State<LearnScreen> {
               ],
             ),
           ),
-          const SizedBox(height: AppSpacing.lg),
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            decoration: BoxDecoration(
-              color: AppColors.canvas,
-              border: Border.all(color: AppColors.hairline),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Pratik',
-                  style: AppTypography.bodyMd.copyWith(
-                    color: AppColors.ink,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  'Kelime oyunları, cümle kurma ve dil bilgisi alıştırmaları.',
-                  style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
-                ),
-                const SizedBox(height: AppSpacing.md),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: widget.onOpenPractice,
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.ink,
-                      side: BorderSide(color: AppColors.hairline),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text('Alıştırmalara geç'),
-                  ),
-                ),
-              ],
+          const SizedBox(height: AppSpacing.xl),
+          Text(
+            'Alıştırma türleri',
+            style: AppTypography.bodyMd.copyWith(
+              color: AppColors.ink,
+              fontWeight: FontWeight.w700,
             ),
           ),
+          const SizedBox(height: AppSpacing.md),
+          const PracticeScreen(compact: true),
         ],
       );
     },
