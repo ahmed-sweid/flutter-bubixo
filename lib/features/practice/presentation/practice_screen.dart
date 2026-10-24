@@ -197,19 +197,16 @@ class _PracticeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-    color: compact ? const Color(0xFFF8F4FF) : AppColors.canvas,
-    borderRadius: BorderRadius.circular(16),
+    color: AppColors.canvas,
+    borderRadius: BorderRadius.circular(14),
     child: InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(14),
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.md),
         decoration: BoxDecoration(
-          color: compact ? const Color(0xFFF8F4FF) : AppColors.canvas,
-          border: Border.all(
-            color: compact ? const Color(0xFFE5D8FF) : AppColors.hairline,
-          ),
-          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.hairline),
+          borderRadius: BorderRadius.circular(14),
         ),
         child: compact
             ? Row(
@@ -218,13 +215,13 @@ class _PracticeCard extends StatelessWidget {
                     width: 44,
                     height: 44,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFEBDDFF),
+                      color: const Color(0xFFF7F7F8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
                       icon,
-                      color: AppColors.accentPurple,
-                      size: 24,
+                      color: AppColors.bodyMid,
+                      size: 21,
                     ),
                   ),
                   const SizedBox(width: AppSpacing.md),
@@ -250,7 +247,7 @@ class _PracticeCard extends StatelessWidget {
                             const Icon(
                               Iconsax.arrow_right_3,
                               size: 16,
-                              color: AppColors.accentPurple,
+                              color: AppColors.bodyMid,
                             ),
                           ],
                         ),
@@ -260,8 +257,8 @@ class _PracticeCard extends StatelessWidget {
                           child: LinearProgressIndicator(
                             value: 0,
                             minHeight: 4,
-                            backgroundColor: const Color(0xFFEBDDFF),
-                            color: AppColors.accentPurple,
+                            backgroundColor: AppColors.hairline,
+                            color: AppColors.ink,
                           ),
                         ),
                       ],
