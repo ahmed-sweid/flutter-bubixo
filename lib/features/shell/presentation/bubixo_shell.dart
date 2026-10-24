@@ -3,8 +3,6 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../learn/presentation/learn_screen.dart';
-import '../../learn/presentation/lessons_screen.dart';
-import '../../discover/presentation/discover_screen.dart';
 import '../../practice/presentation/practice_screen.dart';
 import '../../words/presentation/words_screen.dart';
 
@@ -22,28 +20,9 @@ class _BubixoShellState extends State<BubixoShell> {
   int _wordsRefreshKey = 0;
   int _learnRefreshKey = 0;
 
-  void _openPractice() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => Scaffold(
-          backgroundColor: AppColors.canvas,
-          appBar: AppBar(
-            backgroundColor: AppColors.canvas,
-            surfaceTintColor: Colors.transparent,
-            title: const Text('Pratik'),
-          ),
-          body: const SafeArea(
-            top: false,
-            child: PracticeScreen(),
-          ),
-        ),
-      ),
-    );
-  }
-
   void _selectTab(int index) {
     setState(() {
-      if (index == 2 && _selectedIndex != 2) _wordsRefreshKey++;
+      if (index == 1 && _selectedIndex != 1) _wordsRefreshKey++;
       if (index == 0 && _selectedIndex != 0) _learnRefreshKey++;
       _selectedIndex = index;
     });
@@ -54,14 +33,13 @@ class _BubixoShellState extends State<BubixoShell> {
     final screens = <Widget>[
       LearnScreen(
         key: ValueKey('learn-$_learnRefreshKey'),
-        onOpenDiscover: () => _selectTab(3),
-        onOpenWords: () => _selectTab(2),
-        onOpenPractice: _openPractice,
-        onOpenLessons: () => _selectTab(1),
+        onOpenDiscover: () => _selectTab(2),
+        onOpenWords: () => _selectTab(1),
+        onOpenPractice: () => _selectTab(2),
+        onOpenLessons: () => _selectTab(2),
       ),
-      const LessonsScreen(showBackButton: false),
       WordsScreen(key: ValueKey('words-$_wordsRefreshKey')),
-      const DiscoverScreen(),
+      const PracticeScreen(),
     ];
 
     return Scaffold(
@@ -96,16 +74,16 @@ class _BubixoShellState extends State<BubixoShell> {
               label: 'Öğren',
             ),
             NavigationDestination(
-              icon: Icon(Iconsax.play_circle),
-              label: 'Dersler',
+              icon: Icon(Iconsax.bookmark_2),
+              label: 'Kelimeler',
             ),
             NavigationDestination(
               icon: Icon(Iconsax.bookmark_2),
               label: 'Kelimeler',
             ),
             NavigationDestination(
-              icon: Icon(Iconsax.book_1),
-              label: 'Hikâyeler',
+              icon: Icon(Iconsax.flash_1),
+              label: 'Pratik',
             ),
           ],
         ),
