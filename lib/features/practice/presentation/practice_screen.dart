@@ -1,15 +1,17 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/builder_exercises.dart';
 import '../data/game_words.dart';
-import '../data/practice_data_repository.dart';
+import 'cubit/practice_cubit.dart';
+import 'cubit/practice_state.dart';
 import 'grammar_screen.dart';
 
 class PracticeScreen extends StatefulWidget {
@@ -22,43 +24,43 @@ class PracticeScreen extends StatefulWidget {
 }
 
 class _PracticeScreenState extends State<PracticeScreen> {
-  late Future<Map<String, int>?> _progressFuture = _loadProgress();
-  final PracticeDataRepository _repository = const PracticeDataRepository();
+  final PracticeCubit _cubit = PracticeCubit();
 
-  Future<Map<String, int>?> _loadProgress() async {
-    try {
-      final preferences = await SharedPreferences.getInstance();
-      return {
-        'sessions': preferences.getInt('bubixo.practice.sessions') ?? 0,
-        'correct': preferences.getInt('bubixo.practice.correct_answers') ?? 0,
-      };
-    } catch (error) {
-      // The summary card is optional; the exercises remain usable without it.
-      debugPrint('Bubixo practice progress could not be read: $error');
-      return null;
-    }
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_cubit.loadProgress());
+  }
+
+  @override
+  void dispose() {
+    unawaited(_cubit.close());
+    super.dispose();
   }
 
   Future<void> _open(_ActivityMode mode) async {
-    final preferences = await SharedPreferences.getInstance();
-    await preferences.setString('bubixo.last_activity_type', 'practice');
-    await preferences.setString('bubixo.last_activity_id', mode.toString());
-    final data = await _repository.loadAll();
+    final data = await _cubit.prepareActivity(mode.toString());
     if (!mounted) return;
+    if (data == null) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          const SnackBar(
+            content: Text('Alıştırmalar yüklenemedi. Tekrar dene.'),
+          ),
+        );
+      return;
+    }
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => _PracticeActivityScreen(
           mode: mode,
+          cubit: _cubit,
           exercises: data.exercises,
           gameWords: data.words,
         ),
       ),
     );
-    if (mounted) {
-      setState(() {
-        _progressFuture = _loadProgress();
-      });
-    }
   }
 
   @override
@@ -144,12 +146,11 @@ class _PracticeScreenState extends State<PracticeScreen> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        FutureBuilder<Map<String, int>?>(
-          future: _progressFuture,
-          builder: (context, snapshot) {
-            final progress = snapshot.data;
-            if (progress == null ||
-                (progress['sessions'] == 0 && progress['correct'] == 0)) {
+        BlocBuilder<PracticeCubit, PracticeState>(
+          bloc: _cubit,
+          builder: (context, state) {
+            final progress = state.progress;
+            if (!progress.hasActivity) {
               return const SizedBox.shrink();
             }
             return Container(
@@ -179,7 +180,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                         ),
                         const SizedBox(height: AppSpacing.xxs),
                         Text(
-                          '${progress['sessions']} tamamlanan oturum · ${progress['correct']} doğru cevap',
+                          '${progress.sessions} tamamlanan oturum · ${progress.correctAnswers} doğru cevap',
                           style: AppTypography.bodySm.copyWith(
                             color: AppColors.bodyMid,
                           ),
@@ -407,10 +408,12 @@ class _ActivityMode {
 class _PracticeActivityScreen extends StatefulWidget {
   const _PracticeActivityScreen({
     required this.mode,
+    required this.cubit,
     required this.exercises,
     required this.gameWords,
   });
   final _ActivityMode mode;
+  final PracticeCubit cubit;
   final List<BuilderExercise> exercises;
   final List<GameWord> gameWords;
   @override
@@ -800,15 +803,7 @@ class _PracticeActivityScreenState extends State<_PracticeActivityScreen> {
 
   Future<void> _next() async {
     if (_index + 1 >= _total) {
-      final preferences = await SharedPreferences.getInstance();
-      await preferences.setInt(
-        'bubixo.practice.sessions',
-        (preferences.getInt('bubixo.practice.sessions') ?? 0) + 1,
-      );
-      await preferences.setInt(
-        'bubixo.practice.correct_answers',
-        (preferences.getInt('bubixo.practice.correct_answers') ?? 0) + _score,
-      );
+      await widget.cubit.recordCompletedSession(correctAnswers: _score);
       if (!mounted) return;
       setState(() => _index = _total);
       return;
