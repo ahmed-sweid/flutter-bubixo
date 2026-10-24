@@ -1,4 +1,4 @@
-import '../data/story.dart';
+import '../../data/story.dart';
 
 enum StoriesStatus { initial, loading, success, failure }
 
