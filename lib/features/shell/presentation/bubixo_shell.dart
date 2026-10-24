@@ -96,7 +96,7 @@ class _BubixoShellState extends State<BubixoShell> {
               label: 'Öğren',
             ),
             NavigationDestination(
-              icon: Icon(Iconsax.book_1),
+              icon: Icon(Iconsax.play_circle),
               label: 'Dersler',
             ),
             NavigationDestination(
@@ -104,7 +104,7 @@ class _BubixoShellState extends State<BubixoShell> {
               label: 'Kelimeler',
             ),
             NavigationDestination(
-              icon: Icon(Iconsax.play_circle),
+              icon: Icon(Iconsax.book_1),
               label: 'Hikâyeler',
             ),
           ],
