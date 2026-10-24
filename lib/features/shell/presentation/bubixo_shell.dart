@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../../core/theme/tokens/app_colors.dart';
+import '../../discover/presentation/discover_screen.dart';
 import '../../learn/presentation/learn_screen.dart';
 import '../../practice/presentation/practice_screen.dart';
 import '../../words/presentation/words_screen.dart';
@@ -33,6 +34,7 @@ class _BubixoShellState extends State<BubixoShell> {
     final screens = <Widget>[
       LearnScreen(key: ValueKey('learn-$_learnRefreshKey')),
       WordsScreen(key: ValueKey('words-$_wordsRefreshKey')),
+      const DiscoverScreen(),
       const PracticeScreen(),
     ];
 
@@ -70,6 +72,10 @@ class _BubixoShellState extends State<BubixoShell> {
             NavigationDestination(
               icon: Icon(Iconsax.bookmark_2),
               label: 'Kelimeler',
+            ),
+            NavigationDestination(
+              icon: Icon(Iconsax.book_1),
+              label: 'Hikâyeler',
             ),
             NavigationDestination(
               icon: Icon(Iconsax.flash_1),
