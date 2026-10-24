@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../discover/data/story_repository.dart';
+import '../../../discover/data/story_repository.dart';
 import 'learn_state.dart';
 
 class LearnCubit extends Cubit<LearnState> {
