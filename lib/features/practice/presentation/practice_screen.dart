@@ -60,7 +60,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
         physics: const NeverScrollableScrollPhysics(),
         crossAxisSpacing: AppSpacing.md,
         mainAxisSpacing: AppSpacing.md,
-        childAspectRatio: 1.75,
+        childAspectRatio: 1.35,
         children: [
           _PracticeCard(
             compact: true,
@@ -201,42 +201,61 @@ class _PracticeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-    color: AppColors.canvas,
-    borderRadius: BorderRadius.circular(14),
+    color: compact ? const Color(0xFFF8F4FF) : AppColors.canvas,
+    borderRadius: BorderRadius.circular(16),
     child: InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(14),
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.md),
-        decoration: BoxDecoration(border: Border.all(color: AppColors.hairline), borderRadius: BorderRadius.circular(14)),
+        decoration: BoxDecoration(
+          color: compact ? const Color(0xFFF8F4FF) : AppColors.canvas,
+          border: Border.all(
+            color: compact ? const Color(0xFFE5D8FF) : AppColors.hairline,
+          ),
+          borderRadius: BorderRadius.circular(16),
+        ),
         child: compact
             ? Stack(
                 children: [
                   Center(
-                    child: Row(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(icon, color: AppColors.ink, size: 22),
-                        const SizedBox(width: AppSpacing.sm),
-                        Expanded(
-                          child: Text(
-                            title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTypography.bodyMd.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
+                        Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEBDDFF),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Icon(
+                            icon,
+                            color: AppColors.accentPurple,
+                            size: 25,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
+                        Text(
+                          title,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTypography.bodyMd.copyWith(
+                            color: AppColors.ink,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
                     child: Icon(
                       Iconsax.arrow_right_3,
-                      size: 14,
-                      color: AppColors.bodyMid,
+                      size: 15,
+                      color: AppColors.accentPurple,
                     ),
                   ),
                 ],
