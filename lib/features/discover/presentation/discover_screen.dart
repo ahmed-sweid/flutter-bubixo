@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,7 +7,8 @@ import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import '../data/story.dart';
-import '../data/story_repository.dart';
+import 'cubit/stories_cubit.dart';
+import 'cubit/stories_state.dart';
 import 'story_detail_screen.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -17,10 +19,7 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  final StoryRepository _repository = const StoryRepository();
-  late Future<List<Story>> _storiesFuture = _repository.loadStories();
-  int? _selectedLevel;
-  Future<void> _openStory(Story story) async {
+    Future<void> _openStory(Story story) async {
     // Save reading progress and recent activity for later use.
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_story_id', story.id);
@@ -39,16 +38,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Story>>(
-      future: _storiesFuture,
-      builder: (context, snapshot) {
-        final allStories = snapshot.data ?? const <Story>[];
-        final visibleStories = _selectedLevel == null
-            ? allStories
-            : allStories
-                .where((story) => story.level == _selectedLevel)
-                .toList(growable: false);
-        return ListView(
+    return BlocProvider(
+      create: (_) => StoriesCubit()..load(),
+      child: BlocBuilder<StoriesCubit, StoriesState>(
+        builder: (context, state) {
+          final visibleStories = state.visibleStories;
+          return ListView(
           key: const PageStorageKey<String>('discover-screen-scroll'),
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.fromLTRB(
@@ -59,23 +54,19 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
           children: [
             const SizedBox(height: AppSpacing.sm),
-            if (snapshot.connectionState == ConnectionState.waiting)
+            if (state.status == StoriesStatus.loading || state.status == StoriesStatus.initial)
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
                 child: Center(child: CircularProgressIndicator()),
               )
-            else if (snapshot.hasError)
+            else if (state.status == StoriesStatus.failure)
               _LoadError(
-                onRetry: () {
-                  setState(() {
-                    _storiesFuture = _repository.loadStories();
-                  });
-                },
+                onRetry: () => context.read<StoriesCubit>().load(),
               )
-            else if (snapshot.hasData) ...[
+            else if (state.status == StoriesStatus.success) ...[
               _LevelFilters(
-                selectedLevel: _selectedLevel,
-                onSelected: (level) => setState(() => _selectedLevel = level),
+                selectedLevel: state.selectedLevel,
+                onSelected: context.read<StoriesCubit>().selectLevel,
               ),
               const SizedBox(height: AppSpacing.lg),
               Row(
@@ -109,12 +100,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               if (visibleStories.isEmpty)
                 _EmptyStoriesState(
                   isSearching: false,
-                  onClear: () => setState(() => _selectedLevel = null),
+                  onClear: () => context.read<StoriesCubit>().clearLevelFilter(),
                 ),
             ],
           ],
         );
-      },
+        },
+      ),
     );
   }
 }
