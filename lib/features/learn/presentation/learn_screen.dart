@@ -252,7 +252,7 @@ class _ProgressData {
   final int savedWords;
   final int practiceSessions;
 
-  int get readStoryCount => readStoryIds.length.clamp(0, totalStories);
+  int get readStoryCount => readStoryIds.length.clamp(0, totalStories).toInt();
 }
 
 class _StatCard extends StatelessWidget {
