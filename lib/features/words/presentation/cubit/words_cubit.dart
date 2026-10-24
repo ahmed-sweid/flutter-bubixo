@@ -13,8 +13,8 @@ class WordsCubit extends Cubit<WordsState> {
   WordsRepository? _activeRepository;
 
   Future<WordsRepository> _repositoryForUse() async {
-    return _activeRepository ??= _repository ??
-        WordsRepository(await DatabaseBootstrap.initialize());
+    return _activeRepository ??=
+        _repository ?? WordsRepository(await DatabaseBootstrap.initialize());
   }
 
   Future<void> load({
@@ -22,10 +22,7 @@ class WordsCubit extends Cubit<WordsState> {
     List<String> legacyReviewWords = const <String>[],
     List<VocabularyEntry> legacyCustomWords = const <VocabularyEntry>[],
   }) async {
-    emit(state.copyWith(
-      status: WordsStatus.loading,
-      clearError: true,
-    ));
+    emit(state.copyWith(status: WordsStatus.loading, clearError: true));
 
     try {
       final repository = await _repositoryForUse();
@@ -43,17 +40,23 @@ class WordsCubit extends Cubit<WordsState> {
         repository.getReviewWords(),
       ]);
 
-      emit(state.copyWith(
-        status: WordsStatus.loaded,
-        savedWords: results[0],
-        reviewWords: results[1],
-        clearError: true,
-      ));
+      if (isClosed) return;
+      emit(
+        state.copyWith(
+          status: WordsStatus.loaded,
+          savedWords: results[0],
+          reviewWords: results[1],
+          clearError: true,
+        ),
+      );
     } catch (error) {
-      emit(state.copyWith(
-        status: WordsStatus.failure,
-        errorMessage: error.toString(),
-      ));
+      if (isClosed) return;
+      emit(
+        state.copyWith(
+          status: WordsStatus.failure,
+          errorMessage: error.toString(),
+        ),
+      );
     }
   }
 
@@ -63,11 +66,13 @@ class WordsCubit extends Cubit<WordsState> {
     required String kind,
   }) async {
     await _mutateCollection(
-      () => _repositoryForUse().then((repository) => repository.toggleSaved(
-            english: english,
-            turkish: turkish,
-            kind: kind,
-          )),
+      () => _repositoryForUse().then(
+        (repository) => repository.toggleSaved(
+          english: english,
+          turkish: turkish,
+          kind: kind,
+        ),
+      ),
     );
   }
 
@@ -77,11 +82,13 @@ class WordsCubit extends Cubit<WordsState> {
     required String kind,
   }) async {
     await _mutateCollection(
-      () => _repositoryForUse().then((repository) => repository.toggleReview(
-            english: english,
-            turkish: turkish,
-            kind: kind,
-          )),
+      () => _repositoryForUse().then(
+        (repository) => repository.toggleReview(
+          english: english,
+          turkish: turkish,
+          kind: kind,
+        ),
+      ),
     );
   }
 
@@ -91,11 +98,13 @@ class WordsCubit extends Cubit<WordsState> {
     required String kind,
   }) async {
     await _mutateCollection(
-      () => _repositoryForUse().then((repository) => repository.saveCustomWord(
-            english: english,
-            turkish: turkish,
-            kind: kind,
-          )),
+      () => _repositoryForUse().then(
+        (repository) => repository.saveCustomWord(
+          english: english,
+          turkish: turkish,
+          kind: kind,
+        ),
+      ),
     );
   }
 
@@ -107,17 +116,23 @@ class WordsCubit extends Cubit<WordsState> {
         repository.getSavedWords(),
         repository.getReviewWords(),
       ]);
-      emit(state.copyWith(
-        status: WordsStatus.loaded,
-        savedWords: results[0],
-        reviewWords: results[1],
-        clearError: true,
-      ));
+      if (isClosed) return;
+      emit(
+        state.copyWith(
+          status: WordsStatus.loaded,
+          savedWords: results[0],
+          reviewWords: results[1],
+          clearError: true,
+        ),
+      );
     } catch (error) {
-      emit(state.copyWith(
-        status: WordsStatus.failure,
-        errorMessage: error.toString(),
-      ));
+      if (isClosed) return;
+      emit(
+        state.copyWith(
+          status: WordsStatus.failure,
+          errorMessage: error.toString(),
+        ),
+      );
     }
   }
 }

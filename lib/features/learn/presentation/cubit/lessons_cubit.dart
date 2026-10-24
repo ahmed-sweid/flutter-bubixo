@@ -18,17 +18,23 @@ class LessonsCubit extends Cubit<LessonsState> {
     try {
       final lessons = await _lessonRepository.loadLessons();
       final completed = await _progressRepository.loadCompletedLessons();
-      emit(state.copyWith(
-        status: LessonsStatus.success,
-        lessons: lessons,
-        completedLessonIds: completed,
-        clearError: true,
-      ));
+      if (isClosed) return;
+      emit(
+        state.copyWith(
+          status: LessonsStatus.success,
+          lessons: lessons,
+          completedLessonIds: completed,
+          clearError: true,
+        ),
+      );
     } catch (error) {
-      emit(state.copyWith(
-        status: LessonsStatus.failure,
-        errorMessage: error.toString(),
-      ));
+      if (isClosed) return;
+      emit(
+        state.copyWith(
+          status: LessonsStatus.failure,
+          errorMessage: error.toString(),
+        ),
+      );
     }
   }
 
@@ -38,8 +44,10 @@ class LessonsCubit extends Cubit<LessonsState> {
   Future<void> refreshProgress() async {
     try {
       final completed = await _progressRepository.loadCompletedLessons();
+      if (isClosed) return;
       emit(state.copyWith(completedLessonIds: completed));
     } catch (error) {
+      if (isClosed) return;
       emit(state.copyWith(errorMessage: error.toString()));
     }
   }

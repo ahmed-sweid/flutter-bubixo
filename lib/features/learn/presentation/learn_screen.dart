@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import '../../../core/database/database_bootstrap.dart';
 import '../../../core/theme/tokens/app_colors.dart';
 import '../../../core/theme/tokens/app_spacing.dart';
 import '../../../core/theme/tokens/app_typography.dart';
 import 'cubit/learn_cubit.dart';
 import 'cubit/learn_state.dart';
+import 'lessons_screen.dart';
 
 /// The Learn tab is the starting point for a short, actionable learning session.
 /// Other tabs remain the home for their full stories, vocabulary, and practice
@@ -75,260 +77,278 @@ class _LearnScreenState extends State<LearnScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => LearnCubit()..load(),
+      create: (_) => LearnCubit(
+        databaseProvider: DatabaseBootstrap.isSupportedPlatform
+            ? DatabaseBootstrap.initialize
+            : null,
+      )..load(),
       child: BlocBuilder<LearnCubit, LearnState>(
         builder: (context, state) {
           final data = state.progress;
-          final recommendation =
-              _recommendationFor(data ?? LearnProgress.empty());
+          final recommendation = _recommendationFor(
+            data ?? LearnProgress.empty(),
+          );
 
           return ListView(
-          key: const PageStorageKey<String>('learn-screen-scroll'),
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: const EdgeInsets.fromLTRB(
-            AppSpacing.lg,
-            AppSpacing.xl,
-            AppSpacing.lg,
-            AppSpacing.xxxl,
-          ),
-          children: [
-            Text(
-              'BUBIXO',
-              style: AppTypography.eyebrowSmall.copyWith(
-                color: AppColors.bodyMid,
-                letterSpacing: 1.4,
+            key: const PageStorageKey<String>('learn-screen-scroll'),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              AppSpacing.xl,
+              AppSpacing.lg,
+              AppSpacing.xxxl,
+            ),
+            children: [
+              Text(
+                'BUBIXO',
+                style: AppTypography.eyebrowSmall.copyWith(
+                  color: AppColors.bodyMid,
+                  letterSpacing: 1.4,
+                ),
               ),
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              'İngilizce yolculuğun',
-              style: AppTypography.displaySm.copyWith(
-                color: AppColors.ink,
-                fontWeight: FontWeight.w700,
+              const SizedBox(height: AppSpacing.sm),
+              Text(
+                'İngilizce yolculuğun',
+                style: AppTypography.displaySm.copyWith(
+                  color: AppColors.ink,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              'Bugün küçük bir adım at. Nereden başlayacağını birlikte seçelim.',
-              style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
-            ),
-            const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                'Bugün küçük bir adım at. Nereden başlayacağını birlikte seçelim.',
+                style: AppTypography.bodySm.copyWith(color: AppColors.bodyMid),
+              ),
+              const SizedBox(height: AppSpacing.xl),
 
-            // A short welcome message sets the tone; the next card provides
-            // the actual recommended action.
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.lg),
-              decoration: BoxDecoration(
-                color: AppColors.ink,
-                borderRadius: BorderRadius.circular(16),
+              // A short welcome message sets the tone; the next card provides
+              // the actual recommended action.
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                decoration: BoxDecoration(
+                  color: AppColors.ink,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Küçük adımlar, kalıcı ilerleme.',
+                            style: AppTypography.displayXs.copyWith(
+                              color: AppColors.onPrimary,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(height: AppSpacing.xs),
+                          Text(
+                            'Bir hikâye, birkaç kelime veya kısa bir alıştırma bile iyi bir başlangıçtır.',
+                            style: AppTypography.bodySm.copyWith(
+                              color: AppColors.mutedSoft,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
+                    const Icon(
+                      Iconsax.teacher,
+                      color: AppColors.onPrimary,
+                      size: 28,
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const SizedBox(height: AppSpacing.xl),
+
+              Text(
+                'Sana önerilen sonraki adım',
+                style: AppTypography.displayXs.copyWith(
+                  color: AppColors.ink,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              _RecommendationCard(recommendation: recommendation),
+              const SizedBox(height: AppSpacing.xl),
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Küçük adımlar, kalıcı ilerleme.',
+                          'Öğrenme akışın',
                           style: AppTypography.displayXs.copyWith(
-                            color: AppColors.onPrimary,
+                            color: AppColors.ink,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         const SizedBox(height: AppSpacing.xs),
                         Text(
-                          'Bir hikâye, birkaç kelime veya kısa bir alıştırma bile iyi bir başlangıçtır.',
+                          'Dört bölüm, tek bir öğrenme rutini.',
                           style: AppTypography.bodySm.copyWith(
-                            color: AppColors.mutedSoft,
+                            color: AppColors.bodyMid,
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(width: AppSpacing.md),
-                  const Icon(
-                    Iconsax.teacher,
-                    color: AppColors.onPrimary,
-                    size: 28,
-                  ),
                 ],
               ),
-            ),
-            const SizedBox(height: AppSpacing.xl),
-
-            Text(
-              'Sana önerilen sonraki adım',
-              style: AppTypography.displayXs.copyWith(
-                color: AppColors.ink,
-                fontWeight: FontWeight.w700,
+              const SizedBox(height: AppSpacing.md),
+              _LearningStepCard(
+                icon: Iconsax.note_2,
+                title: 'Temel dersleri ilerlet',
+                description: 'Kısa dersler, örnek cümleler ve mini sınavlar.',
+                detail: 'Derslere git',
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const LessonsScreen(),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: AppSpacing.md),
-            _RecommendationCard(recommendation: recommendation),
-            const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.sm),
+              _LearningStepCard(
+                icon: Iconsax.book_1,
+                title: 'Bağlam içinde öğren',
+                description: 'Kısa bir İngilizce hikâye oku.',
+                detail: data == null
+                    ? 'Hikâyeleri keşfet'
+                    : data.startedStoryCount == 0
+                    ? 'Henüz hikâye açmadın'
+                    : '${data.startedStoryCount} / ${data.totalStories} hikâye açıldı',
+                onTap: widget.onOpenStories,
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              _LearningStepCard(
+                icon: Iconsax.bookmark_2,
+                title: 'Kelimelerini biriktir',
+                description: 'Çevir, kaydet ve tekrar etmek için ayır.',
+                detail: data == null
+                    ? 'Kelime listene git'
+                    : '${data.savedWords} kayıtlı kelime',
+                onTap: widget.onOpenWords,
+              ),
+              const SizedBox(height: AppSpacing.sm),
+              _LearningStepCard(
+                icon: Iconsax.flash_1,
+                title: 'Kullanarak pekiştir',
+                description: 'Cümle kurma, kelime oyunları veya dil bilgisi.',
+                detail: data == null
+                    ? 'Alıştırmaları gör'
+                    : '${data.practiceSessions} tamamlanan oturum',
+                onTap: widget.onOpenPractice,
+              ),
+              const SizedBox(height: AppSpacing.xl),
 
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
+              Text(
+                'Şu ana kadarki ilerlemen',
+                style: AppTypography.displayXs.copyWith(
+                  color: AppColors.ink,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              if (state.status == LearnStatus.loading && data == null)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else if (state.status == LearnStatus.failure || data == null)
+                Container(
+                  padding: const EdgeInsets.all(AppSpacing.lg),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.hairline),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Öğrenme akışın',
-                        style: AppTypography.displayXs.copyWith(
-                          color: AppColors.ink,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: AppSpacing.xs),
-                      Text(
-                        'Üç bölüm, tek bir öğrenme rutini.',
+                        'İlerleme bilgilerin yüklenemedi. Diğer bölümleri kullanmaya devam edebilirsin.',
                         style: AppTypography.bodySm.copyWith(
                           color: AppColors.bodyMid,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.md),
-            _LearningStepCard(
-              icon: Iconsax.book_1,
-              title: 'Bağlam içinde öğren',
-              description: 'Kısa bir İngilizce hikâye oku.',
-              detail: data == null
-                  ? 'Hikâyeleri keşfet'
-                  : data.startedStoryCount == 0
-                      ? 'Henüz hikâye açmadın'
-                      : '${data.startedStoryCount} / ${data.totalStories} hikâye açıldı',
-              onTap: widget.onOpenStories,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            _LearningStepCard(
-              icon: Iconsax.bookmark_2,
-              title: 'Kelimelerini biriktir',
-              description: 'Çevir, kaydet ve tekrar etmek için ayır.',
-              detail: data == null
-                  ? 'Kelime listene git'
-                  : '${data.savedWords} kayıtlı kelime',
-              onTap: widget.onOpenWords,
-            ),
-            const SizedBox(height: AppSpacing.sm),
-            _LearningStepCard(
-              icon: Iconsax.flash_1,
-              title: 'Kullanarak pekiştir',
-              description: 'Cümle kurma, kelime oyunları veya dil bilgisi.',
-              detail: data == null
-                  ? 'Alıştırmaları gör'
-                  : '${data.practiceSessions} tamamlanan oturum',
-              onTap: widget.onOpenPractice,
-            ),
-            const SizedBox(height: AppSpacing.xl),
-
-            Text(
-              'Şu ana kadarki ilerlemen',
-              style: AppTypography.displayXs.copyWith(
-                color: AppColors.ink,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: AppSpacing.md),
-            if (state.status == LearnStatus.loading && data == null)
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: AppSpacing.lg),
-                child: Center(child: CircularProgressIndicator()),
-              )
-            else if (state.status == LearnStatus.failure || data == null)
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.hairline),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'İlerleme bilgilerin yüklenemedi. Diğer bölümleri kullanmaya devam edebilirsin.',
-                      style: AppTypography.bodySm.copyWith(
-                        color: AppColors.bodyMid,
-                      ),
-                    ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: OutlinedButton(
-                        onPressed: () => context.read<LearnCubit>().load(),
-                        child: const Text('Yeniden dene'),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            else ...[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: _StatCard(
-                      icon: Iconsax.bookmark_2,
-                      label: 'Kelime',
-                      value: '${data.savedWords}',
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: _StatCard(
-                      icon: Iconsax.book_1,
-                      label: 'Hikâye',
-                      value: '${data.startedStoryCount} / ${data.totalStories}',
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: _StatCard(
-                      icon: Iconsax.flash_1,
-                      label: 'Oturum',
-                      value: '${data.practiceSessions}',
-                    ),
-                  ),
-                ],
-              ),
-              if (data.correctAnswers > 0) ...[
-                const SizedBox(height: AppSpacing.md),
-                Container(
-                  padding: const EdgeInsets.all(AppSpacing.md),
-                  decoration: BoxDecoration(
-                    color: AppColors.canvas,
-                    border: Border.all(color: AppColors.hairline),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Iconsax.tick_circle,
-                        size: 20,
-                        color: AppColors.bodyMid,
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      Expanded(
-                        child: Text(
-                          '${data.correctAnswers} doğru cevap verdin. Harika, devam et!',
-                          style: AppTypography.bodySm.copyWith(
-                            color: AppColors.bodyMid,
-                          ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: OutlinedButton(
+                          onPressed: () => context.read<LearnCubit>().load(),
+                          child: const Text('Yeniden dene'),
                         ),
                       ),
                     ],
                   ),
+                )
+              else ...[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: _StatCard(
+                        icon: Iconsax.bookmark_2,
+                        label: 'Kelime',
+                        value: '${data.savedWords}',
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: _StatCard(
+                        icon: Iconsax.book_1,
+                        label: 'Hikâye',
+                        value:
+                            '${data.startedStoryCount} / ${data.totalStories}',
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: _StatCard(
+                        icon: Iconsax.flash_1,
+                        label: 'Oturum',
+                        value: '${data.practiceSessions}',
+                      ),
+                    ),
+                  ],
                 ),
+                if (data.correctAnswers > 0) ...[
+                  const SizedBox(height: AppSpacing.md),
+                  Container(
+                    padding: const EdgeInsets.all(AppSpacing.md),
+                    decoration: BoxDecoration(
+                      color: AppColors.canvas,
+                      border: Border.all(color: AppColors.hairline),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Iconsax.tick_circle,
+                          size: 20,
+                          color: AppColors.bodyMid,
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
+                        Expanded(
+                          child: Text(
+                            '${data.correctAnswers} doğru cevap verdin. Harika, devam et!',
+                            style: AppTypography.bodySm.copyWith(
+                              color: AppColors.bodyMid,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ],
             ],
-          ],
-        );
+          );
         },
       ),
     );
