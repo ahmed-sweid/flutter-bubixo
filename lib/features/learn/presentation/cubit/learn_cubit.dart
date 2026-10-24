@@ -7,9 +7,8 @@ import 'learn_state.dart';
 class LearnCubit extends Cubit<LearnState> {
   LearnCubit({
     this._preferences,
-    StoryRepository storyRepository = const StoryRepository(),
-  })  : _storyRepository = storyRepository,
-        super(const LearnState());
+    this._storyRepository = const StoryRepository(),
+  }) : super(const LearnState());
 
   final SharedPreferences? _preferences;
   final StoryRepository _storyRepository;
