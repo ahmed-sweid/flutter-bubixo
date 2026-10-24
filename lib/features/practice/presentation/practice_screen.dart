@@ -60,7 +60,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
         physics: const NeverScrollableScrollPhysics(),
         crossAxisSpacing: AppSpacing.md,
         mainAxisSpacing: AppSpacing.md,
-        childAspectRatio: 1.35,
+        childAspectRatio: 1.75,
         children: [
           _PracticeCard(
             compact: true,
@@ -212,21 +212,31 @@ class _PracticeCard extends StatelessWidget {
         child: compact
             ? Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Icon(icon, color: AppColors.ink, size: 23),
+                  Center(
+                    child: Row(
+                      children: [
+                        Icon(icon, color: AppColors.ink, size: 22),
+                        const SizedBox(width: AppSpacing.sm),
+                        Expanded(
+                          child: Text(
+                            title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTypography.bodyMd.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const Align(
-                    alignment: Alignment.topRight,
-                    child: Icon(Iconsax.arrow_right_3, size: 16, color: AppColors.bodyMid),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTypography.bodyMd.copyWith(fontWeight: FontWeight.w700),
+                  const Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Icon(
+                      Iconsax.arrow_right_3,
+                      size: 14,
+                      color: AppColors.bodyMid,
                     ),
                   ),
                 ],
