@@ -54,13 +54,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.compact) {
-      return GridView.count(
-        crossAxisCount: 2,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisSpacing: AppSpacing.md,
-        mainAxisSpacing: AppSpacing.md,
-        childAspectRatio: 1.35,
+      return Column(
         children: [
           _PracticeCard(
             compact: true,
@@ -70,6 +64,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
             meta: '120 alıştırma · 3 seviye',
             onTap: () => _open(const _ActivityMode.sentence()),
           ),
+          const SizedBox(height: AppSpacing.md),
           _PracticeCard(
             compact: true,
             icon: Iconsax.category_2,
@@ -78,6 +73,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
             meta: '240 kelime · 12 tema',
             onTap: () => _open(const _ActivityMode.words()),
           ),
+          const SizedBox(height: AppSpacing.md),
           _PracticeCard(
             compact: true,
             icon: Iconsax.book_1,
@@ -216,46 +212,59 @@ class _PracticeCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: compact
-            ? Stack(
+            ? Row(
                 children: [
-                  Center(
+                  Container(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEBDDFF),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Icon(
+                      icon,
+                      color: AppColors.accentPurple,
+                      size: 24,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFEBDDFF),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: Icon(
-                            icon,
-                            color: AppColors.accentPurple,
-                            size: 25,
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                title,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTypography.bodyMd.copyWith(
+                                  color: AppColors.ink,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: AppSpacing.xs),
+                            const Icon(
+                              Iconsax.arrow_right_3,
+                              size: 16,
+                              color: AppColors.accentPurple,
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: AppSpacing.sm),
-                        Text(
-                          title,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTypography.bodyMd.copyWith(
-                            color: AppColors.ink,
-                            fontWeight: FontWeight.w700,
+                        const SizedBox(height: AppSpacing.md),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(99),
+                          child: LinearProgressIndicator(
+                            value: 0,
+                            minHeight: 4,
+                            backgroundColor: const Color(0xFFEBDDFF),
+                            color: AppColors.accentPurple,
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Icon(
-                      Iconsax.arrow_right_3,
-                      size: 15,
-                      color: AppColors.accentPurple,
                     ),
                   ),
                 ],
