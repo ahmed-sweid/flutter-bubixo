@@ -45,6 +45,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
     final preferences = await SharedPreferences.getInstance();
     await preferences.setString('bubixo.last_activity_type', 'lesson');
     await preferences.setString('bubixo.last_activity_id', lessons[index].id);
+    if (!mounted) return;
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => LessonDetailScreen(lessons: lessons, lessonIndex: index),
@@ -152,7 +153,7 @@ class _LessonsScreenState extends State<LessonsScreen> {
                               ),
                             ),
                             const SizedBox(width: AppSpacing.sm),
-                            if (_completedLessonIds.contains(lesson.id))
+                            if (completedLessonIds.contains(lesson.id))
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: AppSpacing.sm,
